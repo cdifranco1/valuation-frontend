@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
+import axios from 'axios'
+import { axiosBase } from '../utils'
 import { Forecasts } from './Forecasts';
-import { ForecastForm } from './ForecastForm';
+import { ForecastInputs } from './ForecastInputs';
+import { GeneralInputs } from './GeneralInputs';
+import { initialState, modelReducer } from './ForecastsReducer';
+
 
 
 export const Model = () => {
-  const [ projections, setProjections ] = useState({
-      revenues: [1000, 1200, 1300, 1400,1500],
-      cogs: [400, 500, 600, 700, 800],
-      opex: [200, 250, 300, 400, 450],
-      wc: [20, 25, 30, 35, 40],
-      capex: [30, 40, 45, 60, 70]
-  })
+  const [ state, dispatch ] = useReducer(modelReducer, initialState)
 
+  const forecastUpdate = (forecast) => {
+   dispatch({type: 'UPDATE_FORECAST', payload: forecast})
+  }
 
+  const submitModel = (e) => {
+    e.preventDefault()
+
+    axiosBase()
+      .post('/', state)
+      .then(res => console.log(res))    
+  }
+  
   return (
     <div>
-      {Object.keys(projections).map(el => 
-        <Forecasts key={el} projections={projections[el]} lineItem={el} />
-        )}
-      {Object.keys(projections).map((el, index) => {
-        return <ForecastForm key={index} lineItem={el} />
+      {Object.keys(state.forecasts).map((el, index) => {
+       return  <Forecasts key={index} projections={state.forecasts[el]} lineItem={el} />
+      }
+      )}
+      <GeneralInputs />
+      {Object.keys(state.forecasts).map((el, index) => {
+        return <ForecastInputs forecastUpdate={forecastUpdate} key={index} lineItem={el} />
         }
       )}
-    </div>
+      <button type="button" onClick={submitModel}>Calculate DCF</button>
+    </div> 
   )
 }

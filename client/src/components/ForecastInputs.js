@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { lineItemTitles } from '../constants/index'
 
 
-export const ForecastForm = (props) => {
-  console.log(props)
-  const [ formValues, setFormValues ] = useState({
+export const ForecastInputs = (props) => {
+  //need to make amout of years in forecast dynamic
+  const [ forecasts, setForecasts ] = useState({
     FY1: '',
     FY2: '',
     FY3: '', 
@@ -13,29 +13,33 @@ export const ForecastForm = (props) => {
   })
 
   const handleChange = (e) => {
-    setFormValues({
-      ...formValues,
+    setForecasts({
+      ...forecasts,
       [e.target.name]: e.target.value
     })
-
-    console.log(formValues)
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
+    
+    let projection = Object.values(forecasts).map(el => Number(el))
+    
+    props.forecastUpdate({
+      [props.lineItem] : projection
+    })
   }
 
   return (
     <>
       <h3>{lineItemTitles[props.lineItem]}</h3>
       <form onSubmit={handleSubmit}>
-        {Object.keys(formValues).map(el =>
+        {Object.keys(forecasts).map(el =>
           <div>  
             <label htmlFor={el}>{el}</label>
-            <input type="number" onChange={handleChange} id={el} name={el} value={formValues[el]} key={el} />
+            <input type="number" onChange={handleChange} id={el} name={el} value={forecasts[el]} key={el} />
           </div>
         )}
-        <button type="submit">Submit Forecasts</button>
+        <button type="submit">Save</button>
       </form>
     </>
   )

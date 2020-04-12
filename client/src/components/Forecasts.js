@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { lineItemTitles } from '../constants/index'
 
 const spanStyle = {
@@ -11,12 +11,11 @@ const row = {
 }
 
 export const Forecasts = (props) => {
-  const [ projections, setProjections ] = useState(props.projections)
-
+  console.log(props)
   return (
     <div style={row}>
       <h3>{lineItemTitles[props.lineItem]}</h3>
-      {projections.map((el, index) => 
+      {props.projections.map((el, index) => 
         <span style={spanStyle} key={index}>{el}</span>
         )}
     </div>
