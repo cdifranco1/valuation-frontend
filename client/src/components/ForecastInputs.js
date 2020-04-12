@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { lineItemTitles } from '../constants/index'
+import { actions } from './ForecastsReducer'
 
 
 export const ForecastInputs = (props) => {
@@ -22,11 +23,12 @@ export const ForecastInputs = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    let projection = Object.values(forecasts).map(el => Number(el))
-    
-    props.forecastUpdate({
-      [props.lineItem] : projection
-    })
+    const forecast = Object.values(forecasts).map(el => Number(el))
+    const payload = {
+      [props.lineItem] : forecast
+    }
+
+    props.updateState(actions.updateForecast, payload)
   }
 
   return (

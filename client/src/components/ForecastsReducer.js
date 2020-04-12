@@ -7,28 +7,31 @@ export const actions = {
 
 export const initialState = {
   forecasts:{
-    revenues: [],
-    cogs: [],
-    opex: [],
-    wc: [],
-    capex: []
+    revenues: [100, 200, 300, 400, 500],
+    cogs: [60, 150, 200, 300, 350],
+    opex: [50, 50, 50 , 50, 50],
+    wc: [20, 35, 40, 45, 50],
+    capex: [10, 10, 10, 10, 10]
   },
   genInputs: {
-    valDate: '',
-    fye: '',
+    valDate: '2019-10-01',
+    fye: '2019-12-31',
   },
   valAssumps: {
-    WACC: 0,
-    taxRate: 0,
-    LTGR: 0
+    wacc: .12,
+    taxRate: .25,
+    ltgr: .03
   }
 }
 
 
+function convertToDec(num){
+  return num/100
+}
+
 export const modelReducer = (state, action) => {
   switch(action.type){
     case actions.updateForecast:
-      console.log(action.payload)
       return {
         ...state, 
         forecasts: {
@@ -45,11 +48,16 @@ export const modelReducer = (state, action) => {
         }
       }
     case actions.updateValAssumps:
+      const assumps = {
+        wacc: convertToDec(action.payload.wacc),
+        taxRate: convertToDec(action.payload.taxRate),
+        ltgr: convertToDec(action.payload.ltgr)
+      }
       return {
         ...state, 
         valAssumps: {
           ...state.valAssumps,
-          ...action.payload
+          ...assumps
         }
       }
     default:

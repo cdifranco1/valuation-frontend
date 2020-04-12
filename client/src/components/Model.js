@@ -5,14 +5,17 @@ import { Forecasts } from './Forecasts';
 import { ForecastInputs } from './ForecastInputs';
 import { GeneralInputs } from './GeneralInputs';
 import { initialState, modelReducer } from './ForecastsReducer';
+import { ValAssumps } from './ValuationInputs';
 
 
 
 export const Model = () => {
   const [ state, dispatch ] = useReducer(modelReducer, initialState)
 
-  const forecastUpdate = (forecast) => {
-   dispatch({type: 'UPDATE_FORECAST', payload: forecast})
+  const updateState = (actionType, payload) => {
+   dispatch({type: actionType, payload: payload})
+
+   console.log(state)
   }
 
   const submitModel = (e) => {
@@ -29,11 +32,12 @@ export const Model = () => {
        return  <Forecasts key={index} projections={state.forecasts[el]} lineItem={el} />
       }
       )}
-      <GeneralInputs />
+      <GeneralInputs updateState={updateState} />
       {Object.keys(state.forecasts).map((el, index) => {
-        return <ForecastInputs forecastUpdate={forecastUpdate} key={index} lineItem={el} />
+        return <ForecastInputs updateState={updateState} key={index} lineItem={el} />
         }
       )}
+      <ValAssumps updateState={updateState} />
       <button type="button" onClick={submitModel}>Calculate DCF</button>
     </div> 
   )

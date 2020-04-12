@@ -3,8 +3,10 @@ import { modelReducer, initialState, actions } from './ForecastsReducer'
 
 
 export const GeneralInputs = (props) => {
-  const [ state, dispatch ] = useReducer(modelReducer, initialState)
-  const [ genInputs, setGenInputs] = useState(initialState.genInputs)
+  const [ genInputs, setGenInputs] = useState({
+    valDate: '',
+    fye: ''
+  })
 
   const handleChange = (e) => {
     setGenInputs({
@@ -16,8 +18,7 @@ export const GeneralInputs = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    dispatch({type: actions.updateGenInputs, payload: genInputs})
-    console.log(state)
+    props.updateState(actions.updateGenInputs, genInputs)
   }
 
   return (

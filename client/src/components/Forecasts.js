@@ -11,7 +11,6 @@ const row = {
 }
 
 export const Forecasts = (props) => {
-  console.log(props)
   return (
     <div style={row}>
       <h3>{lineItemTitles[props.lineItem]}</h3>
