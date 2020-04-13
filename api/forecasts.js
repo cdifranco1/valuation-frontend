@@ -44,7 +44,8 @@ class Model {
         nopat: [],
         fcf: [],
         pvFactors: [],
-        dcf: []
+        dcf: [],
+        TV: 0,
       }
     },
     this.genInputs = {
@@ -57,6 +58,7 @@ class Model {
       taxRate: '',
       ltgr: ''
     }
+    this.BEV = 0
     this.partialPeriod = 0
     this.discountPeriods = []
   }
@@ -117,11 +119,24 @@ class Model {
       this.forecasts.calcs.pvFactors.push(1 / Math.pow(discountFactor, this.discountPeriods[i]))
     }
   }
-  calcTerminal(){
-    const discountFactor = 1 + this.valAssumps.wacc
+  calcTerminalValue(){
+    const terminalFactor = (1 / (this.valAssumps.wacc - this.valAssumps.ltgr))
+    const TV = this.forecasts.calcs.fcf[this.forecasts.calcs.fcf.length - 1] * terminalFactor
+    const discountedTV = TV * this.forecasts.calcs.pvFactors[this.forecasts.calcs.pvFactors.length - 1]
+    this.forecasts.calcs.TV = discountedTV
+  }
+  calcBEV(){
+    const dcf = this.forecasts.calcs.dcf
+    const pvFactors = this.forecasts.calcs.pvFactors
+    const fcf = this.forecasts.calcs.fcf
+    let pvCashFlow
     for (let i = 0; i < this.genInputs.projectionPeriod; i++){
-      this.forecasts.calcs.pvFactors.push(1 / Math.pow(discountFactor, this.discountPeriods[i]))
+      pvCashFlow = fcf[i] * pvFactors[i]
+      dcf.push(pvCashFlow)
     }
+    console.log(dcf)
+    const discretePV = dcf.reduce((a, b) => a + b)
+    this.BEV = discretePV + this.forecasts.calcs.TV
   }
 }
 
@@ -131,6 +146,8 @@ model.calcFCF()
 model.calcPartialPeriod()
 model.calcDiscountPeriods()
 model.calcPVFactors()
+model.calcTerminalValue()
+model.calcBEV()
 
 console.log(model)
 console.log(model.forecasts.calcs)
