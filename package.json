@@ -17,9 +17,7 @@
     "url": "https://github.com/cdifranco1/valuation/issues"
   },
   "homepage": "https://github.com/cdifranco1/valuation#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  },
+  "devDependencies": {},
   "dependencies": {
     "xlsx-populate": "^1.21.0"
   }

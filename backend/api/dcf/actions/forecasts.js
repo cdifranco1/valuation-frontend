@@ -14,7 +14,7 @@ const dummyForecasts = {
   },
   genInputs: {
     valDate: '2019-10-01',
-    fye: '2019-12-31',
+    fye: '2019-12-31'
   },
   valAssumps: {
     wacc: .12,
@@ -22,8 +22,6 @@ const dummyForecasts = {
     ltgr: .03
   }
 }
-
-
 
 // class to construct object for the forecasts
 class Model {
@@ -89,7 +87,7 @@ class Model {
       forecastCalcs.gp.push(this.forecasts.revenues[idx] - this.forecasts.cogs[idx])
       forecastCalcs.ebitda.push(forecastCalcs.gp[idx] - this.forecasts.opex[idx])
       forecastCalcs.ebit.push(forecastCalcs.ebitda[idx] - this.forecasts.depreciation[idx] - this.forecasts.amortization[idx])
-      forecastCalcs.taxes.push(forecastCalcs.ebit[idx] * this.valAssumps.taxRate)
+      forecastCalcs.taxes.push(forecastCalcs.ebit[idx] * Number(this.valAssumps.taxRate))
       forecastCalcs.nopat.push(forecastCalcs.ebit[idx] - forecastCalcs.taxes[idx])
       forecastCalcs.fcf.push(forecastCalcs.nopat[idx] + this.forecasts.depreciation[idx] + this.forecasts.amortization[idx] - this.forecasts.capex[idx] - this.forecasts.changeNwc[idx])
     }
@@ -114,13 +112,13 @@ class Model {
     }
   }
   calcPVFactors(){
-    const discountFactor = 1 + this.valAssumps.wacc
+    const discountFactor = 1 + Number(this.valAssumps.wacc)
     for (let i = 0; i < this.genInputs.projectionPeriod; i++){
       this.forecasts.calcs.pvFactors.push(1 / Math.pow(discountFactor, this.discountPeriods[i]))
     }
   }
   calcTerminalValue(){
-    const terminalFactor = (1 / (this.valAssumps.wacc - this.valAssumps.ltgr))
+    const terminalFactor = (1 / (Number(this.valAssumps.wacc) - Number(this.valAssumps.ltgr)))
     const TV = this.forecasts.calcs.fcf[this.forecasts.calcs.fcf.length - 1] * terminalFactor
     const discountedTV = TV * this.forecasts.calcs.pvFactors[this.forecasts.calcs.pvFactors.length - 1]
     this.forecasts.calcs.TV = discountedTV
@@ -140,24 +138,28 @@ class Model {
   }
 }
 
-let model = new Model()
-model.updateInputs(dummyForecasts)
-model.calcFCF()
-model.calcPartialPeriod()
-model.calcDiscountPeriods()
-model.calcPVFactors()
-model.calcTerminalValue()
-model.calcBEV()
+function processForecasts(forecasts){
+  const model = new Model(forecasts)
+  model.updateInputs(forecasts)
+  model.calcFCF()
+  model.calcPartialPeriod()
+  model.calcDiscountPeriods()
+  model.calcPVFactors()
+  model.calcTerminalValue()
+  model.calcBEV()
 
-console.log(model)
-console.log(model.forecasts.calcs)
+  return model
+}
 
 
-module.exports = Model
+
+module.exports = processForecasts
   
 
 
 /*
+Model Calcs
+
 EBITDA 
   - Depreciation
   - Amortization
@@ -173,7 +175,5 @@ PV Factor:
 1/((1+WACC)**discountPeriod)
 
 Discount Period:
-
-
 
 */
