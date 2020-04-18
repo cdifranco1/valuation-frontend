@@ -9,7 +9,6 @@ export const ValAssumps = (props) => {
     ltgr: ''
   })
   
-
   const handleChange = (e) => {
     setvalAssumps({
       ...valAssumps,

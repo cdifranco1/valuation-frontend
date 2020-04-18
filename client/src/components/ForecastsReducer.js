@@ -4,13 +4,12 @@ export const actions = {
   updateValAssumps: 'UPDATE_VAL_ASSUMPS'
 }
 
-
 export const initialState = {
   forecasts:{
     revenues: [100, 200, 300, 400, 500],
     cogs: [60, 150, 200, 300, 350],
     opex: [50, 50, 50 , 50, 50],
-    changeNwc: [20, 35, 40, 45, 50],
+    nwcChange: [20, 35, 40, 45, 50],
     capex: [10, 10, 10, 10, 10]
   },
   genInputs: {

@@ -1,11 +1,14 @@
 import React, { useState, useReducer } from 'react';
 import axios from 'axios'
 import { axiosBase } from '../utils'
-import { Forecasts } from './Forecasts';
+import { DCF } from './DCF';
 import { ForecastInputs } from './ForecastInputs';
 import { GeneralInputs } from './GeneralInputs';
 import { initialState, modelReducer } from './ForecastsReducer';
 import { ValAssumps } from './ValuationInputs';
+
+
+import { forecasts } from '../constants'
 
 
 
@@ -14,8 +17,6 @@ export const Model = () => {
 
   const updateState = (actionType, payload) => {
    dispatch({type: actionType, payload: payload})
-
-   console.log(state)
   }
 
   const submitModel = (e) => {
@@ -28,14 +29,10 @@ export const Model = () => {
   
   return (
     <div>
-      {Object.keys(state.forecasts).map((el, index) => {
-       return  <Forecasts key={index} projections={state.forecasts[el]} lineItem={el} />
-      }
-      )}
+      <DCF forecasts={forecasts} />
       <GeneralInputs updateState={updateState} />
-      {Object.keys(state.forecasts).map((el, index) => {
-        return <ForecastInputs updateState={updateState} key={index} lineItem={el} />
-        }
+      {Object.keys(state.forecasts).map((el, index) =>
+        <ForecastInputs updateState={updateState} key={index} lineItem={el} />
       )}
       <ValAssumps updateState={updateState} />
       <button type="button" onClick={submitModel}>Calculate DCF</button>
