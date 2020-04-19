@@ -19,7 +19,7 @@ export const ValAssumps = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    props.updateState(actions.updateValAssumps, valAssumps)
+    props.updateInputs(actions.updateValAssumps, valAssumps)
   }
 
   return (

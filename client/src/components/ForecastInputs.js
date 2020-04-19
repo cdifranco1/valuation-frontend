@@ -28,7 +28,7 @@ export const ForecastInputs = (props) => {
       [props.lineItem] : forecast
     }
 
-    props.updateState(actions.updateForecast, payload)
+    props.updateInputs(actions.updateForecast, payload)
   }
 
   return (

@@ -5,12 +5,6 @@ export const axiosBase = () => axios.create({
 })
 
 
-export const convertToDec = (num) => {
-  return num/100
+export const currency = (num) => {
+  return `$${num.toFixed(2)}`
 }
-
-export const convertToInt = (num) => {
-  return num * 100
-}
-
-

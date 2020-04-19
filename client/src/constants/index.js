@@ -1,7 +1,7 @@
 
 export const lineItemTitles = {
   revenues: "Revenues: ",
-  cogs: "Cost of Goods Sold: ",
+  cogs: "Cost of Goods Sold",
   opex: "Operating Expenses: ",
   nwcChange: "Change in NWC: ",
   depreciation: "Depreciation: ",
@@ -12,11 +12,12 @@ export const lineItemTitles = {
   ebitda: "EBITDA: ",
   ebit: "EBIT: ",
   nopat: "NOPAT: ",
-  fcf: "Unlevered Cash Flow: ",
+  fcf: "Unlevered Free Cash Flow: ",
   discountPeriods: "Periods Discounted: ",
   pvFactors: "Present Value Factor: ",
   dcf: "Discounted Cash Flows: ",
 }
+
 
 export const forecasts = {
   revenues: [ 100, 200, 300, 400, 500 ],
@@ -53,5 +54,6 @@ export const forecasts = {
     2.7491444216290213,
     3.7491444216290213
   ],
-  TV: 299.31551665874804
+  TV: 299.31551665874804,
+  EV: 243.30213425284103
 }

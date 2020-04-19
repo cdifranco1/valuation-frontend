@@ -9,9 +9,11 @@ export const actions = {
 
 export const initialState = {
   forecasts:{
-    revenues: [100, 200, 300, 400, 500],
-    cogs: [60, 150, 200, 300, 350],
+    revenues: [300, 400, 300, 400, 500],
+    cogs: [100, 150, 200, 300, 350],
     opex: [50, 50, 50 , 50, 50],
+    depreciation: [ 20, 35, 40, 45, 50 ],
+    amortization: [ 20, 35, 40, 45, 50 ],
     nwcChange: [20, 35, 40, 45, 50],
     capex: [10, 10, 10, 10, 10]
   },
@@ -21,22 +23,15 @@ export const initialState = {
     periods: 5,
   },
   valAssumps: {
-    wacc: .12,
-    taxRate: .25,
-    ltgr: .03
+    wacc: 12,
+    taxRate: 25,
+    ltgr: 3
   }
 }
-
 
 export const modelReducer = (state, action) => {
   switch(action.type){
     case actions.updateForecast:
-      for (let key in action.payload){
-        action.payload[key] = action.payload[key].map(el => convertToInt(el))
-      }  
-
-      console.log(action.payload)
-
       return {
         ...state, 
         forecasts: {
@@ -54,9 +49,9 @@ export const modelReducer = (state, action) => {
       }
     case actions.updateValAssumps:
       const assumps = {
-        wacc: convertToDec(action.payload.wacc),
-        taxRate: convertToDec(action.payload.taxRate),
-        ltgr: convertToDec(action.payload.ltgr)
+        wacc: action.payload.wacc,
+        taxRate: action.payload.taxRate,
+        ltgr: action.payload.ltgr
       }
       return {
         ...state, 

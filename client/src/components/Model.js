@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { axiosBase } from '../utils/utils'
 import { DCF } from './DCF';
 import { ForecastInputs } from './ForecastInputs';
@@ -7,13 +7,14 @@ import { initialState, modelReducer } from './ForecastsReducer';
 import { ValAssumps } from './ValuationInputs';
 
 
-import { forecasts } from '../constants'
+import { forecasts as dummy } from '../constants'
 
 
 export const Model = () => {
-  const [ state, dispatch ] = useReducer(modelReducer, initialState)
+  const [ inputs, dispatch ] = useReducer(modelReducer, initialState)
+  const [ forecasts, setForecasts ] = useState(dummy)
 
-  const updateState = (actionType, payload) => {
+  const updateInputs = (actionType, payload) => {
    dispatch({type: actionType, payload: payload})
   }
 
@@ -21,20 +22,24 @@ export const Model = () => {
     e.preventDefault()
 
     axiosBase()
-      .post('/', state)
-      .then(res => console.log(res))    
+      .post('/api/dcf', inputs)
+      .then(res => {
+        console.log(res)
+        setForecasts(res.data)
+        console.log(forecasts)
+      })    
   }
   
-  console.log(state)
+  console.log(inputs)
 
   return (
-    <div>
-      <DCF forecasts={forecasts} years={state.genInputs.periods} />
-      <GeneralInputs updateState={updateState} />
-      {Object.keys(state.forecasts).map((el, index) =>
-        <ForecastInputs updateState={updateState} key={index} lineItem={el} />
+    <div className="p-8">
+      <DCF forecasts={forecasts} years={inputs.genInputs.periods} inputs={inputs}/>
+      <GeneralInputs updateInputs={updateInputs} />
+      {Object.keys(inputs.forecasts).map((el, index) =>
+        <ForecastInputs updateInputs={updateInputs} key={index} lineItem={el} />
       )}
-      <ValAssumps updateState={updateState} />
+      <ValAssumps updateInputs={updateInputs} />
       <button type="button" onClick={submitModel}>Calculate DCF</button>
     </div> 
   )

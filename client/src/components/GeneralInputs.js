@@ -19,7 +19,7 @@ export const GeneralInputs = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    props.updateState(actions.updateGenInputs, genInputs)
+    props.updateInputs(actions.updateGenInputs, genInputs)
   }
 
   return (
@@ -32,8 +32,8 @@ export const GeneralInputs = (props) => {
           <label htmlFor="fye">Fiscal Year End: </label>
           <input type="date" onChange={handleChange} id="fye" name="fye" value={genInputs.fye} />
           
-          <label htmlFor="taxRate">Tax Rate: </label>
-          <input type="number" onChange={handleChange} id="taxRate" name="taxRate" value={genInputs.taxRate} />
+          <label htmlFor="periods">Forecast Periods: </label>
+          <input type="number" onChange={handleChange} id="periods" name="periods" value={genInputs.periods} />
 
           <button type="submit">Save Assumptions</button>
       </form>
