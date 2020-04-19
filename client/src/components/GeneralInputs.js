@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { actions } from './ForecastsReducer'
+import { actions } from './Reducers/InputsReducer'
 
 
 export const GeneralInputs = (props) => {

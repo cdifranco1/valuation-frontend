@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { lineItemTitles } from '../constants/index'
-import { actions } from './ForecastsReducer'
+import { lineItemTitles } from '../../constants/index'
+import { actions } from '../Reducers/InputsReducer'
 
 
 export const ForecastInputs = (props) => {

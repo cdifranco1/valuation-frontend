@@ -1,15 +1,11 @@
 import React from 'react';
 import { LineItem } from './LineItem'
-import { lineItemTitles } from '../constants/index'
+import { lineItemTitles } from '../../constants/index'
 import { TerminalValue } from './TV'
 import { EnterpriseValue } from './EnterpriseValue'
 
 
 export const DCF = ({forecasts, years, inputs}) => {
-  //pass entire set of forecasts to the DCF
-  //map through each line item's array of values
-  console.log(forecasts)
-
   return (
     <div>
       <LineItem years={years} name={lineItemTitles.revenues} values={forecasts.revenues} />
@@ -26,7 +22,7 @@ export const DCF = ({forecasts, years, inputs}) => {
       <LineItem years={years} name={lineItemTitles.taxes} values={forecasts.taxes} />
       <LineItem years={years} total name={lineItemTitles.nopat} values={forecasts.nopat} />
       
-      <LineItem years={years} name={lineItemTitles.depreciation} values={forecasts.depreciation} /> {/* need a way to change signs of D&A */}
+      <LineItem years={years} name={lineItemTitles.depreciation} values={forecasts.depreciation} />
       <LineItem years={years} name={lineItemTitles.amortization} values={forecasts.amortization} />
       <LineItem years={years} name={lineItemTitles.capex} values={forecasts.capex} flipSign />
       <LineItem years={years} name={lineItemTitles.nwcChange} values={forecasts.nwcChange} flipSign />

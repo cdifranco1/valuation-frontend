@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { actions } from './ForecastsReducer'
+import { actions } from './Reducers/InputsReducer'
 
 
-export const ValAssumps = (props) => {
+export const ValInputs = (props) => {
   const [ valAssumps, setvalAssumps] = useState({
     taxRate: '',
     wacc: '',

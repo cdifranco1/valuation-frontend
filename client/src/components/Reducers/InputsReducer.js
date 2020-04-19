@@ -1,6 +1,3 @@
-import { convertToDec, convertToInt } from '../utils/utils.js'
-
-
 export const actions = {
   updateForecast: 'UPDATE_FORECAST',
   updateGenInputs: 'UPDATE_GEN_INPUTS',

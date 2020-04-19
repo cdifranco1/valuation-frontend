@@ -1,10 +1,10 @@
 import React, { useReducer, useState } from 'react';
 import { axiosBase } from '../utils/utils'
-import { DCF } from './DCF';
-import { ForecastInputs } from './ForecastInputs';
+import { DCF } from './DCF/DCF';
+import { ForecastInputs } from './DCF/ForecastInputs';
 import { GeneralInputs } from './GeneralInputs';
-import { initialState, modelReducer } from './ForecastsReducer';
-import { ValAssumps } from './ValuationInputs';
+import { initialState, modelReducer } from './Reducers/InputsReducer';
+import { ValInputs } from './ValInputs';
 
 
 import { forecasts as dummy } from '../constants'
@@ -29,8 +29,6 @@ export const Model = () => {
         console.log(forecasts)
       })    
   }
-  
-  console.log(inputs)
 
   return (
     <div className="p-8">
@@ -39,7 +37,7 @@ export const Model = () => {
       {Object.keys(inputs.forecasts).map((el, index) =>
         <ForecastInputs updateInputs={updateInputs} key={index} lineItem={el} />
       )}
-      <ValAssumps updateInputs={updateInputs} />
+      <ValInputs updateInputs={updateInputs} />
       <button type="button" onClick={submitModel}>Calculate DCF</button>
     </div> 
   )
