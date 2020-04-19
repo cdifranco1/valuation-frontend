@@ -1,5 +1,5 @@
-import React, { useState, useReducer } from 'react';
-import { modelReducer, initialState, actions } from './ForecastsReducer'
+import React, { useState } from 'react';
+import { actions } from './ForecastsReducer'
 
 
 export const ValAssumps = (props) => {

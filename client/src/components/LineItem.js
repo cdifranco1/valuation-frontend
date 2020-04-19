@@ -1,24 +1,21 @@
 import React from 'react';
 
 
-const spanStyle = {
-  padding: '2%'
-}
-
-const row = {
-  display: 'flex',
-  justifyContent: 'space-between'
-}
-
-export const LineItem = ({name, values}) => {
+export const LineItem = ({name, values, years, total, round}) => {
   console.log(values)
+  
+  const roundFloat = (num, precision) => {
+    return Math.round(Number(num) * Math.pow(10, precision)) / Math.pow(10, precision)
+  }
 
   return (
-    <div style={row}>
-      <h3>{name}</h3>
+    <div className="flex">
+      <h3 className={`w-1/5 ${total && 'font-bold'}`}>{name}</h3>
+      <div className={`flex w-full ${total && 'border-t border-black'}`}>
       {values.map(el => 
-        <span style={spanStyle}>{el}</span>
+        <span className={`w-1/${years} ${total && 'mb-8'} text-right`}>{round ? roundFloat(el, round) : el}</span>
       )}
+      </div>
     </div>
   )
 }

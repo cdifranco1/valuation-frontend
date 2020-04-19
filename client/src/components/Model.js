@@ -1,6 +1,5 @@
-import React, { useState, useReducer } from 'react';
-import axios from 'axios'
-import { axiosBase } from '../utils'
+import React, { useReducer } from 'react';
+import { axiosBase } from '../utils/utils'
 import { DCF } from './DCF';
 import { ForecastInputs } from './ForecastInputs';
 import { GeneralInputs } from './GeneralInputs';
@@ -9,7 +8,6 @@ import { ValAssumps } from './ValuationInputs';
 
 
 import { forecasts } from '../constants'
-
 
 
 export const Model = () => {
@@ -27,9 +25,11 @@ export const Model = () => {
       .then(res => console.log(res))    
   }
   
+  console.log(state)
+
   return (
     <div>
-      <DCF forecasts={forecasts} />
+      <DCF forecasts={forecasts} years={state.genInputs.periods} />
       <GeneralInputs updateState={updateState} />
       {Object.keys(state.forecasts).map((el, index) =>
         <ForecastInputs updateState={updateState} key={index} lineItem={el} />

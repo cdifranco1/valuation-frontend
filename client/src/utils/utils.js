@@ -9,6 +9,8 @@ export const convertToDec = (num) => {
   return num/100
 }
 
-export const convertToPercent = (num) => {
+export const convertToInt = (num) => {
   return num * 100
 }
+
+

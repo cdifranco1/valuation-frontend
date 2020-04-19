@@ -1,3 +1,6 @@
+import { convertToDec, convertToInt } from '../utils/utils.js'
+
+
 export const actions = {
   updateForecast: 'UPDATE_FORECAST',
   updateGenInputs: 'UPDATE_GEN_INPUTS',
@@ -15,6 +18,7 @@ export const initialState = {
   genInputs: {
     valDate: '2019-10-01',
     fye: '2019-12-31',
+    periods: 5,
   },
   valAssumps: {
     wacc: .12,
@@ -24,13 +28,15 @@ export const initialState = {
 }
 
 
-function convertToDec(num){
-  return num/100
-}
-
 export const modelReducer = (state, action) => {
   switch(action.type){
     case actions.updateForecast:
+      for (let key in action.payload){
+        action.payload[key] = action.payload[key].map(el => convertToInt(el))
+      }  
+
+      console.log(action.payload)
+
       return {
         ...state, 
         forecasts: {
