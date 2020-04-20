@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { lineItemTitles } from '../../constants/index'
 import { actions } from '../Reducers/InputsReducer'
 
@@ -8,10 +8,19 @@ export const ForecastInputs = (props) => {
   const [ forecasts, setForecasts ] = useState({
     FY1: '',
     FY2: '',
-    FY3: '', 
+    FY3: '',
     FY4: '',
     FY5: ''
   })
+
+  useEffect(() => {
+    const inputsObj = {}
+    for (let i = 0; i < props.periods; i++){
+      inputsObj[`FY${i + 1}`] = ''
+    }
+    setForecasts({...inputsObj})
+
+  }, [props.periods])
 
   const handleChange = (e) => {
     setForecasts({

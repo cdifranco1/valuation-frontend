@@ -17,7 +17,7 @@ export const initialState = {
   genInputs: {
     valDate: '2019-10-01',
     fye: '2019-12-31',
-    periods: 5,
+    periods: 10,
   },
   valAssumps: {
     wacc: 12,

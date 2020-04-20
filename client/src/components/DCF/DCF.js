@@ -3,34 +3,39 @@ import { LineItem } from './LineItem'
 import { lineItemTitles } from '../../constants/index'
 import { TerminalValue } from './TV'
 import { EnterpriseValue } from './EnterpriseValue'
+import { ForecastYears } from './ForecastYears'
 
 
-export const DCF = ({forecasts, years, inputs}) => {
+export const DCF = ({forecasts, periods, inputs}) => {
   return (
     <div>
-      <LineItem years={years} name={lineItemTitles.revenues} values={forecasts.revenues} />
-      <LineItem years={years} name={lineItemTitles.cogs} values={forecasts.cogs} flipSign />
-      <LineItem years={years} total name={lineItemTitles.gp} values={forecasts.gp} />
+      <ForecastYears periods={periods} valDate={inputs.genInputs.valDate} />
 
-      <LineItem years={years} name={lineItemTitles.opex} values={forecasts.opex} flipSign />
-      <LineItem years={years} total name={lineItemTitles.ebitda} values={forecasts.ebitda} />
+      <div className="mb-5"></div>
 
-      <LineItem years={years} name={lineItemTitles.depreciation} values={forecasts.depreciation} flipSign />
-      <LineItem years={years} name={lineItemTitles.amortization} values={forecasts.amortization} flipSign />
-      <LineItem years={years} total name={lineItemTitles.ebit} values={forecasts.ebit} />
+      <LineItem periods={periods} name={lineItemTitles.revenues} values={forecasts.revenues} />
+      <LineItem periods={periods} name={lineItemTitles.cogs} values={forecasts.cogs} flipSign />
+      <LineItem periods={periods} total name={lineItemTitles.gp} values={forecasts.gp} />
 
-      <LineItem years={years} name={lineItemTitles.taxes} values={forecasts.taxes} />
-      <LineItem years={years} total name={lineItemTitles.nopat} values={forecasts.nopat} />
+      <LineItem periods={periods} name={lineItemTitles.opex} values={forecasts.opex} flipSign />
+      <LineItem periods={periods} total name={lineItemTitles.ebitda} values={forecasts.ebitda} />
+
+      <LineItem periods={periods} name={lineItemTitles.depreciation} values={forecasts.depreciation} flipSign />
+      <LineItem periods={periods} name={lineItemTitles.amortization} values={forecasts.amortization} flipSign />
+      <LineItem periods={periods} total name={lineItemTitles.ebit} values={forecasts.ebit} />
+
+      <LineItem periods={periods} name={lineItemTitles.taxes} values={forecasts.taxes} />
+      <LineItem periods={periods} total name={lineItemTitles.nopat} values={forecasts.nopat} />
       
-      <LineItem years={years} name={lineItemTitles.depreciation} values={forecasts.depreciation} />
-      <LineItem years={years} name={lineItemTitles.amortization} values={forecasts.amortization} />
-      <LineItem years={years} name={lineItemTitles.capex} values={forecasts.capex} flipSign />
-      <LineItem years={years} name={lineItemTitles.nwcChange} values={forecasts.nwcChange} flipSign />
-      <LineItem years={years} total name={lineItemTitles.fcf} values={forecasts.fcf} />
+      <LineItem periods={periods} name={lineItemTitles.depreciation} values={forecasts.depreciation} />
+      <LineItem periods={periods} name={lineItemTitles.amortization} values={forecasts.amortization} />
+      <LineItem periods={periods} name={lineItemTitles.capex} values={forecasts.capex} flipSign />
+      <LineItem periods={periods} name={lineItemTitles.nwcChange} values={forecasts.nwcChange} flipSign />
+      <LineItem periods={periods} total name={lineItemTitles.fcf} values={forecasts.fcf} />
       
-      <LineItem years={years} name={lineItemTitles.discountPeriods} values={forecasts.discountPeriods} decimal />
-      <LineItem years={years} name={lineItemTitles.pvFactors} values={forecasts.pvFactors} decimal />
-      <LineItem years={years} total name={lineItemTitles.dcf} values={forecasts.dcf} />
+      <LineItem periods={periods} name={lineItemTitles.discountPeriods} values={forecasts.discountPeriods} decimal />
+      <LineItem periods={periods} name={lineItemTitles.pvFactors} values={forecasts.pvFactors} decimal />
+      <LineItem periods={periods} total name={lineItemTitles.dcf} values={forecasts.dcf} />
 
       <div className="flex justify-between">
         <EnterpriseValue forecasts={forecasts}/>

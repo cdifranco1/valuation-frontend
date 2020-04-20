@@ -30,12 +30,14 @@ export const Model = () => {
       })    
   }
 
+  
+
   return (
     <div className="p-8">
-      <DCF forecasts={forecasts} years={inputs.genInputs.periods} inputs={inputs}/>
+      <DCF forecasts={forecasts} periods={inputs.genInputs.periods} inputs={inputs}/>
       <GeneralInputs updateInputs={updateInputs} />
       {Object.keys(inputs.forecasts).map((el, index) =>
-        <ForecastInputs updateInputs={updateInputs} key={index} lineItem={el} />
+        <ForecastInputs periods={inputs.genInputs.periods} updateInputs={updateInputs} key={index} lineItem={el} />
       )}
       <ValInputs updateInputs={updateInputs} />
       <button type="button" onClick={submitModel}>Calculate DCF</button>

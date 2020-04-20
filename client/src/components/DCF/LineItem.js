@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 
-export const LineItem = ({name, values, years, total, decimal, flipSign}) => {
+export const LineItem = ({name, values, periods, total, decimal, flipSign}) => {
 
   const formatNum = (num, flipSign, decimal) => {
     const signedNum = flipSign ? num * -1 : num
@@ -10,15 +10,14 @@ export const LineItem = ({name, values, years, total, decimal, flipSign}) => {
     }
     return numeral(signedNum).format('(0,0)')
   }
-      
 
   return (
-    <div className="flex">
-      <h3 className={`w-1/5 ${total && 'font-bold'}`}>{name}</h3>
+    <div className="flex px-2 w-full">
+      <p className={`w-1/5 ${total && 'font-bold'}`}>{name}</p>
       {<p></p>}
       <div className={`flex w-full ${total && 'border-t border-black'}`}>
       {values.map(el =>
-        <span className={`w-1/${years} ${total && 'mb-8 font-bold'} text-right`}>{formatNum(el, flipSign, decimal)}</span>
+        <span className={`w-1/${periods} ${total ? 'mb-8 font-bold' : null} text-right`}>{formatNum(el, flipSign, decimal)}</span>
       )}
       </div>
     </div>
