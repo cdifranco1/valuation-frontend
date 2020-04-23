@@ -1,5 +1,4 @@
 const moment = require('moment')
-const numeral = require('numeral')
 
 const inputs = {
   forecasts:{
@@ -23,7 +22,7 @@ const inputs = {
   }
 }
 
-function mapObj(obj, fn){
+function mapObjArrEl(obj, fn){
   const newObj = Object.keys(obj).reduce((a, b) => {
     if (obj[b].length){
       a[b] = obj[b].map(fn)
@@ -34,14 +33,41 @@ function mapObj(obj, fn){
     return a 
 
   }, {})
+  return newObj
+}
+
+const expand = (arr, pd, expandVal) => {
+  const length = arr.length
+  const mergeArr = Array.from({length: (pd - length)}, () => expandVal)
+
+  return [...arr, ...mergeArr]
+}
+
+function mapObjArr(obj, fn, ...args){
+  const newObj = Object.keys(obj).reduce((a, b) => {
+    a[b] = fn(obj[b], ...args)
+    return a
+  }, {})
 
   return newObj
 }
 
+const createUpdateFunction = (obj) => {
+  return (fn, ...args) => {
+    return mapObjArr(obj, fn, ...args)
+  }
+}
+
+
+
 //convert to cents before processing
 function prepForecasts(inputObj){
   const { forecasts } = inputObj
-  const preppedForecasts = mapObj(forecasts, (el) => el * 100)
+  
+  const updateForecasts = createUpdateFunction(forecasts)
+
+  const expandedForecasts = updateForecasts(expand, inputObj.genInputs.periods, 0) 
+  const preppedForecasts = mapObjArrEl(expandedForecasts, (el) => el * 100)
  
  return {
    ...inputObj,
@@ -67,13 +93,13 @@ function combineArrays(operation='SUBTRACT', ...arrays){
     return arrays.reduce((a, b) => {
       return a.map((el, i) => {
         switch (operation){
-          case 'SUBTRACT':
+          case 'subtract':
             return el - b[i]
-          case 'ADD':
+          case 'add':
             return el + b[i]
-          case 'MULTIPLY':
+          case 'multiply':
             return el * b[i]
-          case 'DIVIDE':
+          case 'divide':
             return el / b[i]
           default:
             return el - b[i]
@@ -93,8 +119,8 @@ function pipe(operation, fn1, fn2){
   }
 }
 
-const subtractLineItems = pipe('SUBTRACT', selectArrays, combineArrays) 
-const addLineItems = pipe('ADD', selectArrays, combineArrays)
+const subtractLineItems = pipe('subtract', selectArrays, combineArrays) 
+const addLineItems = pipe('add', selectArrays, combineArrays)
 
 function buildForecasts(inputObj){
   const { forecasts, valAssumps, genInputs } = inputObj
@@ -105,15 +131,14 @@ function buildForecasts(inputObj){
   const taxes = ebit.map(el => el < 0 ? 0 : el * valAssumps.taxRate / 100)
    
 
-  const nopat = combineArrays('SUBTRACT', ebit, taxes)
-  const fcf = combineArrays('SUBTRACT', addLineItems(forecasts, nopat, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
+  const nopat = combineArrays('subtract', ebit, taxes)
+  const fcf = combineArrays('subtract', addLineItems(forecasts, nopat, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
 
   const partialPeriods = calcPartialPeriods(genInputs.fye, genInputs.valDate, genInputs.periods)
-  const discountPeriods = calcDiscountPeriods(genInputs.periods, genInputs.fye, genInputs.valDate, partialPeriods[0])
+  const discountPeriods = calcDiscountPeriods(genInputs.periods, partialPeriods[0])
   const pvFactors = calcPVFactors(valAssumps.wacc, genInputs.periods, discountPeriods)
 
-  const dcf = combineArrays('MULTIPLY', fcf, partialPeriods, pvFactors)
-  
+  const dcf = combineArrays('multiply', fcf, partialPeriods, pvFactors)
 
   return {
     forecasts: {
@@ -159,7 +184,7 @@ function calcPartialPeriods(fye, valDate, periods){
 }
 
 
-function calcDiscountPeriods(periods, fye, valDate, partialPeriod){
+function calcDiscountPeriods(periods, partialPeriod){
   const discountPeriods = []
   
   for (let i = 0; i < periods; i++){
@@ -226,7 +251,7 @@ function valuation(fcf, dcf, wacc, ltgr, pvFactors){
   }
 }
 
-function consolidate(inputs){
+function processForecasts(inputs){
   const { wacc, ltgr } = inputs.valAssumps
 
   const preppedForecasts = prepForecasts(inputs)
@@ -238,12 +263,11 @@ function consolidate(inputs){
 
   const { BEV, TV } = valuation(fcf, dcf, wacc, ltgr, pvFactors)
 
-  const dollarBEV = mapObj(BEV, (el) => el / 100)
-  const dollarTV = mapObj(TV.values, (el) => el / 100)
-  const dollarForecasts = mapObj(forecastCalcs.forecasts, (el) => el / 100)
+  const dollarBEV = mapObjArrEl(BEV, (el) => el / 100)
+  const dollarTV = mapObjArrEl(TV.values, (el) => el / 100)
+  const dollarForecasts = mapObjArrEl(forecastCalcs.forecasts, (el) => el / 100)
 
   const consolidated = {
-    ...inputs,
     forecasts: {
       ...dollarForecasts
     },
@@ -253,6 +277,12 @@ function consolidate(inputs){
     TV: {
       ...dollarTV,
       terminalFactor: TV.terminalFactor 
+    },
+    valAssumps: {
+      ...inputs.valAssumps
+    },
+    genInputs: {
+      ...inputs.genInputs
     }
   }
 
@@ -260,11 +290,8 @@ function consolidate(inputs){
 }
 
 
+const processed = processForecasts(inputs)
+console.log(processed)
 
+module.exports = processForecasts
 
-
-
-
-
-const forecastCalcs = consolidate(inputs)
-console.log(forecastCalcs)
