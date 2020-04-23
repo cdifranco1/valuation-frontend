@@ -12,7 +12,7 @@ const inputs = {
     capex: [10, 10, 10, 10, 10]
   },
   genInputs: {
-    periods: 10,
+    periods: 5,
     valDate: '2019-10-01',
     fye: '2019-12-31'
   },
@@ -23,6 +23,34 @@ const inputs = {
   }
 }
 
+function mapObj(obj, fn){
+  const newObj = Object.keys(obj).reduce((a, b) => {
+    if (obj[b].length){
+      a[b] = obj[b].map(fn)
+      return a 
+    }
+
+    a[b] = fn(obj[b]) 
+    return a 
+
+  }, {})
+
+  return newObj
+}
+
+//convert to cents before processing
+function prepForecasts(inputObj){
+  const { forecasts } = inputObj
+  const preppedForecasts = mapObj(forecasts, (el) => el * 100)
+ 
+ return {
+   ...inputObj,
+   forecasts: {
+    ...preppedForecasts 
+   }
+ }
+
+}
 
 
 function selectArrays(obj, ...args){
@@ -71,56 +99,70 @@ const addLineItems = pipe('ADD', selectArrays, combineArrays)
 function buildForecasts(inputObj){
   const { forecasts, valAssumps, genInputs } = inputObj
 
-  const GP = subtractLineItems(forecasts, 'revenues', 'cogs')
-  const EBITDA = subtractLineItems(forecasts, GP, 'opex')
-  const EBIT = subtractLineItems(forecasts, EBITDA, 'depreciation', 'amortization')
-  const taxes = EBIT.map(el => {
-    if (el < 0){
-      return 0
-    }
-    return el * valAssumps.taxRate / 100
-  })
-  const NOPAT = combineArrays('SUBTRACT', EBIT, taxes)
-  const FCF = combineArrays('SUBTRACT', addLineItems(forecasts, NOPAT, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
+  const gp = subtractLineItems(forecasts, 'revenues', 'cogs')
+  const ebitda = subtractLineItems(forecasts, gp, 'opex')
+  const ebit = subtractLineItems(forecasts, ebitda, 'depreciation', 'amortization')
+  const taxes = ebit.map(el => el < 0 ? 0 : el * valAssumps.taxRate / 100)
+   
 
-  console.log("GP:", GP)
-  console.log("EBITDA:", EBITDA)
-  console.log("EBIT:", EBIT)
-  console.log("Taxes:", taxes)
-  console.log("NOPAT:", NOPAT)
-  console.log("FCF:", FCF)
+  const nopat = combineArrays('SUBTRACT', ebit, taxes)
+  const fcf = combineArrays('SUBTRACT', addLineItems(forecasts, nopat, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
+
+  const partialPeriods = calcPartialPeriods(genInputs.fye, genInputs.valDate, genInputs.periods)
+  const discountPeriods = calcDiscountPeriods(genInputs.periods, genInputs.fye, genInputs.valDate, partialPeriods[0])
+  const pvFactors = calcPVFactors(valAssumps.wacc, genInputs.periods, discountPeriods)
+
+  const dcf = combineArrays('MULTIPLY', fcf, partialPeriods, pvFactors)
+  
 
   return {
-    ...forecasts,
-    GP: [...GP],
-    EBITDA: [...EBITDA],
-    EBIT: [...EBIT],
-    taxes: [...taxes],
-    NOPAT: [...NOPAT],
-    FCF: [...FCF]
+    forecasts: {
+      ...forecasts,
+      gp: [...gp],
+      ebitda: [...ebitda],
+      ebit: [...ebit],
+      taxes: [...taxes],
+      nopat: [...nopat],
+      fcf: [...fcf],
+      dcf: [...dcf],
+    },
+    discounting: {
+      discountPeriods: [...discountPeriods],
+      pvFactors: [...pvFactors],
+      partialPeriods: [...partialPeriods]
+    }
   }
 }
 
-const updatedForecasts = buildForecasts(inputs)
-console.log(updatedForecasts)
 
-function calcPartialPeriod(genInputs){
+
+// discounting calculations
+
+function calcPartialPeriods(fye, valDate, periods){
+  const partialPeriods = []
 
   const days = 365.25
-  const a = moment(genInputs.fye)
-  const b = moment(genInputs.valDate)
-  partialPeriod = a.diff(b, 'days') / days
+  const a = moment(fye)
+  const b = moment(valDate)
+  let PP = a.diff(b, 'days') / days
   
-  return partialPeriod
+  
+  for (let i = 0; i < periods; i++){
+    if (i === 0){
+      partialPeriods.push(PP)
+    } else {
+      partialPeriods.push(1)
+    }
+  }
+
+  return partialPeriods
 }
 
 
-function calcDiscountPeriods(inputs){
+function calcDiscountPeriods(periods, fye, valDate, partialPeriod){
   const discountPeriods = []
   
-  const partialPeriod = calcPartialPeriod(inputs)
-  
-  for (let i = 0; i < inputs.periods; i++){
+  for (let i = 0; i < periods; i++){
     if (i === 0){
       discountPeriods.push(partialPeriod / 2)
     } else if (i === 1){
@@ -133,6 +175,96 @@ function calcDiscountPeriods(inputs){
   return discountPeriods
 }
 
+function calcPVFactors(wacc, periods, discountPeriods){
+  const pvFactors = []
+
+  const discountFactor = 1 + Number(wacc / 100)
+
+  for (let i = 0; i < periods; i++){
+    pvFactors.push(1 / Math.pow(discountFactor, discountPeriods[i]))
+  }
+  
+  return pvFactors
+}
+
+
+function calcBEV(dcf, TV){
+  const discretePeriod = dcf.reduce((a, b) => a + b)
+  const BEV = discretePeriod + TV
+
+  return {
+    discretePV: discretePeriod,
+    consolidated: BEV
+  }
+}
+
+function calcTV(fcf, wacc, ltgr, pvFactors){
+  const terminalCF = fcf[fcf.length - 1] * (1 + ltgr / 100)
+  const terminalFactor = (1 / (wacc / 100 - ltgr / 100))
+  const terminalValue = (terminalCF * terminalFactor)
+  const discountedTV = terminalValue * pvFactors[pvFactors.length - 1]
+
+  return {
+    values: {
+      terminalCF: terminalCF,
+      preDiscountTV: terminalValue,
+      discountedTV: discountedTV
+    },
+    terminalFactor: terminalFactor,
+  }
+}
+
+function valuation(fcf, dcf, wacc, ltgr, pvFactors){
+  const TV = calcTV(fcf, wacc, ltgr, pvFactors)
+  const { discountedTV } = TV.values
+
+  const BEV = calcBEV(dcf, discountedTV)
+
+  return {
+    TV: TV,
+    BEV: BEV
+  }
+}
+
+function consolidate(inputs){
+  const { wacc, ltgr } = inputs.valAssumps
+
+  const preppedForecasts = prepForecasts(inputs)
+  
+  const forecastCalcs = buildForecasts(preppedForecasts)
+  
+  const { fcf, dcf } = forecastCalcs.forecasts
+  const { pvFactors } = forecastCalcs.discounting
+
+  const { BEV, TV } = valuation(fcf, dcf, wacc, ltgr, pvFactors)
+
+  const dollarBEV = mapObj(BEV, (el) => el / 100)
+  const dollarTV = mapObj(TV.values, (el) => el / 100)
+  const dollarForecasts = mapObj(forecastCalcs.forecasts, (el) => el / 100)
+
+  const consolidated = {
+    ...inputs,
+    forecasts: {
+      ...dollarForecasts
+    },
+    BEV: {
+      ...dollarBEV
+    },
+    TV: {
+      ...dollarTV,
+      terminalFactor: TV.terminalFactor 
+    }
+  }
+
+  return consolidated
+}
 
 
 
+
+
+
+
+
+const forecastCalcs = consolidate(inputs)
+console.log(forecastCalcs)
