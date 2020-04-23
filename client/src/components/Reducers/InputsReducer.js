@@ -6,13 +6,13 @@ export const actions = {
 
 export const initialState = {
   forecasts:{
-    revenues: [300, 400, 300, 400, 500],
-    cogs: [100, 150, 200, 300, 350],
-    opex: [50, 50, 50 , 50, 50],
-    depreciation: [ 20, 35, 40, 45, 50 ],
-    amortization: [ 20, 35, 40, 45, 50 ],
-    nwcChange: [20, 35, 40, 45, 50],
-    capex: [10, 10, 10, 10, 10]
+    revenues: [],
+    cogs: [],
+    opex: [],
+    depreciation: [],
+    amortization: [],
+    nwcChange: [],
+    capex: []
   },
   genInputs: {
     valDate: '2019-10-01',
@@ -26,7 +26,7 @@ export const initialState = {
   }
 }
 
-export const modelReducer = (state, action) => {
+export const inputsReducer = (state, action) => {
   switch(action.type){
     case actions.updateForecast:
       return {

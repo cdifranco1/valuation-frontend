@@ -25,7 +25,6 @@ const inputs = {
 
 
 
-
 function selectArrays(obj, ...args){
   return args.map(el => {
     if (typeof el === 'string'){
@@ -70,8 +69,7 @@ const subtractLineItems = pipe('SUBTRACT', selectArrays, combineArrays)
 const addLineItems = pipe('ADD', selectArrays, combineArrays)
 
 function buildForecasts(inputObj){
-  const forecasts = inputObj.forecasts
-  const valInputs = inputObj.valAssumps
+  const { forecasts, valAssumps, genInputs } = inputObj
 
   const GP = subtractLineItems(forecasts, 'revenues', 'cogs')
   const EBITDA = subtractLineItems(forecasts, GP, 'opex')
@@ -80,11 +78,10 @@ function buildForecasts(inputObj){
     if (el < 0){
       return 0
     }
-    return el * valInputs.taxRate / 100
+    return el * valAssumps.taxRate / 100
   })
   const NOPAT = combineArrays('SUBTRACT', EBIT, taxes)
   const FCF = combineArrays('SUBTRACT', addLineItems(forecasts, NOPAT, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
-
 
   console.log("GP:", GP)
   console.log("EBITDA:", EBITDA)
@@ -92,10 +89,50 @@ function buildForecasts(inputObj){
   console.log("Taxes:", taxes)
   console.log("NOPAT:", NOPAT)
   console.log("FCF:", FCF)
+
+  return {
+    ...forecasts,
+    GP: [...GP],
+    EBITDA: [...EBITDA],
+    EBIT: [...EBIT],
+    taxes: [...taxes],
+    NOPAT: [...NOPAT],
+    FCF: [...FCF]
+  }
+}
+
+const updatedForecasts = buildForecasts(inputs)
+console.log(updatedForecasts)
+
+function calcPartialPeriod(genInputs){
+
+  const days = 365.25
+  const a = moment(genInputs.fye)
+  const b = moment(genInputs.valDate)
+  partialPeriod = a.diff(b, 'days') / days
+  
+  return partialPeriod
 }
 
 
-buildForecasts(inputs)
+function calcDiscountPeriods(inputs){
+  const discountPeriods = []
+  
+  const partialPeriod = calcPartialPeriod(inputs)
+  
+  for (let i = 0; i < inputs.periods; i++){
+    if (i === 0){
+      discountPeriods.push(partialPeriod / 2)
+    } else if (i === 1){
+      discountPeriods.push(discountPeriods[0] * 2 + 0.5)
+    } else {
+      discountPeriods.push(discountPeriods[i - 1] + 1)
+    }
+  }
+
+  return discountPeriods
+}
+
 
 
 

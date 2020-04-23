@@ -5,26 +5,19 @@ import { actions } from '../Reducers/InputsReducer'
 
 export const ForecastInputs = (props) => {
   //need to make amout of years in forecast dynamic
-  const [ forecasts, setForecasts ] = useState({
-    FY1: '',
-    FY2: '',
-    FY3: '',
-    FY4: '',
-    FY5: ''
-  })
+  const [ inputs, setInputs ] = useState({})
 
   useEffect(() => {
     const inputsObj = {}
     for (let i = 0; i < props.periods; i++){
-      inputsObj[`FY${i + 1}`] = ''
+      inputsObj[`FY${i + 1}`] = props.forecasts[props.lineItem][i] || ''
     }
-    setForecasts({...inputsObj})
-
-  }, [props.periods])
+    setInputs(inputsObj)
+  }, [ props.periods, props.lineItem, props.forecasts])
 
   const handleChange = (e) => {
-    setForecasts({
-      ...forecasts,
+    setInputs({
+      ...inputs,
       [e.target.name]: e.target.value
     })
   }
@@ -32,9 +25,9 @@ export const ForecastInputs = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    const forecast = Object.values(forecasts).map(el => Number(el))
+    const projections = Object.values(inputs).map(el => Number(el))
     const payload = {
-      [props.lineItem] : forecast
+      [props.lineItem] : projections
     }
 
     props.updateInputs(actions.updateForecast, payload)
@@ -42,15 +35,15 @@ export const ForecastInputs = (props) => {
 
   return (
     <>
-      <h3>{lineItemTitles[props.lineItem]}</h3>
-      <form onSubmit={handleSubmit}>
-        {Object.keys(forecasts).map(el =>
-          <div>  
+      <p>{lineItemTitles[props.lineItem]}</p>
+      <form onSubmit={handleSubmit} className="flex max-w-full mb-3">
+        {Object.keys(inputs).map((el, index) =>
+          <div key={index} className={`flex-col w-1/${props.periods + 1} mr-3`}> 
             <label htmlFor={el}>{el}</label>
-            <input type="number" onChange={handleChange} id={el} name={el} value={forecasts[el]} key={el} />
+            <input type="number" onChange={handleChange} id={el} name={el} value={inputs[el]} className="border max-w-full"/>
           </div>
         )}
-        <button type="submit">Save</button>
+        <button type="submit" className={`border border-grey w-1/${props.periods + 1} `}>Save</button>
       </form>
     </>
   )

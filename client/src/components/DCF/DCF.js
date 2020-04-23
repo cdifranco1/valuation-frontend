@@ -33,6 +33,7 @@ export const DCF = ({forecasts, periods, inputs}) => {
       <LineItem periods={periods} name={lineItemTitles.nwcChange} values={forecasts.nwcChange} flipSign />
       <LineItem periods={periods} total name={lineItemTitles.fcf} values={forecasts.fcf} />
       
+      <LineItem periods={periods} name={lineItemTitles.partialPeriod} values={forecasts.partialPeriod} decimal />
       <LineItem periods={periods} name={lineItemTitles.discountPeriods} values={forecasts.discountPeriods} decimal />
       <LineItem periods={periods} name={lineItemTitles.pvFactors} values={forecasts.pvFactors} decimal />
       <LineItem periods={periods} total name={lineItemTitles.dcf} values={forecasts.dcf} />
