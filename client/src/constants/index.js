@@ -37,6 +37,11 @@ export const template = {
     fcf: [],
     dcf: []
   },
+  discounting: {
+    discountPeriods: [],
+    pvFactors: [],
+    partialPeriods: []
+  },
   BEV: { 
     discretePV: '', 
     consolidated: '' 

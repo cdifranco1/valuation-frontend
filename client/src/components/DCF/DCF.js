@@ -7,7 +7,7 @@ import { ForecastYears } from './ForecastYears'
 
 
 export const DCF = ({model}) => {
-  const { forecasts, genInputs, valAssumps, BEV, TV } = model
+  const { forecasts, genInputs, valAssumps, BEV, TV, discounting } = model
 
   const { periods, valDate } = genInputs
 
@@ -37,10 +37,11 @@ export const DCF = ({model}) => {
       <LineItem periods={periods} name={lineItemTitles.nwcChange} values={forecasts.nwcChange} flipSign />
       <LineItem periods={periods} total name={lineItemTitles.fcf} values={forecasts.fcf} />
       
-      <LineItem periods={periods} name={lineItemTitles.partialPeriod} values={forecasts.partialPeriod} decimal />
-      <LineItem periods={periods} name={lineItemTitles.discountPeriods} values={forecasts.discountPeriods} decimal />
-      
-      <LineItem periods={periods} name={lineItemTitles.pvFactors} values={forecasts.pvFactors} decimal />
+      {/* discounting */}
+      <LineItem periods={periods} name={lineItemTitles.partialPeriod} values={discounting.partialPeriods} decimal />
+
+      <LineItem periods={periods} name={lineItemTitles.discountPeriods} values={discounting.discountPeriods} decimal />
+      <LineItem periods={periods} name={lineItemTitles.pvFactors} values={discounting.pvFactors} decimal />
 
       <LineItem periods={periods} total name={lineItemTitles.dcf} values={forecasts.dcf} />
 

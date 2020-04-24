@@ -8,7 +8,7 @@ export const ForecastYears = ({periods, valDate}) => {
   useEffect(() => {
     const periodsArr = []
     const yearsArr = []
-    const initialYear = moment(valDate).year()
+    const initialYear = moment(valDate).year() || 2019
 
     for (let i = 0; i < periods; i++){
       periodsArr.push(`FY${i + 1}`)

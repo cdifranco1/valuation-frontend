@@ -119,8 +119,14 @@ function pipe(operation, fn1, fn2){
   }
 }
 
+
+// Functions to read from and build forecast calc arrays
 const subtractLineItems = pipe('subtract', selectArrays, combineArrays) 
 const addLineItems = pipe('add', selectArrays, combineArrays)
+
+
+
+
 
 function buildForecasts(inputObj){
   const { forecasts, valAssumps, genInputs } = inputObj
@@ -227,7 +233,8 @@ function calcTV(fcf, wacc, ltgr, pvFactors){
   const terminalCF = fcf[fcf.length - 1] * (1 + ltgr / 100)
   const terminalFactor = (1 / (wacc / 100 - ltgr / 100))
   const terminalValue = (terminalCF * terminalFactor)
-  const discountedTV = terminalValue * pvFactors[pvFactors.length - 1]
+  const pvFactor = pvFactors[pvFactors.length - 1]
+  const discountedTV = terminalValue * pvFactor
 
   return {
     values: {
@@ -235,7 +242,8 @@ function calcTV(fcf, wacc, ltgr, pvFactors){
       preDiscountTV: terminalValue,
       discountedTV: discountedTV
     },
-    terminalFactor: terminalFactor,
+    pvFactor: pvFactor,
+    terminalFactor: terminalFactor
   }
 }
 
@@ -271,12 +279,17 @@ function processForecasts(inputs){
     forecasts: {
       ...dollarForecasts
     },
+    discounting: {
+      ...forecastCalcs.discounting
+    },
     BEV: {
       ...dollarBEV
     },
     TV: {
-      ...dollarTV,
-      terminalFactor: TV.terminalFactor 
+      ...TV,
+      values: {
+        ...dollarTV
+      },
     },
     valAssumps: {
       ...inputs.valAssumps

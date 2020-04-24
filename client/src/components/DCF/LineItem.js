@@ -2,9 +2,6 @@ import React from 'react';
 import numeral from 'numeral';
 
 export const LineItem = ({name, values, periods, total, decimal, flipSign}) => {
-
-  console.log(values)
-
   const formatNum = (num, flipSign, decimal) => {
     const signedNum = flipSign ? num * -1 : num
     if (decimal){
