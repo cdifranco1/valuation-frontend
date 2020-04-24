@@ -21,26 +21,32 @@ export const lineItemTitles = {
 
 
 export const template = {
-  revenues: [  ],
-  cogs: [  ],
-  opex: [  ],
-  nwcChange: [  ],
-  depreciation: [  ],
-  amortization: [  ],
-  capex: [  ],
-  gp: [  ],
-  taxes: [  ],
-  ebitda: [  ],
-  ebit: [  ],
-  nopat: [   ],
-  fcf: [  ],
-  pvFactors: [
-  ],
-  dcf: [
-  ],
-  discountPeriods: [
-  ],
-  partialPeriod: [],
-  TV: 0,
-  EV: 0
+  forecasts: {
+    revenues: [],
+    cogs: [],
+    opex: [],
+    nwcChange: [],
+    depreciation: [],
+    amortization: [],
+    capex: [],
+    gp: [],
+    ebitda: [],
+    ebit: [],
+    taxes: [],
+    nopat: [],
+    fcf: [],
+    dcf: []
+  },
+  BEV: { 
+    discretePV: '', 
+    consolidated: '' 
+  },
+  TV: {
+    terminalCF: '',
+    preDiscountTV: '',
+    discountedTV: '',
+    terminalFactor: ''
+  },
+  valAssumps: { wacc: '', taxRate: '', ltgr: '' },
+  genInputs: { periods: 5, valDate: '', fye: '' }
 }

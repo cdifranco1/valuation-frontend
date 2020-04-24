@@ -6,10 +6,14 @@ import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'
 
 
-export const DCF = ({forecasts, periods, inputs}) => {
+export const DCF = ({model}) => {
+  const { forecasts, genInputs, valAssumps, BEV, TV } = model
+
+  const { periods, valDate } = genInputs
+
   return (
     <div>
-      <ForecastYears periods={periods} valDate={inputs.genInputs.valDate} />
+      <ForecastYears periods={periods} valDate={valDate} />
 
       <div className="mb-5"></div>
 
@@ -35,12 +39,14 @@ export const DCF = ({forecasts, periods, inputs}) => {
       
       <LineItem periods={periods} name={lineItemTitles.partialPeriod} values={forecasts.partialPeriod} decimal />
       <LineItem periods={periods} name={lineItemTitles.discountPeriods} values={forecasts.discountPeriods} decimal />
+      
       <LineItem periods={periods} name={lineItemTitles.pvFactors} values={forecasts.pvFactors} decimal />
+
       <LineItem periods={periods} total name={lineItemTitles.dcf} values={forecasts.dcf} />
 
       <div className="flex justify-between">
-        <EnterpriseValue forecasts={forecasts}/>
-        <TerminalValue forecasts={forecasts} inputs={inputs}/>
+        <EnterpriseValue BEV={BEV}/>
+        <TerminalValue TV={TV} />
       </div>
 
     </div>
