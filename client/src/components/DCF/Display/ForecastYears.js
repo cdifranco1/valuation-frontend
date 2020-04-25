@@ -20,17 +20,17 @@ export const ForecastYears = ({periods, valDate}) => {
   }, [periods, valDate])
 
   return (
-    <div className="flex border-black border">
-      <p className="text-lg p-2 w-1/5 font-bold self-end">Forecast Periods: </p>
+    <div className="flex bg-blue-700 items-center">
+      <p className="text-xl p-2 w-1/5 font-bold text-white">Forecast Periods: </p>
       <div className="flex-col w-full">
-        <div className="flex w-full border-black border-b">
+        <div className="flex w-full border-white border-b-2">
           {forecastYears.map((el, index) => 
-            <span key={index} className={`p-2 w-1/${periods} text-right`}>{el}</span>
+            <span key={index} className={`p-2 w-1/${periods} text-right font-semibold text-lg text-white`}>{el}</span>
           )}
         </div>
         <div className="flex w-full">
           {forecastPeriods.map((el, index) => 
-            <span key={index} className={`p-2 w-1/${periods} text-right font-bold`}>{el}</span>
+            <span key={index} className={`p-2 w-1/${periods} text-right font-semibold text-lg text-white`}>{el}</span>
           )}
         </div>
       </div>

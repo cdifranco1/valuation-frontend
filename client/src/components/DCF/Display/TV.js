@@ -9,8 +9,8 @@ export const TerminalValue = ({TV}) => {
   
 
   return (
-    <div className="flex flex-col w-1/6 border border-black mr-12">
-      <p className="p-2 text-lg font-bold border-black border-b mb-3">Terminal Value Calculation: </p>
+    <div className="flex flex-col w-1/4 border border-blue-900 mr-12 text-blue-900 text-lg">
+      <p className="p-2 font-bold text-white border-b border-blue-900 mb-3 bg-blue-600">Terminal Value Calculation: </p>
 
       <div className="flex justify-between">
         <span className="px-2">Terminal Cash Flow: </span>
@@ -24,7 +24,7 @@ export const TerminalValue = ({TV}) => {
       
       <div className="flex justify-between">
         <span className="px-2">Terminal Value: </span>
-        <span className="px-2">{numeral(preDiscountTV).format('0.00')}</span>
+        <span className="px-2">{numeral(preDiscountTV).format('(0,0.00)')}</span>
       </div>
 
       <div className="flex justify-between">
@@ -32,7 +32,7 @@ export const TerminalValue = ({TV}) => {
         <span className="px-2">{numeral(pvFactor).format('0.00')}</span>
       </div>
 
-      <div className="flex justify-between border-t border-black">
+      <div className="flex justify-between border-t border-blue-900">
         <span className="p-2 font-bold">Discounted Terminal Value: </span>
         <span className="p-2 font-bold">{numeral(discountedTV).format('(0,0.00)')}</span>
       </div>

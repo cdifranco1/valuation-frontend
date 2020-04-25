@@ -2,4 +2,31 @@
 
 @tailwind components;
 
+.selected {
+  @apply font-bold border-b-4 border-white;
+}
+
 @tailwind utilities;
+
+.vh-custom {
+  height: 15vh;
+}
+
+
+.arrow-right {
+  height: 0;
+  width: 0;
+
+  border-left: 40px solid #2a4365;
+  border-bottom: 40px solid transparent;
+  border-top: 40px solid transparent;
+}
+
+.arrow-left {
+  height: 0;
+  width: 0;
+
+  border-right: 40px solid #2a4365;
+  border-bottom: 40px solid transparent;
+  border-top: 40px solid transparent;
+}

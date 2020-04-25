@@ -606,6 +606,12 @@ video {
   }
 }
 
+.selected {
+  font-weight: 700;
+  border-bottom-width: 4px;
+  border-color: #fff;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -10930,6 +10936,51 @@ video {
 
 .duration-1000 {
   transition-duration: 1000ms;
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}
+
+.hover\:zoomIn:hover {
+  animation-name: zoomIn;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reduced-motion\:zoomIn {
+    animation-name: zoomIn;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.vh-custom {
+  height: 15vh;
+}
+
+.arrow-right {
+  height: 0;
+  width: 0;
+  border-left: 40px solid #2a4365;
+  border-bottom: 40px solid transparent;
+  border-top: 40px solid transparent;
+}
+
+.arrow-left {
+  height: 0;
+  width: 0;
+  border-right: 40px solid #2a4365;
+  border-bottom: 40px solid transparent;
+  border-top: 40px solid transparent;
 }
 
 @media (min-width: 640px) {
@@ -21257,6 +21308,20 @@ video {
 
   .sm\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .sm\:zoomIn {
+    animation-name: zoomIn;
+  }
+
+  .sm\:hover\:zoomIn:hover {
+    animation-name: zoomIn;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sm\:reduced-motion\:zoomIn {
+      animation-name: zoomIn;
+    }
   }
 }
 
@@ -31586,6 +31651,20 @@ video {
   .md\:duration-1000 {
     transition-duration: 1000ms;
   }
+
+  .md\:zoomIn {
+    animation-name: zoomIn;
+  }
+
+  .md\:hover\:zoomIn:hover {
+    animation-name: zoomIn;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .md\:reduced-motion\:zoomIn {
+      animation-name: zoomIn;
+    }
+  }
 }
 
 @media (min-width: 1024px) {
@@ -41914,6 +41993,20 @@ video {
   .lg\:duration-1000 {
     transition-duration: 1000ms;
   }
+
+  .lg\:zoomIn {
+    animation-name: zoomIn;
+  }
+
+  .lg\:hover\:zoomIn:hover {
+    animation-name: zoomIn;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lg\:reduced-motion\:zoomIn {
+      animation-name: zoomIn;
+    }
+  }
 }
 
 @media (min-width: 1280px) {
@@ -52241,5 +52334,19 @@ video {
 
   .xl\:duration-1000 {
     transition-duration: 1000ms;
+  }
+
+  .xl\:zoomIn {
+    animation-name: zoomIn;
+  }
+
+  .xl\:hover\:zoomIn:hover {
+    animation-name: zoomIn;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .xl\:reduced-motion\:zoomIn {
+      animation-name: zoomIn;
+    }
   }
 }

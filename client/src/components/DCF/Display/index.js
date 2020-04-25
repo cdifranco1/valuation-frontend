@@ -12,7 +12,7 @@ export const DCF = ({model}) => {
   const { periods, valDate } = genInputs
 
   return (
-    <div>
+    <div className="bg-white pb-12 shadow-2xl">
       <ForecastYears periods={periods} valDate={valDate} />
 
       <div className="mb-5"></div>
@@ -46,7 +46,7 @@ export const DCF = ({model}) => {
       <LineItem periods={periods} total name={lineItemTitles.dcf} values={forecasts.dcf} />
 
       <div className="flex justify-between">
-        <EnterpriseValue BEV={BEV}/>
+        <EnterpriseValue BEV={BEV} TV={TV} />
         <TerminalValue TV={TV} />
       </div>
 

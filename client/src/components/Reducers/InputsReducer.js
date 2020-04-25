@@ -11,8 +11,8 @@ export const initialState = {
     opex: [],
     depreciation: [],
     amortization: [],
-    nwcChange: [],
-    capex: []
+    capex: [],
+    nwcChange: []
   },
   genInputs: {
     valDate: '2019-10-01',
