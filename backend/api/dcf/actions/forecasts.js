@@ -303,8 +303,7 @@ function processForecasts(inputs){
 }
 
 
-const processed = processForecasts(inputs)
-console.log(processed)
+
 
 module.exports = processForecasts
 

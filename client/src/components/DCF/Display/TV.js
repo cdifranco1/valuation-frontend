@@ -3,7 +3,9 @@ import numeral from 'numeral'
 
 
 export const TerminalValue = ({TV}) => {
-  const { terminalCF, preDiscountTV, discountedTV, terminalFactor, pvFactor } = TV 
+  console.log(TV)
+  const { terminalFactor, pvFactor } = TV 
+  const { terminalCF, preDiscountTV, discountedTV } = TV.values
   
 
   return (
@@ -31,7 +33,7 @@ export const TerminalValue = ({TV}) => {
       </div>
 
       <div className="flex justify-between border-t border-black">
-        <span className="p-2 font-bold">Terminal Value: </span>
+        <span className="p-2 font-bold">Discounted Terminal Value: </span>
         <span className="p-2 font-bold">{numeral(discountedTV).format('(0,0.00)')}</span>
       </div>
     </div>

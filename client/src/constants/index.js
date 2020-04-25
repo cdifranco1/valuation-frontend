@@ -47,9 +47,12 @@ export const template = {
     consolidated: '' 
   },
   TV: {
-    terminalCF: '',
-    preDiscountTV: '',
-    discountedTV: '',
+    values: {
+      terminalCF: '',
+      preDiscountTV: '',
+      discountedTV: ''
+    },
+    pvFactor: '',
     terminalFactor: ''
   },
   valAssumps: { wacc: '', taxRate: '', ltgr: '' },

@@ -17,12 +17,12 @@ export const initialState = {
   genInputs: {
     valDate: '2019-10-01',
     fye: '2019-12-31',
-    periods: 10,
+    periods: 5,
   },
   valAssumps: {
-    wacc: 12,
-    taxRate: 25,
-    ltgr: 3
+    wacc: 0,
+    taxRate: 0,
+    ltgr: 0
   }
 }
 

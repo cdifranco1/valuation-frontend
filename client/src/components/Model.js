@@ -1,10 +1,10 @@
 import React, { useReducer, useState } from 'react';
 import { axiosBase } from '../utils/utils'
-import { DCF } from './DCF/DCF';
-import { ForecastInputs } from './DCF/inputs/ForecastInputs';
-import { GeneralInputs } from './DCF/inputs/GeneralInputs';
+import { DCF } from './DCF/Display/DCF';
+import { ForecastInputs } from './DCF/Inputs/ForecastInputs';
+import { GeneralInputs } from './DCF/Inputs/GeneralInputs';
+import { ValInputs } from './DCF/Inputs/ValInputs';
 import { initialState, inputsReducer } from './Reducers/InputsReducer';
-import { ValInputs } from './DCF/inputs/ValInputs';
 
 
 import { template } from '../constants'
