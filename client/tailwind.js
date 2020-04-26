@@ -706,7 +706,7 @@ module.exports = {
         bounceOutSpeed: 750,
         animationDelaySpeed: 1000
       },
-      variants: ['responsive', 'hover', 'reduced-motion'],
     }),
   ],
+  variants: ['responsive', 'hover', 'focus', 'active'],
 }

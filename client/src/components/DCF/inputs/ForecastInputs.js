@@ -45,11 +45,11 @@ export const ForecastInputs = (props) => {
         {Object.keys(inputs).map((el, index) =>
           <div key={el + index} className={`w-1/${Number(props.periods) + 1} p-2`}> 
             <label htmlFor={el} className="w-full text-xl text-center block font-semibold py-2 text-white">{el}</label>
-            <input type="number" onChange={handleChange} id={el} name={el} value={inputs[el]} className="border w-full rounded-lg py-2 no-caret"/>
+            <input type="number" onChange={handleChange} id={el} name={el} value={inputs[el]} placeholder=" 1,000.00" className="border w-full rounded-lg py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "/>
           </div>
         )}
-        <div className={"w-1/10 flex justify-center"}>
-          <button type="submit" className="shadow-lg w-1/2 h-10 bg-blue-600 rounded-lg text-white text-lg">Save</button>
+        <div className="w-1/10 flex justify-center">
+          <button type="submit" className="shadow-lg w-1/2 h-10 bg-blue-600 rounded-lg text-white text-lg hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline">Save</button>
         </div>
       </form>
     </div>

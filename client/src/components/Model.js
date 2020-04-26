@@ -29,7 +29,7 @@ export const Model = () => {
   }
 
   return (
-    <div className="p-8 bg-gray-300">
+    <div className="p-8">
       <DCF model={modelState} />
       <ForecastInputContainer inputs={inputs} updateInputs={updateInputs} />
       <ValInputs updateInputs={updateInputs} />

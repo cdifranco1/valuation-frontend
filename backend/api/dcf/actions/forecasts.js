@@ -43,6 +43,10 @@ const expand = (arr, pd, expandVal) => {
   return [...arr, ...mergeArr]
 }
 
+const truncate = (arr, pd) => {
+  return arr.filter((el, i) => (i < pd))
+}
+
 function mapObjArr(obj, fn, ...args){
   const newObj = Object.keys(obj).reduce((a, b) => {
     a[b] = fn(obj[b], ...args)
@@ -63,11 +67,16 @@ const createUpdateFunction = (obj) => {
 //convert to cents before processing
 function prepForecasts(inputObj){
   const { forecasts } = inputObj
+  const { periods } = inputObj.genInputs
   
   const updateForecasts = createUpdateFunction(forecasts)
+  const expandedForecasts = updateForecasts(expand, periods, 0) 
 
-  const expandedForecasts = updateForecasts(expand, inputObj.genInputs.periods, 0) 
-  const preppedForecasts = mapObjArrEl(expandedForecasts, (el) => el * 100)
+  //want to make sure all forecasts are the same length, in the case that user expands one forecast and changes back
+  const updateExpandedForecasts = createUpdateFunction(expandedForecasts)
+  const truncatedForecasts = updateExpandedForecasts(truncate, periods)
+
+  const preppedForecasts = mapObjArrEl(truncatedForecasts, (el) => el * 100)
  
  return {
    ...inputObj,
