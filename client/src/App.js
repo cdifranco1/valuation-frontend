@@ -2,7 +2,7 @@ import React from 'react';
 import { Model } from './components/Model';
 import { Nav } from './components/Nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Login } from './components/Login';
+import { UserForm } from './components/UserForm';
 
 
 function App() {
@@ -11,11 +11,11 @@ function App() {
       <div className="bg-gray-300">
         <Nav />
         <Switch>
-          <Route exact path="/">
-            <Login />
+          <Route exact path="/login">
+            <UserForm />
           </Route>
           <Route path="/register">
-            <Login register />
+            <UserForm register />
           </Route>
           <Route path="/model">
             <Model />

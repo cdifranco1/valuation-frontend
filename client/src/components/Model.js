@@ -4,6 +4,7 @@ import { DCF } from './DCF/Display/index';
 import { ForecastInputContainer } from './DCF/Inputs/ForecastInputContainer';
 import { GeneralInputs } from './DCF/Inputs/GeneralInputs';
 import { ValInputs } from './DCF/Inputs/ValInputs';
+import { CompsList } from './WACC';
 import { initialState, inputsReducer } from './Reducers/InputsReducer';
 
 
@@ -34,6 +35,7 @@ export const Model = () => {
       <ForecastInputContainer inputs={inputs} updateInputs={updateInputs} />
       <ValInputs updateInputs={updateInputs} />
       <GeneralInputs updateInputs={updateInputs} />
+      <CompsList />
       <button type="button" onClick={submitModel}>Calculate DCF</button>
     </div> 
   )
