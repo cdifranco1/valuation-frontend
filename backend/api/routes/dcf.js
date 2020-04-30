@@ -1,13 +1,10 @@
-const processForecasts = require('./actions/forecasts')
+const processForecasts = require('../actions/forecasts')
+
 const express = require('express')
 const router = express.Router()
 
-const models = []
-
-
 router.post('/', (req, res) => {
     const model = processForecasts(req.body)
-    console.log(model.TV)
     res.status(200).json(model)
 })
 
@@ -16,5 +13,3 @@ router.get('/', (req, res) => {
 })
 
 module.exports = router
-
-

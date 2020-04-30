@@ -10,7 +10,7 @@ const inputs = {
     amortization: [20, 35, 40, 45, 50],
     capex: [10, 10, 10, 10, 10]
   },
-  genInputs: {
+  generalInputs: {
     periods: 5,
     valDate: '2019-10-01',
     fye: '2019-12-31'
@@ -67,7 +67,7 @@ const createUpdateFunction = (obj) => {
 //convert to cents before processing
 function prepForecasts(inputObj){
   const { forecasts } = inputObj
-  const { periods } = inputObj.genInputs
+  const { periods } = inputObj.generalInputs
   
   const updateForecasts = createUpdateFunction(forecasts)
   const expandedForecasts = updateForecasts(expand, periods, 0) 
@@ -138,7 +138,7 @@ const addLineItems = pipe('add', selectArrays, combineArrays)
 
 
 function buildForecasts(inputObj){
-  const { forecasts, valAssumps, genInputs } = inputObj
+  const { forecasts, valAssumps, generalInputs } = inputObj
 
   const gp = subtractLineItems(forecasts, 'revenues', 'cogs')
   const ebitda = subtractLineItems(forecasts, gp, 'opex')
@@ -149,9 +149,9 @@ function buildForecasts(inputObj){
   const nopat = combineArrays('subtract', ebit, taxes)
   const fcf = combineArrays('subtract', addLineItems(forecasts, nopat, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
 
-  const partialPeriods = calcPartialPeriods(genInputs.fye, genInputs.valDate, genInputs.periods)
-  const discountPeriods = calcDiscountPeriods(genInputs.periods, partialPeriods[0])
-  const pvFactors = calcPVFactors(valAssumps.wacc, genInputs.periods, discountPeriods)
+  const partialPeriods = calcPartialPeriods(generalInputs.fye, generalInputs.valDate, generalInputs.periods)
+  const discountPeriods = calcDiscountPeriods(generalInputs.periods, partialPeriods[0])
+  const pvFactors = calcPVFactors(valAssumps.wacc, generalInputs.periods, discountPeriods)
 
   const dcf = combineArrays('multiply', fcf, partialPeriods, pvFactors)
 
@@ -303,8 +303,8 @@ function processForecasts(inputs){
     valAssumps: {
       ...inputs.valAssumps
     },
-    genInputs: {
-      ...inputs.genInputs
+    generalInputs: {
+      ...inputs.generalInputs
     }
   }
 
