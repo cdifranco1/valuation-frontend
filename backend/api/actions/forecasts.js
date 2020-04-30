@@ -10,7 +10,7 @@ const inputs = {
     amortization: [20, 35, 40, 45, 50],
     capex: [10, 10, 10, 10, 10]
   },
-  generalInputs: {
+  genInputs: {
     periods: 5,
     valDate: '2019-10-01',
     fye: '2019-12-31'
@@ -63,11 +63,10 @@ const createUpdateFunction = (obj) => {
 }
 
 
-
 //convert to cents before processing
 function prepForecasts(inputObj){
   const { forecasts } = inputObj
-  const { periods } = inputObj.generalInputs
+  const { periods } = inputObj.genInputs
   
   const updateForecasts = createUpdateFunction(forecasts)
   const expandedForecasts = updateForecasts(expand, periods, 0) 
@@ -138,7 +137,7 @@ const addLineItems = pipe('add', selectArrays, combineArrays)
 
 
 function buildForecasts(inputObj){
-  const { forecasts, valAssumps, generalInputs } = inputObj
+  const { forecasts, valAssumps, genInputs } = inputObj
 
   const gp = subtractLineItems(forecasts, 'revenues', 'cogs')
   const ebitda = subtractLineItems(forecasts, gp, 'opex')
@@ -149,9 +148,9 @@ function buildForecasts(inputObj){
   const nopat = combineArrays('subtract', ebit, taxes)
   const fcf = combineArrays('subtract', addLineItems(forecasts, nopat, 'depreciation', 'amortization'), addLineItems(forecasts, 'capex', 'nwcChange'))
 
-  const partialPeriods = calcPartialPeriods(generalInputs.fye, generalInputs.valDate, generalInputs.periods)
-  const discountPeriods = calcDiscountPeriods(generalInputs.periods, partialPeriods[0])
-  const pvFactors = calcPVFactors(valAssumps.wacc, generalInputs.periods, discountPeriods)
+  const partialPeriods = calcPartialPeriods(genInputs.fye, genInputs.valDate, genInputs.periods)
+  const discountPeriods = calcDiscountPeriods(genInputs.periods, partialPeriods[0])
+  const pvFactors = calcPVFactors(valAssumps.wacc, genInputs.periods, discountPeriods)
 
   const dcf = combineArrays('multiply', fcf, partialPeriods, pvFactors)
 
@@ -268,7 +267,8 @@ function valuation(fcf, dcf, wacc, ltgr, pvFactors){
   }
 }
 
-function processForecasts(inputs){
+function process(inputs){
+  const { id } = inputs
   const { wacc, ltgr } = inputs.valAssumps
 
   const preppedForecasts = prepForecasts(inputs)
@@ -285,6 +285,7 @@ function processForecasts(inputs){
   const dollarForecasts = mapObjArrEl(forecastCalcs.forecasts, (el) => el / 100)
 
   const consolidated = {
+    id: id,
     forecasts: {
       ...dollarForecasts
     },
@@ -303,8 +304,8 @@ function processForecasts(inputs){
     valAssumps: {
       ...inputs.valAssumps
     },
-    generalInputs: {
-      ...inputs.generalInputs
+    genInputs: {
+      ...inputs.genInputs
     }
   }
 
@@ -314,5 +315,5 @@ function processForecasts(inputs){
 
 
 
-module.exports = processForecasts
+module.exports = process
 
