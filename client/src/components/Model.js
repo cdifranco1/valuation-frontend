@@ -6,11 +6,10 @@ import { CompsList } from './wacc';
 import { initialState, inputsReducer } from '../reducers/InputsReducer';
 
 import { template } from '../constants'
-import { connect } from 'react-redux';
 
 
 export const Model = (props) => {
-  // const [ inputs, dispatch ] = useReducer(inputsReducer, initialState)
+  const [ inputs, dispatch ] = useReducer(inputsReducer, initialState)
   const [ modelState, setModelState ] = useState(template)
 
   const updateInputs = (actionType, payload) => {
@@ -45,16 +44,3 @@ export const Model = (props) => {
     </div> 
   )
 }
-
-const mapStateToProps = state => {
-  return {
-    userId: state.id,
-    forecasts: state.forecasts,
-    genInputs: state.GeneralInputs,
-    valAssumps: state.valAssumps
-  }
-}
-
-const mapDispatchToProps = {}
-
-export default connect(mapStateToProps)(Model)

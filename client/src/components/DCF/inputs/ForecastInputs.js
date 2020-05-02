@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { lineItemTitles } from '../../../constants'
-import { updateForecast } from '../../../actions/updateInputs'
-import { connect } from 'react-redux'
+import { actions } from '../../../reducers/InputsReducer'
 
 
 export const ForecastInputs = (props) => {
@@ -31,7 +30,7 @@ export const ForecastInputs = (props) => {
       [props.lineItem] : projections
     }
 
-    props.updateForecast(payload)
+    props.updateInputs(actions.updateForecastInputs, payload)
   }
 
   return (
@@ -61,14 +60,3 @@ export const ForecastInputs = (props) => {
     </div>
   )
 }
-
-
-const mapStateToProps = (state) => {
-  return {
-    inputs: state.forecasts     
-  }
-}
-
-const mapDispatchToProps = { updateForecast }
-
-export default connect( mapStateToProps, mapDispatchToProps)( ForecastInputs )

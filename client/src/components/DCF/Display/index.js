@@ -7,7 +7,7 @@ import { ForecastYears } from './ForecastYears'
 
 
 export const DCF = ({model}) => {
-  const { forecasts, genInputs, valAssumps, BEV, TV, discounting } = model
+  const { forecasts, genInputs, BEV, TV, discounting } = model
 
   const { periods, valDate } = genInputs
 

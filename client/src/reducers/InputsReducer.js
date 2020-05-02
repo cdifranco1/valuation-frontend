@@ -1,9 +1,10 @@
 import axios from 'axios'
-
-export const UPDATE_FORECAST = 'UPDATE_FORECAST'
-export const UPDATE_GEN_INPUTS = 'UPDATE_GEN_INPUTS'
-export const UPDATE_VAL_ASSUMPS =  'UPDATE_VAL_ASSUMPS'
-export const SET_ID = 'SET_ID'
+export const actions = {
+  updateForecastInputs: 'UPDATE_FORECAST',
+  updateGenInputs: 'UPDATE_GEN_INPUTS',
+  updateValAssumps:  'UPDATE_VAL_ASSUMPS',
+  updateId: 'SET_ID'
+}
 
 
 export const initialState = {
@@ -31,9 +32,9 @@ export const initialState = {
   }
 }
 
-export const inputsReducer = (state = initialState, action) => {
+export const inputsReducer = (state, action) => {
   switch(action.type){
-    case UPDATE_FORECAST:
+    case actions.updateForecastInputs:
       return {
         ...state, 
         forecasts: {
@@ -41,7 +42,7 @@ export const inputsReducer = (state = initialState, action) => {
           ...action.payload
         }
       }
-    case UPDATE_GEN_INPUTS:
+    case actions.updateGenInputs:
       return {
         ...state, 
         genInputs: {
@@ -49,7 +50,7 @@ export const inputsReducer = (state = initialState, action) => {
           ...action.payload
         }
       }
-    case UPDATE_VAL_ASSUMPS:
+    case actions.updateValAssumps:
       const assumps = {
         wacc: action.payload.wacc,
         taxRate: action.payload.taxRate,
@@ -62,7 +63,7 @@ export const inputsReducer = (state = initialState, action) => {
           ...assumps
         }
       }
-    case SET_ID:
+    case actions.updateId:
       return {
         ...state,
         id: action.payload 

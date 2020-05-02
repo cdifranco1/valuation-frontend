@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { UPDATE_GEN_INPUTS } from '../reducers/InputsReducer'
+import { actions } from '../reducers/InputsReducer'
 
 
-const GeneralInputs = (props) => {
+export const GeneralInputs = (props) => {
   const [ genInputs, setGenInputs] = useState({
     projectName: '',
     entityName: '',
@@ -21,7 +21,7 @@ const GeneralInputs = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    props.updateGenInputs(genInputs)
+    props.updateInputs(actions.updateGenInputs, genInputs)
   }
 
   return (
@@ -95,16 +95,3 @@ const GeneralInputs = (props) => {
     </div>
   )
 }
-
-const mapStateToProps = state => {
-  return {
-    userId: state.id,
-    forecasts: state.forecasts,
-    genInputs: state.GeneralInputs,
-    valAssumps: state.valAssumps
-  }
-}
-
-const mapDispatch = { updateGenInputs }
-
-export default connect(mapStateToProps, { mapDispatch })(GeneralInputs)
