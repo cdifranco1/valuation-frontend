@@ -3,7 +3,6 @@ import numeral from 'numeral'
 
 
 export const TerminalValue = ({TV}) => {
-  console.log(TV)
   const { terminalFactor, pvFactor } = TV 
   const { terminalCF, preDiscountTV, discountedTV } = TV.values
   

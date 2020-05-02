@@ -1,10 +1,12 @@
 export const actions = {
   updateForecast: 'UPDATE_FORECAST',
   updateGenInputs: 'UPDATE_GEN_INPUTS',
-  updateValAssumps: 'UPDATE_VAL_ASSUMPS'
+  updateValAssumps: 'UPDATE_VAL_ASSUMPS',
+  updateID: 'UPDATE_ID'
 }
 
 export const initialState = {
+  id: '',
   forecasts:{
     revenues: [],
     cogs: [],
@@ -56,6 +58,11 @@ export const inputsReducer = (state, action) => {
           ...state.valAssumps,
           ...assumps
         }
+      }
+    case actions.updateID:
+      return {
+        ...state,
+        id: action.payload 
       }
     default:
       return state

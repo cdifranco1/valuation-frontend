@@ -2,8 +2,6 @@ import React from 'react';
 import numeral from 'numeral';
 
 export const EnterpriseValue = ({ BEV, TV }) => {
-  console.log(BEV)
-  console.log(TV)
   const { discountedTV } = TV.values
   const { consolidated, discretePV } = BEV 
 

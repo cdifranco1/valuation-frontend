@@ -22,6 +22,7 @@ const inputs = {
   }
 }
 
+
 function mapObjArrEl(obj, fn){
   const newObj = Object.keys(obj).reduce((a, b) => {
     if (obj[b].length){

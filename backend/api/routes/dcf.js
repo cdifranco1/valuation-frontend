@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
       const dcf = new DCF(dcfModel)
       const saved = await dcf.save()
 
-      console.log(saved)
       res.status(200).json(saved)
 
     } catch (err) {

@@ -15,7 +15,7 @@ function App() {
             <UserForm />
           </Route>
           <Route path="/register">
-            <UserForm register />
+            <UserForm registration />
           </Route>
           <Route path="/model">
             <Model />

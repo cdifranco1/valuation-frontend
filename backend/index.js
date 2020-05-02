@@ -1,5 +1,6 @@
-const cors = require('cors')
 const express = require('express')
+const cors = require('cors')
+const cookieParser = require('cookie-parser')
 const apiRoute = require('./api')
 
 const port = process.env.PORT || 5000
@@ -9,6 +10,7 @@ const server = express()
 //app-level middleware
 server.use(express.json())
 server.use(cors())
+server.use(cookieParser())
 
 //api route
 server.use('/api', apiRoute)
