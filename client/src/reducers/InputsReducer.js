@@ -1,9 +1,10 @@
-export const actions = {
-  updateForecast: 'UPDATE_FORECAST',
-  updateGenInputs: 'UPDATE_GEN_INPUTS',
-  updateValAssumps: 'UPDATE_VAL_ASSUMPS',
-  updateID: 'UPDATE_ID'
-}
+import axios from 'axios'
+
+export const UPDATE_FORECAST = 'UPDATE_FORECAST'
+export const UPDATE_GEN_INPUTS = 'UPDATE_GEN_INPUTS'
+export const UPDATE_VAL_ASSUMPS =  'UPDATE_VAL_ASSUMPS'
+export const SET_ID = 'SET_ID'
+
 
 export const initialState = {
   id: '',
@@ -17,6 +18,8 @@ export const initialState = {
     nwcChange: []
   },
   genInputs: {
+    projectName: '',
+    entity: '',
     valDate: '2019-10-01',
     fye: '2019-12-31',
     periods: 5,
@@ -28,9 +31,9 @@ export const initialState = {
   }
 }
 
-export const inputsReducer = (state, action) => {
+export const inputsReducer = (state = initialState, action) => {
   switch(action.type){
-    case actions.updateForecast:
+    case UPDATE_FORECAST:
       return {
         ...state, 
         forecasts: {
@@ -38,7 +41,7 @@ export const inputsReducer = (state, action) => {
           ...action.payload
         }
       }
-    case actions.updateGenInputs:
+    case UPDATE_GEN_INPUTS:
       return {
         ...state, 
         genInputs: {
@@ -46,7 +49,7 @@ export const inputsReducer = (state, action) => {
           ...action.payload
         }
       }
-    case actions.updateValAssumps:
+    case UPDATE_VAL_ASSUMPS:
       const assumps = {
         wacc: action.payload.wacc,
         taxRate: action.payload.taxRate,
@@ -59,7 +62,7 @@ export const inputsReducer = (state, action) => {
           ...assumps
         }
       }
-    case actions.updateID:
+    case SET_ID:
       return {
         ...state,
         id: action.payload 

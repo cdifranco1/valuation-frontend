@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { lineItemTitles } from '../../../constants'
-import { actions } from '../../Reducers/InputsReducer'
+import { updateForecast } from '../../../actions/updateInputs'
+import { connect } from 'react-redux'
 
 
 export const ForecastInputs = (props) => {
   //need to make amout of years in forecast dynamic
   const [ inputs, setInputs ] = useState({})
-  const [ zoom, setZoom ] = useState(false)
 
   useEffect(() => {
     const inputsObj = {}
@@ -31,21 +31,27 @@ export const ForecastInputs = (props) => {
       [props.lineItem] : projections
     }
 
-    props.updateInputs(actions.updateForecast, payload)
-  }
-
-  const toggleZoom = () => {
-    setZoom(!zoom)
+    props.updateForecast(payload)
   }
 
   return (
-    <div className={`mb-4 p-3 bg-blue-400 rounded-lg shadow-xl transition-transform duration-200 ease-in-out transform ${zoom && '-translate-x-full'}`}>
+    <div className={`mb-4 p-3 bg-blue-400 rounded-lg shadow-xl`}>
       <p className="font-semibold text-xl py-3 text-white">{lineItemTitles[props.lineItem]}</p>
       <form onSubmit={handleSubmit} className="flex max-w-full mb-3 justify-between items-center p-3 rounded-lg">
+
         {Object.keys(inputs).map((el, index) =>
           <div key={el + index} className={`w-1/${Number(props.periods) + 1} p-2`}> 
+
             <label htmlFor={el} className="w-full text-xl text-center block font-semibold py-2 text-white">{el}</label>
-            <input type="number" onChange={handleChange} id={el} name={el} value={inputs[el]} placeholder=" 1,000.00" className="border w-full rounded-lg py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "/>
+            <input 
+              type="number" 
+              onChange={handleChange} 
+              id={el} 
+              name={el} 
+              value={inputs[el]} 
+              placeholder=" 1,000.00" 
+              className="border w-full rounded-lg py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "
+            />
           </div>
         )}
         <div className="w-1/10 flex justify-center">
@@ -55,3 +61,14 @@ export const ForecastInputs = (props) => {
     </div>
   )
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    inputs: state.forecasts     
+  }
+}
+
+const mapDispatchToProps = { updateForecast }
+
+export default connect( mapStateToProps, mapDispatchToProps)( ForecastInputs )

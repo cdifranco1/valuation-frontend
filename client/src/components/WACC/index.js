@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
 import numeral from 'numeral'
 
 import { APIData } from '../../constants'

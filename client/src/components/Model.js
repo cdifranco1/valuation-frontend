@@ -1,25 +1,23 @@
-import React, { useReducer, useState } from 'react';
+import React, { useState } from 'react';
 import { axiosInstance } from '../utils/axiosInstance'
-import { DCF } from './DCF/Display/index';
-import { ForecastInputContainer } from './DCF/Inputs/ForecastInputContainer';
-import { GeneralInputs } from './DCF/Inputs/GeneralInputs';
-import { ValInputs } from './DCF/Inputs/ValInputs';
-import { CompsList } from './WACC';
-import { initialState, inputsReducer } from './Reducers/InputsReducer';
-import { actions } from './Reducers/InputsReducer'
-
+import { DCF } from './dcf/display/index';
+import { ForecastInputContainer } from './dcf/inputs/ForecastInputContainer';
+import { CompsList } from './wacc';
+import { initialState, inputsReducer } from '../reducers/InputsReducer';
 
 import { template } from '../constants'
+import { connect } from 'react-redux';
 
 
-export const Model = () => {
-  const [ inputs, dispatch ] = useReducer(inputsReducer, initialState)
+export const Model = (props) => {
+  // const [ inputs, dispatch ] = useReducer(inputsReducer, initialState)
   const [ modelState, setModelState ] = useState(template)
 
   const updateInputs = (actionType, payload) => {
    dispatch({type: actionType, payload: payload})
   }
 
+  // when submitting the model, will want to submit to a separate reducer
   const submitModel = (e) => {
     e.preventDefault()
 
@@ -43,10 +41,20 @@ export const Model = () => {
     <div className="p-8">
       <DCF model={modelState} />
       <ForecastInputContainer inputs={inputs} updateInputs={updateInputs} />
-      <ValInputs updateInputs={updateInputs} />
-      <GeneralInputs updateInputs={updateInputs} />
-      <CompsList />
       <button type="button" onClick={submitModel}>Calculate DCF</button>
     </div> 
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    userId: state.id,
+    forecasts: state.forecasts,
+    genInputs: state.GeneralInputs,
+    valAssumps: state.valAssumps
+  }
+}
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps)(Model)

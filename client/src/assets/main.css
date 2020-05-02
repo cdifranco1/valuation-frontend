@@ -612,6 +612,10 @@ video {
   border-color: #fff;
 }
 
+body {
+  background-color: #e2e8f0
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -128575,3 +128579,4 @@ video {
     animation-name: zoomIn;
   }
 }
+

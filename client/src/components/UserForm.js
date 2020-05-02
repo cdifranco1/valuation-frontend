@@ -41,7 +41,7 @@ export const UserForm = (props) => {
   }
 
   return (
-    <div className="bg-gray-300 h-screen">
+    <div>
       <form 
         onSubmit={handleSubmit(onSubmit)} 
         className="border border-blue-800 rounded-lg overflow-hidden w-1/3 mx-auto login-position shadow-lg"

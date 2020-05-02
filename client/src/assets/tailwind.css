@@ -6,6 +6,10 @@
   @apply font-bold border-b-4 border-white;
 }
 
+body {
+  @apply bg-gray-300
+}
+
 @tailwind utilities;
 
 .vh-custom {
@@ -35,3 +39,4 @@
   position: relative;
   top: 300px;
 }
+
