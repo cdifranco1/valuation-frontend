@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { actions } from '../reducers/InputsReducer'
+import React, { useState, useReducer } from 'react';
+import { actions, inputsReducer, initialState } from '../reducers/InputsReducer'
+
 
 
 export const GeneralInputs = (props) => {
+  const [ inputs, dispatch ] = useReducer(inputsReducer, initialState)
   const [ genInputs, setGenInputs] = useState({
     projectName: '',
     entityName: '',
@@ -20,8 +22,8 @@ export const GeneralInputs = (props) => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    props.updateInputs(actions.updateGenInputs, genInputs)
+    const actionObject = {type: actions.updateGenInputs, payload: genInputs}
+    dispatch(actionObject)
   }
 
   return (
@@ -85,7 +87,6 @@ export const GeneralInputs = (props) => {
             id="periods" 
             name="periods" 
             value={genInputs.periods} 
-            className="w-1/2"
             className="border w-full rounded-lg py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "
           />
         </div>

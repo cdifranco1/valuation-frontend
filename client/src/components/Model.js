@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { axiosInstance } from '../utils/axiosInstance'
 import { DCF } from './dcf/display/index';
 import { ForecastInputContainer } from './dcf/inputs/ForecastInputContainer';
-import { CompsList } from './wacc';
-import { initialState, inputsReducer } from '../reducers/InputsReducer';
+import { initialState, inputsReducer, actions } from '../reducers/InputsReducer';
 
 import { template } from '../constants'
 

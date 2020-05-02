@@ -5,9 +5,7 @@ import './assets/main.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { inputsReducer } from './reducers/InputsReducer'
 
-const store = createStore(inputsReducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>
