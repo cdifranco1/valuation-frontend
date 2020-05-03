@@ -4,7 +4,6 @@ import { actions } from '../../reducers/InputsReducer'
 
 
 export const ForecastInputs = (props) => {
-  //need to make amout of years in forecast dynamic
   const [ inputs, setInputs ] = useState({})
 
   useEffect(() => {

@@ -32,7 +32,7 @@ export const initialState = {
   }
 }
 
-export const inputsReducer = (state, action) => {
+export const inputsReducer = (state = initialState, action) => {
   switch(action.type){
     case actions.updateForecastInputs:
       return {

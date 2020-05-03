@@ -1,8 +1,11 @@
+//libraries
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+//components
 import { Model } from './components/Model';
 import { Dashboard } from './components/Dashboard';
 import { Nav } from './components/Nav';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { UserForm } from './components/UserForm';
 import { GeneralInputs } from './components/inputs/GeneralInputs';
 import { ValInputs } from './components/inputs/ValInputs';
