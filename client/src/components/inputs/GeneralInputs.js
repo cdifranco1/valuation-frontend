@@ -1,10 +1,9 @@
-import React, { useState, useReducer } from 'react';
-import { actions, inputsReducer, initialState } from '../reducers/InputsReducer'
+import React, { useState } from 'react';
+import { actions } from '../../reducers/InputsReducer'
 
 
 
 export const GeneralInputs = (props) => {
-  const [ inputs, dispatch ] = useReducer(inputsReducer, initialState)
   const [ genInputs, setGenInputs] = useState({
     projectName: '',
     entityName: '',
@@ -22,8 +21,8 @@ export const GeneralInputs = (props) => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    const actionObject = {type: actions.updateGenInputs, payload: genInputs}
-    dispatch(actionObject)
+    
+    props.updateInputs(actions.updateGenInputs, genInputs)
   }
 
   return (

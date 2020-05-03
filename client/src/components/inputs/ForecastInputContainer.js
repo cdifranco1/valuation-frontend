@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { lineItemTitles } from '../../../constants'
+import { lineItemTitles } from '../../constants'
 import { ForecastInputs } from './ForecastInputs'
 
 

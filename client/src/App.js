@@ -4,8 +4,8 @@ import { Dashboard } from './components/Dashboard';
 import { Nav } from './components/Nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { UserForm } from './components/UserForm';
-import { GeneralInputs } from './components/GeneralInputs';
-import { ValInputs } from './components/dcf/inputs/ValInputs';
+import { GeneralInputs } from './components/inputs/GeneralInputs';
+import { ValInputs } from './components/inputs/ValInputs';
 
 
 function App() {

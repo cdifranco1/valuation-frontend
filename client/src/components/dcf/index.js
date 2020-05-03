@@ -1,6 +1,6 @@
 import React from 'react';
 import { LineItem } from './LineItem'
-import { lineItemTitles } from '../../../constants/index'
+import { lineItemTitles } from '../../constants/index'
 import { TerminalValue } from './TV'
 import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'

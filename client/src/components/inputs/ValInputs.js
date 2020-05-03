@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { actions } from '../../../reducers/InputsReducer'
+import { actions } from '../../reducers/InputsReducer'
 
 
 export const ValInputs = (props) => {
