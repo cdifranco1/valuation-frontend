@@ -8,8 +8,11 @@ const port = process.env.PORT || 5000
 const server = express()
 
 //app-level middleware
+server.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 server.use(express.json())
-server.use(cors())
 server.use(cookieParser())
 
 //api route

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { actions } from '../../reducers/InputsReducer'
 
 
@@ -11,6 +11,10 @@ export const GeneralInputs = (props) => {
     fye: '',
     periods: ''
   })
+
+  useEffect(() => {
+    setGenInputs(props.inputs.genInputs)
+  }, [props.inputs.genInputs])
 
   const handleChange = (e) => {
     setGenInputs({

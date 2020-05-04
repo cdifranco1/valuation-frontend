@@ -171,9 +171,11 @@ const DCF = mongoose.model('DCF', new mongoose.Schema({
       ltgr: Number 
     },
     genInputs: { 
-      periods: Number, 
+      projectName: String,
+      entityName: String,
       valDate: String, 
-      fye: String 
+      fye: String, 
+      periods: Number 
     }
   })
 )

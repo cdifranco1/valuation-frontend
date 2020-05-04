@@ -7,8 +7,6 @@ import { Model } from './components/Model';
 import { Dashboard } from './components/Dashboard';
 import { Nav } from './components/Nav';
 import { UserForm } from './components/UserForm';
-import { GeneralInputs } from './components/inputs/GeneralInputs';
-import { ValInputs } from './components/inputs/ValInputs';
 
 
 function App() {
@@ -21,10 +19,8 @@ function App() {
           <Route path="/register">
             <UserForm registration />
           </Route>
-          <Route exact path="/model" component={Model} />
-          <Route path="/model/inputs">
-            <GeneralInputs />
-            <ValInputs />
+          <Route path="/model/:modelId">
+            <Model />
           </Route>
           <Route path="/dashboard">
             <Dashboard />

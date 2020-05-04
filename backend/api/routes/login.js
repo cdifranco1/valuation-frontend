@@ -23,9 +23,16 @@ router.post('/', async (req, res) => {
 
     if (validPassword) {
       const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET, {expiresIn: '7d'})
+      console.log(token)
 
-      return res.cookie('token', token).status(200).json({ 
-        message: `Welcome ${user.name}!`
+      const cookieConfig = {
+        httpOnly: true
+      }
+
+      res.cookie('token', token, cookieConfig)
+
+      res.json({
+        message: `Welcome ${user.name}`
       })
     }
   } catch(err){

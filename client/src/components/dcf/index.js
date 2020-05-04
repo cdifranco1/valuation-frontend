@@ -6,7 +6,7 @@ import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'
 
 
-export const DCF = ({model}) => {
+export const DCF = ({model, submitModel}) => {
   const { forecasts, genInputs, BEV, TV, discounting } = model
 
   const { periods, valDate } = genInputs
@@ -50,6 +50,7 @@ export const DCF = ({model}) => {
         <TerminalValue TV={TV} />
       </div>
 
+      <button type="button" onClick={submitModel}>Calculate DCF</button>
     </div>
   )
 }

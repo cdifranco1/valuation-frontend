@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { actions } from '../../reducers/InputsReducer'
 
 
@@ -8,6 +8,10 @@ export const ValInputs = (props) => {
     wacc: '',
     ltgr: ''
   })
+
+  useEffect(() => {
+    setvalAssumps(props.inputs.valAssumps)
+  }, [props.inputs.valAssumps])
   
   const handleChange = (e) => {
     setvalAssumps({

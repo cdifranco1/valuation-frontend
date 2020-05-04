@@ -35,6 +35,7 @@ export const UserForm = (props) => {
         .post('/api/login', data)
         .then(res => {
           console.log(res)
+          
           reset()
           history.push('/model')
         })

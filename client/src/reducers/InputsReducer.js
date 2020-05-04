@@ -20,7 +20,7 @@ export const initialState = {
   },
   genInputs: {
     projectName: '',
-    entity: '',
+    entityName: '',
     valDate: '2019-10-01',
     fye: '2019-12-31',
     periods: 5,
