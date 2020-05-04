@@ -21,6 +21,7 @@ export const lineItemTitles = {
 
 
 export const template = {
+  userId: '',
   forecasts: {
     revenues: [],
     cogs: [],

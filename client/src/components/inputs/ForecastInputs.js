@@ -36,7 +36,7 @@ export const ForecastInputs = ({ periods, forecasts, lineItem, updateInputs }) =
       [lineItem] : projections
     }
 
-    updateInputs(actions.updateForecastInputs, payload)
+    updateInputs(actions.updateForecasts, payload)
   }
 
   return (

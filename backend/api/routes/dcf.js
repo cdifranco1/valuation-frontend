@@ -25,6 +25,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const { id } = req.params
     const dcfModel = process(req.body)
+    console.log(req.body)
     try {
       
       const response = await DCF.replaceOne({ _id: id }, dcfModel)

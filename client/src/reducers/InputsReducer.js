@@ -1,40 +1,22 @@
-import axios from 'axios'
+import { template } from '../constants/index'
 export const actions = {
-  updateForecastInputs: 'UPDATE_FORECAST',
+  updateForecasts: 'UPDATE_FORECAST',
   updateGenInputs: 'UPDATE_GEN_INPUTS',
   updateValAssumps:  'UPDATE_VAL_ASSUMPS',
+  updateAll:  'UPDATE_ALL',
   updateId: 'SET_ID'
 }
 
 
-export const initialState = {
-  id: '',
-  forecasts:{
-    revenues: [],
-    cogs: [],
-    opex: [],
-    depreciation: [],
-    amortization: [],
-    capex: [],
-    nwcChange: []
-  },
-  genInputs: {
-    projectName: '',
-    entityName: '',
-    valDate: '2019-10-01',
-    fye: '2019-12-31',
-    periods: 5,
-  },
-  valAssumps: {
-    wacc: 0,
-    taxRate: 0,
-    ltgr: 0
-  }
-}
+export const initialState = template
 
-export const inputsReducer = (state = initialState, action) => {
+export const dcfReducer = (state = initialState, action) => {
   switch(action.type){
-    case actions.updateForecastInputs:
+    case actions.updateAll:
+      return {
+        ...action.payload
+      }
+    case actions.updateForecasts:
       return {
         ...state, 
         forecasts: {
@@ -72,3 +54,30 @@ export const inputsReducer = (state = initialState, action) => {
       return state
   }
 }
+
+
+
+// export const initialState = {
+//   id: '',
+//   forecasts:{
+//     revenues: [],
+//     cogs: [],
+//     opex: [],
+//     depreciation: [],
+//     amortization: [],
+//     capex: [],
+//     nwcChange: []
+//   },
+//   genInputs: {
+//     projectName: '',
+//     entityName: '',
+//     valDate: '2019-10-01',
+//     fye: '2019-12-31',
+//     periods: 5,
+//   },
+//   valAssumps: {
+//     wacc: 0,
+//     taxRate: 0,
+//     ltgr: 0
+//   }
+// }
