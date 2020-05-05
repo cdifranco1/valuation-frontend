@@ -1,20 +1,18 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { axiosInstance } from '../utils/axiosInstance'
-import { DCF } from './dcf/index';
+import { DCF } from './dcf/DCF';
 import { ForecastInputContainer } from './inputs/ForecastInputContainer';
-import { initialState, dcfReducer, actions } from '../reducers/InputsReducer';
+import { initialState, dcfReducer, actions } from '../reducers/inputsReducer';
 import { Route, Link, Switch, useRouteMatch, useParams } from 'react-router-dom'
-
-import { template } from '../constants'
 import { GeneralInputs } from './inputs/GeneralInputs';
 import { ValInputs } from './inputs/ValInputs';
-import { updateLocale } from 'moment';
 
 
-export const Model = (props) => {
+export const Model = () => {
   const [ dcfInputs, dispatch ] = useReducer(dcfReducer, initialState)
-  // const [ modelState, setModelState ] = useState(template)
   const { path, url } = useRouteMatch()
+
+  //modelId from url param will either be 'new' or will be id of selected model
   const { modelId } = useParams()
 
   const updateInputs = (action, payload) => {
@@ -22,7 +20,7 @@ export const Model = (props) => {
     dispatch(actionObj)
   }
 
-  // when submitting the model, will want to submit to a separate reducer
+  // calculate the DCF either as an update to existing model or for new model
   const submitModel = (e) => {
     console.log(dcfInputs)
     e.preventDefault()
@@ -43,7 +41,7 @@ export const Model = (props) => {
       })    
   }
   
-  // will become necessary once list of models is implemented
+  // fetches the model with the specific ID selected and updates model state through reducer
   useEffect(() => {
     if (modelId !== 'new') {
       axiosInstance()
@@ -51,7 +49,6 @@ export const Model = (props) => {
         .then(res => {
           console.log(res)
           updateInputs(actions.updateAll, res.data)
-          // need to set the inputs -- restructuring dcf model to separate calculations and inputs
         })
     }
   }, [])

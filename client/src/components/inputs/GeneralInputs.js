@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { actions } from '../../reducers/InputsReducer'
+import { actions } from '../../reducers/inputsReducer'
 
 
 

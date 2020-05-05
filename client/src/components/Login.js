@@ -5,7 +5,7 @@ import { NavLink, useHistory } from 'react-router-dom'
 
 
 
-export const UserForm = (props) => {
+export const Login = (props) => {
   const history = useHistory()
   const { register, handleSubmit, reset, watch, errors } = useForm({
     validateCriteriaMode: "all"
@@ -37,7 +37,7 @@ export const UserForm = (props) => {
           console.log(res)
           
           reset()
-          history.push('/model')
+          history.push('/dashboard')
         })
   }
 

@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Model } from './components/Model';
 import { Dashboard } from './components/Dashboard';
 import { Nav } from './components/Nav';
-import { UserForm } from './components/UserForm';
+import { Login } from './components/Login';
 
 
 function App() {
@@ -15,9 +15,9 @@ function App() {
       <div>
         <Nav />
         <Switch>
-          <Route exact path="/login" component={UserForm} />
+          <Route exact path="/login" component={Login} />
           <Route path="/register">
-            <UserForm registration />
+            <Login registration />
           </Route>
           <Route path="/model/:modelId">
             <Model />

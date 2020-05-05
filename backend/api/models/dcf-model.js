@@ -177,7 +177,7 @@ const DCF = mongoose.model('DCF', new mongoose.Schema({
       fye: String, 
       periods: Number 
     }
-  })
+  }, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }})
 )
 
 

@@ -8,7 +8,9 @@ const authorization = require('../middleware/authorization')
 router.use('/', authorization)
 
 router.post('/', async (req, res) => {
+    console.log(req.body)
     let dcfModel = process(req.body)
+    console.log(dcfModel)
     dcfModel.userId = req.userId
 
     try {
@@ -25,14 +27,10 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const { id } = req.params
     const dcfModel = process(req.body)
-    console.log(req.body)
     try {
-      
-      const response = await DCF.replaceOne({ _id: id }, dcfModel)
-      
-      const updated = await DCF.findById(id)
+      const response = await DCF.findByIdAndUpdate({ _id: id }, dcfModel, { new: true })
 
-      res.status(200).json(updated)
+      res.status(200).json(response)
 
     } catch (err) {
       res.status(500).json({ error: err.message })
@@ -59,6 +57,21 @@ router.get('/', async (req, res) => {
 
     try {
       const dcfs = await DCF.find({ userId: userId })
+                            .select('genInputs createdAt updatedAt')
+
+      res.status(200).json(dcfs)
+
+    } catch (err) {
+      res.status(500).json({ error: err.message })
+    }
+})
+
+router.delete('/', async (req, res) => {
+    const { userId } = req
+
+    try {
+      const dcfs = await DCF.find({ userId: userId })
+                            .select({ genInputs: 1, createdAt: 1, updatedAt: 1})
 
       res.status(200).json(dcfs)
 

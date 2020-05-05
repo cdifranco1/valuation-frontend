@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { lineItemTitles } from '../../constants'
 import { ForecastInputs } from './ForecastInputs'
-
+import { forecastInputLineItems } from '../../constants/index'
 
 
 export const ForecastInputContainer = ({inputs, updateInputs}) => {
   const [ forecasts, setForecasts ] = useState(inputs)
   const [ index, setIndex ] = useState(0)
 
-  const forecastKeys = Object.keys(forecasts)
+  const forecastKeys = Object.keys(forecasts).filter(el => forecastInputLineItems.includes(el))
 
   useEffect(() => {
     setForecasts(inputs.forecasts)
@@ -44,7 +44,7 @@ export const ForecastInputContainer = ({inputs, updateInputs}) => {
           </button>
           <div className="arrow-left mr-2 hover:cursor-pointer" onClick={lastInput}></div>
         </div>
-        {Object.keys(forecasts).filter((el, i) => i === index ? el : null).map((el, index) =>
+        {Object.keys(forecasts).filter(el => forecastKeys.includes(el)).filter((el, i) => i === index ? el : null).map((el, index) =>
           <ForecastInputs periods={inputs.genInputs.periods} forecasts={forecasts} updateInputs={updateInputs} key={index} lineItem={el} />
           )}
         <div className="flex items-center w-1/5 justify-between">
