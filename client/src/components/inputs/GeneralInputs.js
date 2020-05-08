@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { actions } from '../../reducers/inputsReducer'
+import { InputWithLabel } from './InputWithLabel'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/updateInputs'
+import { useRouteMatch, useHistory } from 'react-router-dom';
 
 
-
-export const GeneralInputs = (props) => {
+const GeneralInputs = (props) => {
+  const history = useHistory()
+  const { path, url, params: { modelId } } = useRouteMatch()
+  
   const [ genInputs, setGenInputs] = useState({
     projectName: '',
     entityName: '',
@@ -13,8 +18,8 @@ export const GeneralInputs = (props) => {
   })
 
   useEffect(() => {
-    setGenInputs(props.inputs.genInputs)
-  }, [props.inputs.genInputs])
+    setGenInputs(props.genInputs)
+  }, [props.genInputs])
 
   const handleChange = (e) => {
     setGenInputs({
@@ -22,80 +27,91 @@ export const GeneralInputs = (props) => {
       [e.target.name] : e.target.value
     })
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    
-    props.updateInputs(actions.updateGenInputs, genInputs)
+
+    props.updateGenInputs(genInputs)
+
+    console.log(modelId)
+    if (modelId === 'new'){
+      history.push(`/model/${modelId}/assumptions`)
+    }
   }
 
   return (
-    <div className="border border-blue-800 rounded-lg overflow-hidden w-1/3 mx-auto shadow-lg">
-      <h3 className="text-3xl font-bold text-white p-4 bg-blue-800 tracking-wide bg-white">Project Inputs</h3>
+    <div className="w-2/3 mx-auto flex flex-col">
+      <div className="border bg-gray-300 overflow-hidden shadow-md">
+        <h3 className="text-2xl text-white py-3 px-2 bg-blue-700 tracking-wide">
+          Project Inputs
+        </h3>
 
-      <form onSubmit={handleSubmit} className="flex flex-col bg-white">
-        <div className="flex flex-row">
-          <label htmlFor="projectName" className="w-1/2">Project Name: </label>
-          <input 
-            type="text" 
-            onChange={handleChange} 
-            id="projectName" 
-            name="projectName" 
-            value={genInputs.projectName} 
-            className="w-1/2"
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col bg-white">
 
-        <div className="flex flex-row">
-          <label className="w-1/2" htmlFor="entityName">Valuation Entity: </label>
-          <input 
-            type="text" 
-            onChange={handleChange} 
-            id="entityName" 
-            name="entityName" 
-            value={genInputs.entityName} 
-            className="w-1/2"
+          <InputWithLabel
+            changeHandler={handleChange}
+            inputType="text"
+            value={genInputs.projectName}
+            name="projectName"
+            id="projectName"
+            labelText="Project Name:"
           />
-        </div>
 
-        <div className="flex flex-row">
-          <label className="w-1/2" htmlFor="valDate">Valuation Date: </label>
-          <input 
-            type="date" 
-            onChange={handleChange} 
-            id="valDate" 
-            name="valDate" 
-            value={genInputs.valDate} 
-            className="w-1/2"
+          <InputWithLabel
+            changeHandler={handleChange}
+            inputType="text"
+            value={genInputs.entityName}
+            name="entityName"
+            id="entityName"
+            labelText="Subject Entity:"
           />
-        </div>
+
+          <InputWithLabel
+            changeHandler={handleChange}
+            inputType="date"
+            value={genInputs.valDate}
+            name="valDate"
+            id="valDate"
+            labelText="Valuation Date:"
+          />
+
+          <InputWithLabel
+            changeHandler={handleChange}
+            inputType="date"
+            value={genInputs.fye}
+            name="fye"
+            id="fye"
+            labelText="Fiscal Year End:"
+          />  
         
-        <div className="flex flex-row">
-          <label className="w-1/2" htmlFor="fye">Fiscal Year End: </label>
-          <input 
-            type="date" 
-            onChange={handleChange} 
-            id="fye" 
-            name="fye" 
-            value={genInputs.fye} 
-            className="w-1/2"
-          />
-        </div>
-        
-        <div className="flex flex-row">
-          <label className="w-1/2 block" htmlFor="periods">Forecast Periods: </label>
-          <input 
-            type="number" 
-            onChange={handleChange} 
-            id="periods" 
-            name="periods" 
-            value={genInputs.periods} 
-            className="border w-full rounded-lg py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "
-          />
-        </div>
+          <InputWithLabel
+            changeHandler={handleChange}
+            inputType="number"
+            value={genInputs.periods}
+            name="periods"
+            id="periods"
+            labelText="Forecast Periods (Years):"
+          />    
+        </form>
+      </div>
 
-        <button type="submit" className="">Save Assumptions</button>
-      </form>
+      <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 hover:text-white text-xl">{modelId === "new" ? "Valuation Assumptions" : "Save Assumptions"}</button>
     </div>
   )
 }
+
+
+const mapStateToProps = (state) => {
+  const { genInputs } = state
+
+  // console.log(ownProps)
+
+  return {
+    // modelId: ownProps.
+    genInputs
+  }
+}
+
+const { updateGenInputs } = actions
+
+export default connect( mapStateToProps, { updateGenInputs } )( GeneralInputs )

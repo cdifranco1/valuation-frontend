@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
+import * as actions from '../../actions/updateInputs'
 import { lineItemTitles } from '../../constants'
-import { actions } from '../../reducers/inputsReducer'
+// import { actions } from '../../reducers/inputsReducer'
 
 
-export const ForecastInputs = ({ periods, forecasts, lineItem, updateInputs }) => {
+const ForecastInputs = ({ lineItem, forecasts, periods, updateForecasts }) => {
   const [ inputs, setInputs ] = useState()
-  
 
   const createInputsObj = (periods, forecasts, lineItem) => {
     const inputsObj = {}
@@ -35,7 +36,7 @@ export const ForecastInputs = ({ periods, forecasts, lineItem, updateInputs }) =
       [lineItem] : projections
     }
 
-    updateInputs(actions.updateForecasts, payload)
+    updateForecasts(payload)
   }
 
   return (
@@ -53,7 +54,7 @@ export const ForecastInputs = ({ periods, forecasts, lineItem, updateInputs }) =
                 id={el} 
                 name={el} 
                 placeholder=" 1,000.00" 
-                className="border w-full rounded-lg py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "
+                className="border w-full rounded-lg text-center py-2 bg-gray-300 focus:outline-none focus:shadow-outline focus:bg-white "
                 />
             </div>
           )}
@@ -65,3 +66,17 @@ export const ForecastInputs = ({ periods, forecasts, lineItem, updateInputs }) =
     null
   )
 }
+
+const mapStateToProps = (state) => {
+  const { forecasts, genInputs: { periods } } = state
+
+  return {
+    forecasts,
+    periods
+  }
+}
+
+
+const { updateForecasts } = actions
+
+export default connect( mapStateToProps, { updateForecasts } )( ForecastInputs )

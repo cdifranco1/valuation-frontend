@@ -26236,6 +26236,10 @@ body {
   top: 300px;
 }
 
+.text-white-important {
+  color: white !important;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;

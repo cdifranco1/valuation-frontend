@@ -1,22 +1,25 @@
 import { template } from '../constants/index'
-export const actions = {
-  updateForecasts: 'UPDATE_FORECAST',
-  updateGenInputs: 'UPDATE_GEN_INPUTS',
-  updateValAssumps:  'UPDATE_VAL_ASSUMPS',
-  updateAll:  'UPDATE_ALL',
-  updateId: 'SET_ID'
-}
+import * as actions from '../actions/updateInputs'
+
+// export const actions = {
+//   updateForecasts: 'UPDATE_FORECAST',
+//   updateGenInputs: 'UPDATE_GEN_INPUTS',
+//   updateValAssumps:  'UPDATE_VAL_ASSUMPS',
+//   updateAll:  'UPDATE_ALL',
+//   updateId: 'SET_ID'
+// }
 
 
 export const initialState = template
 
 export const dcfReducer = (state = initialState, action) => {
   switch(action.type){
-    case actions.updateAll:
+    case actions.UPDATE_ALL:
+      console.log(action.payload)
       return {
         ...action.payload
       }
-    case actions.updateForecasts:
+    case actions.UPDATE_FORECAST:
       return {
         ...state, 
         forecasts: {
@@ -24,7 +27,7 @@ export const dcfReducer = (state = initialState, action) => {
           ...action.payload
         }
       }
-    case actions.updateGenInputs:
+    case actions.UPDATE_GEN_INPUTS:
       return {
         ...state, 
         genInputs: {
@@ -32,7 +35,7 @@ export const dcfReducer = (state = initialState, action) => {
           ...action.payload
         }
       }
-    case actions.updateValAssumps:
+    case actions.UPDATE_VAL_ASSUMPS:
       const assumps = {
         wacc: action.payload.wacc,
         taxRate: action.payload.taxRate,
@@ -45,10 +48,14 @@ export const dcfReducer = (state = initialState, action) => {
           ...assumps
         }
       }
-    case actions.updateId:
+    case actions.SET_ID:
       return {
         ...state,
         id: action.payload 
+      }
+    case actions.RESET_STATE:
+      return {
+        ...initialState 
       }
     default:
       return state

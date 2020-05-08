@@ -10,13 +10,13 @@ router.use('/', authorization)
 router.post('/', async (req, res) => {
     console.log(req.body)
     let dcfModel = process(req.body)
-    console.log(dcfModel)
+    // console.log(dcfModel)
     dcfModel.userId = req.userId
 
     try {
       const dcf = new DCF(dcfModel)
       const saved = await dcf.save()
-      console.log(saved)
+      // console.log(saved)
       res.status(200).json(saved)
 
     } catch (err) {

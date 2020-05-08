@@ -40,3 +40,7 @@ body {
   top: 300px;
 }
 
+.text-white-important {
+  color: white !important;
+}
+

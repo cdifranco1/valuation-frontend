@@ -3,8 +3,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 //components
-import { Model } from './components/Model';
-import { Dashboard } from './components/Dashboard';
+import Model from './components/Model';
+import Dashboard from './components/Dashboard';
 import { Nav } from './components/Nav';
 import { Login } from './components/Login';
 

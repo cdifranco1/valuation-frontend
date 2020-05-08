@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { lineItemTitles } from '../../constants'
-import { ForecastInputs } from './ForecastInputs'
+import  ForecastInputs from './ForecastInputs'
 import { forecastInputLineItems } from '../../constants/index'
+import { connect } from 'react-redux'
 
 
-export const ForecastInputContainer = ({inputs, updateInputs}) => {
-  const [ forecasts, setForecasts ] = useState(inputs)
+const ForecastInputContainer = ( props ) => {
+  console.log(props)
+  const [ forecasts, setForecasts ] = useState(props.forecasts)
   const [ index, setIndex ] = useState(0)
 
   const forecastKeys = Object.keys(forecasts).filter(el => forecastInputLineItems.includes(el))
 
   useEffect(() => {
-    setForecasts(inputs.forecasts)
-  }, [inputs.forecasts])
+    setForecasts(props.forecasts)
+  }, [props.forecasts])
 
   const nextInput = () => {
     const length = forecastKeys.length
@@ -45,7 +47,7 @@ export const ForecastInputContainer = ({inputs, updateInputs}) => {
           <div className="arrow-left mr-2 hover:cursor-pointer" onClick={lastInput}></div>
         </div>
         {Object.keys(forecasts).filter(el => forecastKeys.includes(el)).filter((el, i) => i === index ? el : null).map((el, index) =>
-          <ForecastInputs periods={inputs.genInputs.periods} forecasts={forecasts} updateInputs={updateInputs} key={index} lineItem={el} />
+          <ForecastInputs key={index} lineItem={el} />
           )}
         <div className="flex items-center w-1/5 justify-between">
           <div className="arrow-right ml-2 hover:cursor-pointer" onClick={nextInput}></div>
@@ -59,3 +61,13 @@ export const ForecastInputContainer = ({inputs, updateInputs}) => {
     </div>
   )
 }
+
+const mapStateToProps = (state) => {
+  const { forecasts } = state
+
+  return {
+    forecasts
+  }
+}
+
+export default connect( mapStateToProps, null )( ForecastInputContainer )
