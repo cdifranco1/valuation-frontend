@@ -6,5 +6,5 @@ export const VericalSpacer = () => {
 }
 
 export const HorizontalSpacer = () => {
-  return <div className="mx-10"></div>
+  return <div className="mx-5"></div>
 }

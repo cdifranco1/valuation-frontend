@@ -33,13 +33,15 @@ const ValInputs = (props) => {
 
     props.updateValAssumps(valAssumps)
 
-    history.push(`/model/${modelId}/dcf`)
+    if (modelId === 'new'){
+      history.push(`/model/${modelId}/dcf`)
+    }
   }
 
   return (
     <div className="w-2/3 mx-auto flex flex-col">
-      <div className="border border-blue-800 bg-gray-300">
-        <h3 className="text-2xl text-white py-3 px-2 bg-blue-800 tracking-wide">
+      <div className="border bg-gray-300 shadow-md">
+        <h3 className="text-2xl text-white py-3 px-2 bg-blue-700 tracking-wide">
           Valuation Assumptions
         </h3>
         <form onSubmit={handleSubmit} className="flex flex-col bg-white">
@@ -80,7 +82,7 @@ const ValInputs = (props) => {
         </form>
       </div>
 
-      <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 hover:bg-blue-700 hover:text-white border border-blue-800 text-xl">{modelId === "new" ? "Forecasts" : "Save Assumptions"}</button>
+      <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 hover:bg-blue-700 hover:text-white text-xl">{modelId === "new" ? "Forecasts" : "Save Assumptions"}</button>
     </div>
   )
 }

@@ -63,7 +63,7 @@ const DCF = (props) => {
         </div>
 
 
-        <button type="button" onClick={handleSubmit}>Calculate DCF</button>
+        <button type="button" className="shadow-lg w-1/6 ml-4 mt-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>Calculate and Save DCF Model</button>
       </div>
         
       <ForecastInputContainer />

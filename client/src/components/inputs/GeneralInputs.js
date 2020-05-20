@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import arrow from '../../assets/images/arrow.png'
 import { InputWithLabel } from './InputWithLabel'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/updateInputs'
@@ -33,7 +34,6 @@ const GeneralInputs = (props) => {
 
     props.updateGenInputs(genInputs)
 
-    console.log(modelId)
     if (modelId === 'new'){
       history.push(`/model/${modelId}/assumptions`)
     }
@@ -41,7 +41,7 @@ const GeneralInputs = (props) => {
 
   return (
     <div className="w-2/3 mx-auto flex flex-col">
-      <div className="border bg-gray-300 overflow-hidden shadow-md">
+      <div className="border bg-gray-300 shadow-md">
         <h3 className="text-2xl text-white py-3 px-2 bg-blue-700 tracking-wide">
           Project Inputs
         </h3>
@@ -95,7 +95,14 @@ const GeneralInputs = (props) => {
         </form>
       </div>
 
-      <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 hover:text-white text-xl">{modelId === "new" ? "Valuation Assumptions" : "Save Assumptions"}</button>
+      <div className="flex justify-end">
+        <button type="button" onClick={handleSubmit} className="mt-8 flex justify-between items-center p-4 w-3/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">{modelId === "new" ? "Valuation Assumptions" : "Save Assumptions"}
+          <svg className="h-10 w-10 fill-current text-blue-700 hover:fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/>
+          </svg>
+        </button>
+      </div>
+
     </div>
   )
 }

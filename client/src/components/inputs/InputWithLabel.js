@@ -19,7 +19,7 @@ export const InputWithLabel = ({ changeHandler, value, name, id, inputType, labe
         id={id} 
         name={name} 
         value={value} 
-        className={`${RowStyle} ${!!inputWidth ? inputWidth : 'w-2/3'} text-center bg-white rounded-md py-2 border border-gray-400 bg-gray-300 focus:bg-white focus:border focus:outline-none focus:shadow-outline `}
+        className={`${RowStyle} ${!!inputWidth ? inputWidth : 'w-2/3'} text-center bg-white py-2 border border-gray-400 bg-gray-300 focus:bg-white focus:border focus:outline-none focus:shadow-outline mx-4 `}
       />
     </div>
   )

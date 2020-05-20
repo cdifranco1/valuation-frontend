@@ -613,7 +613,8 @@ video {
 }
 
 body {
-  background-color: #e2e8f0
+  background-color: #e2e8f0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
 
 .sr-only {
@@ -26238,6 +26239,15 @@ body {
 
 .text-white-important {
   color: white !important;
+}
+
+.arrow-fill > svg {
+  fill: currentColor;
+}
+
+.arrow-fill:hover > svg {
+  fill: currentColor;
+  color: white;
 }
 
 @media (min-width: 640px) {
@@ -128583,4 +128593,3 @@ body {
     animation-name: zoomIn;
   }
 }
-

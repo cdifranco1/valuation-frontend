@@ -624,7 +624,7 @@ module.exports = {
     boxSizing: ['responsive'],
     cursor: ['responsive'],
     display: ['responsive'],
-    fill: ['responsive'],
+    fill: ['responsive', 'hover'],
     flex: ['responsive'],
     flexDirection: ['responsive'],
     flexGrow: ['responsive'],
