@@ -6,42 +6,15 @@ import { useOktaAuth } from '@okta/okta-react/dist/OktaContext';
 
 const Login = ({ baseUrl }) => {
   const { authState, authService } = useOktaAuth()
-  console.log(authState)
-  console.log(authService)
-
-  // const checkAuthentication = async () => {
-  //   const authStatus = await auth.isAuthenticated()
-    
-  //   if (authStatus !== authenticated){
-  //     setAuthenticated(authStatus)
-  //   }
-  // }
-
-  const onSuccess = (res) => {
-
-    if (res.status === 'SUCCESS') {
-      return authService.redirect({
-        sessionToken: res.session.token
-      });
-   } else {
-    // The user can be in another authentication state that requires further action.
-    // For more information about these states, see:
-    //   https://github.com/okta/okta-signin-widget#rendereloptions-success-error
-    }
-  }
-
-  const onError = (err) => {
-    console.log('error logging in', err);
-  }
-  
 
   return (
-      authState.isAuthenticated ?
-      <Redirect to={{ pathname: '/' }}/> :
-      <OktaSignInWidget
-        baseUrl={baseUrl}
-        onSuccess={onSuccess}
-        onError={onError}/>
+    authState.isPending ?
+    <h1>...Loading</h1> :
+    authState.isAuthenticated ?
+    <Redirect to={{ pathname: '/dashboard' }}/> :
+    <OktaSignInWidget
+              baseUrl={baseUrl}
+            />
   )
 }
 

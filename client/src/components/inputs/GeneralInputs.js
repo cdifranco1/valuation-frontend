@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import arrow from '../../assets/images/arrow.png'
-import { InputWithLabel } from './InputWithLabel'
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux'
 import * as actions from '../../actions/updateInputs'
 import { useRouteMatch, useHistory } from 'react-router-dom';
 
 
+
+const useStyles = makeStyles({
+  root: {
+    marginTop: "2%",
+    "& label": {
+      fontSize: "1.5rem"
+    },
+    "& input": {
+      padding: "2% 0",
+      fontSize: "1.5rem"
+    }
+  }
+})
+
+
+
 const GeneralInputs = (props) => {
+  const classes = useStyles()
+
   const history = useHistory()
   const { path, url, params: { modelId } } = useRouteMatch()
   
@@ -46,57 +64,71 @@ const GeneralInputs = (props) => {
           Project Inputs
         </h3>
 
-        <form onSubmit={handleSubmit} className="flex flex-col bg-white">
+        <form onSubmit={handleSubmit} className="flex flex-col bg-white px-2">
 
-          <InputWithLabel
-            changeHandler={handleChange}
-            inputType="text"
-            value={genInputs.projectName}
-            name="projectName"
-            id="projectName"
-            labelText="Project Name:"
+          <TextField
+            className={classes.root}
+            label="Project Name" 
+            type="text" 
+            onChange={handleChange} 
+            id="projectName" 
+            name="projectName" 
+            value={genInputs.projectName} 
           />
-
-          <InputWithLabel
-            changeHandler={handleChange}
-            inputType="text"
-            value={genInputs.entityName}
-            name="entityName"
-            id="entityName"
-            labelText="Subject Entity:"
+          
+          <TextField
+            className={classes.root}
+            label="Subject Entity" 
+            type="text" 
+            onChange={handleChange} 
+            id="entityName" 
+            name="entityName" 
+            value={genInputs.entityName} 
           />
-
-          <InputWithLabel
-            changeHandler={handleChange}
-            inputType="date"
-            value={genInputs.valDate}
-            name="valDate"
-            id="valDate"
-            labelText="Valuation Date:"
+          
+          <TextField
+            className={classes.root}
+            label="Valuation Date" 
+            type="date" 
+            onChange={handleChange} 
+            id="valDate" 
+            name="valDate" 
+            value={genInputs.valDate} 
+            InputLabelProps={{
+              shrink: true,
+            }}
+            defaultValue={genInputs.valDate} 
           />
-
-          <InputWithLabel
-            changeHandler={handleChange}
-            inputType="date"
+         
+          <TextField
+            className={classes.root}
+            label="Fiscal Year End" 
+            type="date" 
+            onChange={handleChange} 
+            id="fye" 
+            name="fye" 
             value={genInputs.fye}
-            name="fye"
-            id="fye"
-            labelText="Fiscal Year End:"
-          />  
+            InputLabelProps={{
+              shrink: true,
+            }}
+            defaultValue={genInputs.valDate}  
+          />
+          
+          <TextField
+            className={classes.root}
+            label="Forecast Periods (Years)" 
+            type="number" 
+            onChange={handleChange} 
+            id="periods" 
+            name="periods" 
+            value={genInputs.periods} 
+          />
         
-          <InputWithLabel
-            changeHandler={handleChange}
-            inputType="number"
-            value={genInputs.periods}
-            name="periods"
-            id="periods"
-            labelText="Forecast Periods (Years):"
-          />    
         </form>
       </div>
 
       <div className="flex justify-end">
-        <button type="button" onClick={handleSubmit} className="mt-8 flex justify-between items-center p-4 w-3/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">{modelId === "new" ? "Valuation Assumptions" : "Save Assumptions"}
+        <button type="button" onClick={handleSubmit} className="mt-8 flex justify-between items-center p-4 w-5/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">{modelId === "new" ? "Valuation Assumptions" : "Save Assumptions"}
           <svg className="h-10 w-10 fill-current text-blue-700 hover:fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/>
           </svg>
@@ -111,10 +143,7 @@ const GeneralInputs = (props) => {
 const mapStateToProps = (state) => {
   const { genInputs } = state
 
-  // console.log(ownProps)
-
   return {
-    // modelId: ownProps.
     genInputs
   }
 }

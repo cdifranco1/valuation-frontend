@@ -2,21 +2,27 @@ import React from 'react';
 import * as actions from '../../actions/updateInputs' 
 import { connect } from 'react-redux'
 import { LineItem } from './LineItem'
-import { lineItemTitles } from '../../constants/index'
+import { lineItemTitles, forecastSequence } from '../../constants/index'
 import { TerminalValue } from './TV'
 import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'
 import ForecastInputContainer from '../inputs/ForecastInputContainer';
 
+const lineItemStyleProps = {
+  flipSign: [ "cogs", "opex", "depreciation", "amortization", "capex", "nwcChange" ],
+  total: ["gp", "ebitda", "ebit", "nopat", "fcf", "dcf"],
+  decimal: ["partialPeriods", "discountPeriods", "pvFactors" ]
+}
+
+const checkRepeat = (arr) => {
+  return 
+}
 
 const DCF = (props) => {
-  console.log(props)
-  const { forecasts, genInputs, BEV, TV, discounting, model, submitModel, modelId } = props
+  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId } = props
   const { periods, valDate } = genInputs
 
   const handleSubmit = (e) => {
-    console.log(model)
-    console.log(modelId)
     e.preventDefault()
 
     submitModel(model, modelId)
@@ -29,33 +35,20 @@ const DCF = (props) => {
 
         <div className="mb-5"></div>
 
-        <LineItem periods={periods} name={lineItemTitles.revenues} values={forecasts.revenues} />
-        <LineItem periods={periods} name={lineItemTitles.cogs} values={forecasts.cogs} flipSign />
-        <LineItem periods={periods} total name={lineItemTitles.gp} values={forecasts.gp} />
-
-        <LineItem periods={periods} name={lineItemTitles.opex} values={forecasts.opex} flipSign />
-        <LineItem periods={periods} total name={lineItemTitles.ebitda} values={forecasts.ebitda} />
-
-        <LineItem periods={periods} name={lineItemTitles.depreciation} values={forecasts.depreciation} flipSign />
-        <LineItem periods={periods} name={lineItemTitles.amortization} values={forecasts.amortization} flipSign />
-        <LineItem periods={periods} total name={lineItemTitles.ebit} values={forecasts.ebit} />
-
-        <LineItem periods={periods} name={lineItemTitles.taxes} values={forecasts.taxes} />
-        <LineItem periods={periods} total name={lineItemTitles.nopat} values={forecasts.nopat} />
-        
-        <LineItem periods={periods} name={lineItemTitles.depreciation} values={forecasts.depreciation} />
-        <LineItem periods={periods} name={lineItemTitles.amortization} values={forecasts.amortization} />
-        <LineItem periods={periods} name={lineItemTitles.capex} values={forecasts.capex} flipSign />
-        <LineItem periods={periods} name={lineItemTitles.nwcChange} values={forecasts.nwcChange} flipSign />
-        <LineItem periods={periods} total name={lineItemTitles.fcf} values={forecasts.fcf} />
-        
-        
-        <LineItem periods={periods} name={lineItemTitles.partialPeriod} values={discounting.partialPeriods} decimal />
-
-        <LineItem periods={periods} name={lineItemTitles.discountPeriods} values={discounting.discountPeriods} decimal />
-        <LineItem periods={periods} name={lineItemTitles.pvFactors} values={discounting.pvFactors} decimal />
-
-        <LineItem periods={periods} total name={lineItemTitles.dcf} values={forecasts.dcf} />
+        {forecastSequence.map((el, i) => {
+          return <LineItem 
+                    periods={periods} 
+                    name={lineItemTitles[el]}
+                    values={forecasts[el]}
+                    flipSign={
+                      lineItemStyleProps.flipSign.includes(el) &&
+                      //check for repeat - if it is a repeat don't want to flip sign (D&A)
+                      !forecastSequence.slice(0, i).includes(el)
+                    }
+                    total={lineItemStyleProps.total.includes(el)}
+                    decimal={lineItemStyleProps.decimal.includes(el)}
+                  />
+        })}
 
         <div className="flex justify-between">
           <EnterpriseValue BEV={BEV} TV={TV} />
@@ -75,25 +68,20 @@ const mapStateToProps = (state) => {
   const { forecasts, genInputs, BEV, TV, discounting, valAssumps } = state
 
   return {
-    forecasts,
+    forecasts: {
+      ...forecasts,
+      ...discounting
+    },
     genInputs,
     valAssumps,
     BEV,
     TV,
-    discounting,
     model: {
       ...state
     }
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   const { updateAll } = actions
-
-//   return {
-//     updateAll
-//   }
-// }
 const { submitModel } = actions 
 
 export default connect( mapStateToProps, { submitModel } )( DCF )

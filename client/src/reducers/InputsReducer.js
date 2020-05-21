@@ -1,14 +1,6 @@
 import { template } from '../constants/index'
 import * as actions from '../actions/updateInputs'
 
-// export const actions = {
-//   updateForecasts: 'UPDATE_FORECAST',
-//   updateGenInputs: 'UPDATE_GEN_INPUTS',
-//   updateValAssumps:  'UPDATE_VAL_ASSUMPS',
-//   updateAll:  'UPDATE_ALL',
-//   updateId: 'SET_ID'
-// }
-
 
 export const initialState = template
 
@@ -28,6 +20,7 @@ export const dcfReducer = (state = initialState, action) => {
         }
       }
     case actions.UPDATE_GEN_INPUTS:
+      console.log(action.payload)
       return {
         ...state, 
         genInputs: {

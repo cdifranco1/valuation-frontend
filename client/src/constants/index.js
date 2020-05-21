@@ -2,22 +2,44 @@
 export const lineItemTitles = {
   revenues: "Revenues ",
   cogs: "Cost of Goods Sold",
+  gp: "Gross Profit ",
   opex: "Operating Expenses ",
-  nwcChange: "Change in NWC ",
+  ebitda: "EBITDA ",
   depreciation: "Depreciation ",
   amortization: "Amortization ",
-  capex: "CapEx ",
-  gp: "Gross Profit ",
-  taxes: "Taxes ",
-  ebitda: "EBITDA ",
   ebit: "EBIT ",
+  taxes: "Taxes ",
   nopat: "NOPAT ",
+  nwcChange: "Change in NWC ",
+  capex: "CapEx ",
   fcf: "Unlevered Free Cash Flow ",
   discountPeriods: "Periods Discounted ",
   pvFactors: "Present Value Factor ",
   dcf: "Discounted Cash Flows ",
   partialPeriod: "Partial Period ",
 }
+
+export const forecastSequence = [
+  "revenues",
+  "cogs",
+  "gp",
+  "opex",
+  "ebitda",
+  "depreciation",
+  "amortization",
+  "ebit",
+  "taxes",
+  "nopat",
+  "depreciation",
+  "amortization",
+  "capex",
+  "nwcChange",
+  "fcf",
+  "partialPeriods",
+  "discountPeriods",
+  "pvFactors",
+  "dcf"
+]
 
 export const forecastInputLineItems = [
   'revenues',
@@ -74,8 +96,8 @@ export const template = {
     projectName: '',
     entityName: '',
     periods: 5, 
-    valDate: '', 
-    fye: '' 
+    valDate: '2019-10-01', 
+    fye: '2019-12-31' 
   }
 }
 

@@ -20,22 +20,18 @@ const App = () => {
           <Nav /> 
 
           <Switch>
-
+{/* 
             <Route exact path="/">
               <Home />
-            </Route>
-            
-            <Route exact path="/login">
+            </Route> */}
+
+            <Route exact path="/">
               <Login />
             </Route>
             
             <Route exact path="/implicit/callback">
               <LoginCallback />
             </Route> 
-{/*             
-            <Route path="/register">
-              <Login registration />
-            </Route> */}
             
             <Route path="/model/:modelId">
               <Model />
