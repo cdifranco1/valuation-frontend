@@ -54,31 +54,3 @@ export const dcfReducer = (state = initialState, action) => {
       return state
   }
 }
-
-
-
-
-// export const initialState = {
-//   id: '',
-//   forecasts:{
-//     revenues: [],
-//     cogs: [],
-//     opex: [],
-//     depreciation: [],
-//     amortization: [],
-//     capex: [],
-//     nwcChange: []
-//   },
-//   genInputs: {
-//     projectName: '',
-//     entityName: '',
-//     valDate: '2019-10-01',
-//     fye: '2019-12-31',
-//     periods: 5,
-//   },
-//   valAssumps: {
-//     wacc: 0,
-//     taxRate: 0,
-//     ltgr: 0
-//   }
-// }

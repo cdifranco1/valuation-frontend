@@ -1,11 +1,11 @@
-import React, { useState, Component, useEffect } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import OktaSignInWidget from './OktaSignInWidget';
 import { useOktaAuth } from '@okta/okta-react/dist/OktaContext';
 
 
 const Login = ({ baseUrl }) => {
-  const { authState, authService } = useOktaAuth()
+  const { authState } = useOktaAuth()
 
   return (
     authState.isPending ?

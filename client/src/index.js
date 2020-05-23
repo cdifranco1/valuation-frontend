@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import { dcfReducer, initialState } from './reducers/inputsReducer'
+import { dcfReducer } from './reducers/inputsReducer'
 import './assets/main.css'
 
 import App from './App';

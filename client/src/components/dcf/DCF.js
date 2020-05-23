@@ -14,10 +14,6 @@ const lineItemStyleProps = {
   decimal: ["partialPeriods", "discountPeriods", "pvFactors" ]
 }
 
-const checkRepeat = (arr) => {
-  return 
-}
-
 const DCF = (props) => {
   const { forecasts, genInputs, BEV, TV, model, submitModel, modelId } = props
   const { periods, valDate } = genInputs
@@ -37,6 +33,7 @@ const DCF = (props) => {
 
         {forecastSequence.map((el, i) => {
           return <LineItem 
+                    key={`${el}${i}`}
                     periods={periods} 
                     name={lineItemTitles[el]}
                     values={forecasts[el]}
@@ -54,7 +51,6 @@ const DCF = (props) => {
           <EnterpriseValue BEV={BEV} TV={TV} />
           <TerminalValue TV={TV} />
         </div>
-
 
         <button type="button" className="shadow-lg w-1/6 ml-4 mt-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>Calculate and Save DCF Model</button>
       </div>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useRouteMatch, useLocation, useHistory } from 'react-router-dom'
+import { useRouteMatch, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { InputWithLabel } from './InputWithLabel'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/updateInputs'
 
@@ -23,11 +22,9 @@ const useStyles = makeStyles({
 
 const ValInputs = (props) => {
   const history = useHistory()
-  console.log(history)
-  const location = useLocation()
   const classes = useStyles()
   
-  const { path, url, params: { modelId } } = useRouteMatch()
+  const { params: { modelId } } = useRouteMatch()
 
   const [ valAssumps, setValAssumps] = useState({
     taxRate: '',
@@ -59,7 +56,7 @@ const ValInputs = (props) => {
   return (
     <div className="w-2/3 mx-auto flex flex-col">
       <div className="border bg-gray-300 shadow-md">
-        <h3 className="text-2xl text-white py-3 px-2 bg-blue-700 tracking-wide">
+        <h3 className="text-3xl text-white py-6 px-2 bg-blue-700 tracking-wide">
           Valuation Assumptions
         </h3>
         <form onSubmit={handleSubmit} className="flex flex-col bg-white px-2">

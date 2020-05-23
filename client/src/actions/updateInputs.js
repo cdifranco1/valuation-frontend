@@ -17,7 +17,6 @@ export const resetState = () => dispatch => {
 }
 
 export const updateGenInputs = (inputs) => dispatch => {
-  console.log(inputs)
   dispatch({type: UPDATE_GEN_INPUTS, payload: inputs})
 }
 
@@ -49,7 +48,6 @@ export function submitModel(inputs, modelId){
     return (
       putModel(inputs, modelId)
         .then(res => {
-          console.log(res)
           dispatch({ type: UPDATE_ALL, payload: res.data })
         })
     )

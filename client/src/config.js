@@ -10,7 +10,6 @@ export default {
     baseUrl: BASE_URL,
     issuer: ISSUER,
     clientId: CLIENT_ID,
-    issuer: ISSUER,
     redirectUri: 'http://localhost:3000/implicit/callback',
     scopes: ['openid', 'profile', 'email'],
     pkce: true,

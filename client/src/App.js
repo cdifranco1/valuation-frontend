@@ -1,13 +1,12 @@
 //libraries
 import React from 'react';
-import {Switch, Route, useHistory } from 'react-router-dom'
+import {Switch, Route } from 'react-router-dom'
 
 //components
 import Model from './components/Model';
 import Dashboard from './components/Dashboard';
 import { Nav } from './components/Nav';
 import Login from './components/Auth/Login';
-import Home from './components/Auth/Home';
 import LoginCallback from '@okta/okta-react/dist/LoginCallback';
 import { Security } from '@okta/okta-react'
 import config from './config';
@@ -20,10 +19,6 @@ const App = () => {
           <Nav /> 
 
           <Switch>
-{/* 
-            <Route exact path="/">
-              <Home />
-            </Route> */}
 
             <Route exact path="/">
               <Login />

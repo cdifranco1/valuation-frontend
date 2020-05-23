@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { axiosInstance } from '../utils/axiosInstance'
 import moment from 'moment'
 import { connect } from 'react-redux';
@@ -10,8 +10,11 @@ const Dashboard = ({ resetState }) => {
   const [ userModels, setUserModels ] = useState([]) 
 
   useEffect(() => {
+    //need to get data for specified user
+    //backend will check the token to get the user's id
+    
     axiosInstance()
-      .get(`/api/dcf`) //backend will check the token to get the user's id
+      .get(`/api/dcf`) 
       .then(res => {
         console.log(res)
         setUserModels(res.data.map(el => {

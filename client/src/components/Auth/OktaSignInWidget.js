@@ -1,5 +1,4 @@
-import React, { Component, useEffect } from 'react';
-import { useHistory } from "react-router-dom"
+import React, { useEffect } from 'react';
 import * as OktaSignIn from '@okta/okta-signin-widget';
 import Logo from '../../assets/images/Logo3.png'
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
@@ -7,9 +6,6 @@ import config from "../../config"
 
 
 const SignInWidget = () => {
-  const history = useHistory()
-  console.log("mounting")
-
   useEffect(() => {
     const { pkce, issuer, clientId, redirectUri, scopes, baseUrl } = config.oidc
 
@@ -38,7 +34,6 @@ const SignInWidget = () => {
     )
 
     return function cleanup(){
-      console.log(widget)
       widget.remove()
     }
 
