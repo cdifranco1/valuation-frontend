@@ -48,25 +48,4 @@ const SignInWidget = () => {
 
 export default SignInWidget
 
-// export default class OktaSignInWidget extends Component {
-//   componentDidMount() {
-//     console.log(this.props)
-//     const el = ReactDOM.findDOMNode(this);
-//     this.widget = new OktaSignIn({
-//       baseUrl: this.props.baseUrl,
-//       authParams: {
-//         pkce: true
-//       }
-//     });
-//     this.widget.renderEl({el}, this.props.onSuccess, this.props.onError);
-//   }
-
-//   componentWillUnmount() {
-//     this.widget.remove();
-//   }
-
-//   render() {
-//     return <div />;
-//   }
-// };
 

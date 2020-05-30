@@ -1,3 +1,8 @@
+/*  ************************************
+    User registration routes no longer needed, using Okta for authentication
+    ************************************
+
+
 const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const { User, validate } = require('../models/user-model')
@@ -24,3 +29,5 @@ router.post('/', async (req, res) => {
 
 module.exports = router
 
+
+*/

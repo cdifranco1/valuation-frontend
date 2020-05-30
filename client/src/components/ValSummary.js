@@ -33,7 +33,7 @@ const ValSummary = ({ projectInputs, assumptions, values }) => {
         })}
       </div>
 
-      <div className="mt-4">
+      <div className="mt-4 mb-4">
         <h3 className="text-2xl pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold tracking-wide">Value Indications</h3>
         {Object.keys(values).map((el, i) => {
           return displayItem(values[el].title, values[el].value)

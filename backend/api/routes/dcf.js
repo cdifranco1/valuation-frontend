@@ -8,10 +8,9 @@ const authorization = require('../middleware/authorization')
 router.use('/', authorization)
 
 router.post('/', async (req, res) => {
-    console.log(req.body)
     let dcfModel = process(req.body)
-    // console.log(dcfModel)
     dcfModel.userId = req.userId
+    console.log(dcfModel)
 
     try {
       const dcf = new DCF(dcfModel)
@@ -27,8 +26,9 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const { id } = req.params
     const dcfModel = process(req.body)
+
     try {
-      const response = await DCF.findByIdAndUpdate({ _id: id }, dcfModel, { new: true })
+      const response = await DCF.findOneAndUpdate({ _id: id }, dcfModel, { new: true })
 
       res.status(200).json(response)
 
