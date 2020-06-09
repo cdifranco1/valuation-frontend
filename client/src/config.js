@@ -1,4 +1,4 @@
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID 
+const CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID 
 const BASE_URL = process.env.REACT_APP_ORG_URL
 const ISSUER = `${BASE_URL}/oauth2/default` 
 

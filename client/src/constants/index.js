@@ -16,7 +16,7 @@ export const lineItemTitles = {
   discountPeriods: "Periods Discounted ",
   pvFactors: "Present Value Factor ",
   dcf: "Discounted Cash Flows ",
-  partialPeriod: "Partial Period ",
+  partialPeriods: "Partial Period Factor",
 }
 
 export const forecastSequence = [

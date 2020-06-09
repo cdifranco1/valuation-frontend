@@ -4,10 +4,8 @@ import { NavLink } from 'react-router-dom'
 const inactive = "p-2 text-blue-700 text-xl bg-white hover:bg-blue-600 hover:text-white inline-block w-full"
 const active = "bg-blue-600 text-white-important"
 
-export const ModelNav = ({ path, url, modelId }) => {
+export const ModelNav = ({ path, url }) => {
   return (
-    modelId === 'new' ?
-    null:
     <div className="flex flex-col w-full mt-2">
       <div className="flex flex-col shadow-md">
         <NavLink className={inactive} activeClassName={active} to={`${url}/inputs`}>Project Inputs</NavLink>

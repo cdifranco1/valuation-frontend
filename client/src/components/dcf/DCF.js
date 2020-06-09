@@ -37,11 +37,15 @@ const DCF = (props) => {
                     periods={periods} 
                     name={lineItemTitles[el]}
                     values={forecasts[el]}
+
                     flipSign={
-                      lineItemStyleProps.flipSign.includes(el) &&
                       //check for repeat - if it is a repeat don't want to flip sign (D&A)
+                      
+                      // 0(N^2) but NBD with limited forecast periods
+                      lineItemStyleProps.flipSign.includes(el) &&
                       !forecastSequence.slice(0, i).includes(el)
                     }
+
                     total={lineItemStyleProps.total.includes(el)}
                     decimal={lineItemStyleProps.decimal.includes(el)}
                   />

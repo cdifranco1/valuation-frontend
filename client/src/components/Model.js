@@ -3,6 +3,7 @@ import { axiosInstance } from '../utils/axiosInstance'
 import { HorizontalSpacer } from '../utils/Spacer'
 import { VericalSpacerLg } from '../utils/Spacer'
 import DCF from './dcf/DCF';
+import { CompsList } from './WACC/WACC';
 
 import { Route, Switch, useRouteMatch, useParams } from 'react-router-dom'
 import GeneralInputs from './inputs/GeneralInputs';
@@ -33,11 +34,18 @@ const Model = (props) => {
   return (
     <div className="p-8 flex">
       <div className="w-3/12">
-        <ModelNav url={url} modelId={modelId} />
-        <VericalSpacerLg />
+        
+          {modelId !== "new" ?
+            <>    
+              <ModelNav url={url} modelId={modelId} />
+              <VericalSpacerLg /> 
+            </>
+            :
+            null
+          }
+        
         <ValSummary />
       </div>
-
 
       <HorizontalSpacer />
 
@@ -53,6 +61,10 @@ const Model = (props) => {
         <Route path={`${path}/dcf`}>
           <DCF modelId={modelId} />
         </Route>
+        
+        {/* <Route path={`${path}/wacc`}>
+          <CompsList modelId={modelId} />
+        </Route> */}
       </Switch>
 
     </div> 

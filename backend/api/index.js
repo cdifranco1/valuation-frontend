@@ -16,14 +16,11 @@ mongoose.connect(`mongodb://localhost/valuation`)
 
 //routes
 router.use('/dcf', dcfRoute)
+ 
+// registration and login no longer needed, using okta for auth
 
-
-/* 
-registration and login no longer needed, using okta for auth
-
- router.use('/register', registerRoute)
- router.use('/login', loginRoute)
-*/
+// router.use('/register', registerRoute)
+// router.use('/login', loginRoute)
 
 
 module.exports = router
