@@ -8,10 +8,14 @@
 }
 
 body {
-  @apply bg-gray-300 font-sans
+  @apply bg-gray-300
 }
 
 @tailwind utilities;
+
+html {
+  font-size: 12px;
+}
 
 .vh-custom {
   height: 15vh;
@@ -34,7 +38,6 @@ body {
   border-bottom: 40px solid transparent;
   border-top: 40px solid transparent;
 }
-
 
 .login-position {
   position: relative;
