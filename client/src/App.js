@@ -2,6 +2,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom'
 
+import "./App.css"
+
 //components
 import ValSummary from './components/ValSummary'
 import Model from './components/Model';
