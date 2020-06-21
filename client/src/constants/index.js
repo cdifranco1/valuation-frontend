@@ -52,6 +52,7 @@ export const forecastInputLineItems = [
 ]
 
 export const template = {
+  _id: '',
   userId: '',
   forecasts: {
     revenues: [],

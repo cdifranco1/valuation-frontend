@@ -40,6 +40,7 @@ export function submitModel(inputs, modelId){
       return (
         postModel(inputs)
           .then(res => {
+            console.log(res)
             dispatch({ type: UPDATE_ALL, payload: res.data })
           })
       )

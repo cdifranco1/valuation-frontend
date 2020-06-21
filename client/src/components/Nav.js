@@ -15,7 +15,7 @@ export const Nav = () => {
       {authState.isAuthenticated ? 
         <button onClick={logout} className="p-6 text-2xl">Logout</button>
       :
-        <NavLink className="p-6 text-2xl" exact to="/login" activeClassName="selected">Login</NavLink>
+        <NavLink className="p-6 text-2xl" exact to="/" activeClassName="selected">Login</NavLink>
       }
       <NavLink className="p-6 text-2xl" to="/dashboard" activeClassName="selected">Dashboard</NavLink>
     </div>

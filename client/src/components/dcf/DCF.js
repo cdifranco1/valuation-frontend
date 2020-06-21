@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as actions from '../../actions/updateInputs' 
 import { connect } from 'react-redux'
 import { LineItem } from './LineItem'
@@ -7,6 +7,8 @@ import { TerminalValue } from './TV'
 import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'
 import ForecastInputContainer from '../inputs/ForecastInputContainer';
+import { useHistory } from "react-router-dom"
+import { initialState } from '../../reducers/InputsReducer';
 
 const lineItemStyleProps = {
   flipSign: [ "cogs", "opex", "depreciation", "amortization", "capex", "nwcChange" ],
@@ -15,14 +17,24 @@ const lineItemStyleProps = {
 }
 
 const DCF = (props) => {
-  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId } = props
+  const history = useHistory()
+  const initialMount = useRef(true)
+  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id } = props
   const { periods, valDate } = genInputs
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
     submitModel(model, modelId)
-  } 
+  }
+
+  useEffect(() => {
+    if (initialMount.current){
+      initialMount.current = false
+    } else {
+      history.push(`/model/${_id}/dcf`)
+    }
+  }, [_id])
 
   return (
     <div className="flex flex-col w-full">
@@ -56,7 +68,9 @@ const DCF = (props) => {
           <TerminalValue TV={TV} />
         </div>
 
-        <button type="button" className="shadow-lg w-1/6 ml-4 mt-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>Calculate and Save DCF Model</button>
+        <button type="button" className="shadow-lg w-1/6 ml-4 mt-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
+          Calculate and  Save DCF Model
+        </button>
       </div>
         
       <ForecastInputContainer />
@@ -65,9 +79,10 @@ const DCF = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts, genInputs, BEV, TV, discounting, valAssumps } = state
+  const { forecasts, genInputs, BEV, TV, discounting, valAssumps, _id } = state
 
   return {
+    _id,
     forecasts: {
       ...forecasts,
       ...discounting
