@@ -5,12 +5,14 @@ const ISSUER = `${BASE_URL}/oauth2/default`
 //Do I need this https check??
 const OKTA_TESTING_DISABLEHTTPSCHECK = process.env.OKTA_TESTING_DISABLEHTTPSCHECK || false;
 
+const redirectUri = process.env.NODE_ENV === "production" ? "https://valuation-gamma.vercel.app/implicit/callback" : 'http://localhost:3000/implicit/callback'
+
 export default {
   oidc: {
     baseUrl: BASE_URL,
     issuer: ISSUER,
     clientId: CLIENT_ID,
-    redirectUri: 'http://localhost:3000/implicit/callback',
+    redirectUri,
     scopes: ['openid', 'profile', 'email'],
     pkce: true,
     disableHttpsCheck: OKTA_TESTING_DISABLEHTTPSCHECK
