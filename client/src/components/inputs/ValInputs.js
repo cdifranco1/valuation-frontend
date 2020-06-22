@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux'
 import * as actions from '../../actions/updateInputs'
-
+import ArrowSvg from "../templateStyles/ArrowSvg"
 
 const useStyles = makeStyles({
   root: {
@@ -45,17 +45,25 @@ const ValInputs = (props) => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    props.updateValAssumps(valAssumps)
-
+    
     if (modelId === 'new'){
-      history.push(`/model/${modelId}/dcf`)
+      props.updateValAssumps(valAssumps)
+      return history.push(`/model/${modelId}/dcf`)
     }
+
+    const modelInputs = {
+      ...props.model,
+      valAssumps: {
+        ...valAssumps
+      }
+    }
+    props.submitModel(modelInputs, modelId)
+
   }
 
   return (
-    <div className="w-2/3 mx-auto flex flex-col">
-      <div className="border bg-gray-300 shadow-md">
+    <div className="w-2/5 flex flex-col self-center">
+      <div className="border bg-gray-300 shadow-lg">
         <h3 className="text-3xl text-white py-6 px-2 bg-blue-700 tracking-wide">
           Valuation Assumptions
         </h3>
@@ -96,20 +104,24 @@ const ValInputs = (props) => {
 
       {modelId === "new" ? 
         <div className="flex justify-between">
-          <button type="button" onClick={() => history.goBack()} className="mt-8 flex justify-between items-center p-4 w-5/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">
-            <svg className="h-10 w-10 fill-current text-blue-700 hover:fill-current transform rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/>
-            </svg>
-            Project Inputs
-          </button>
-          <button type="button" onClick={handleSubmit} className="mt-8 flex justify-between items-center p-4 w-5/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">
+          <ArrowSvg 
+            buttonText="Project Inputs" 
+            onClick={() => history.goBack()} 
+            direction="left"
+          />
+          <ArrowSvg 
+            buttonText="Forecasts" 
+            onClick={handleSubmit} 
+            direction="right"
+          />
+          {/* <button type="button" onClick={handleSubmit} className="mt-8 flex justify-between items-center p-4 w-5/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">
             Forecasts
             <svg className="h-10 w-10 fill-current text-blue-700 hover:fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/>
             </svg>
-          </button>
+          </button> */}
         </div> :
-        <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 hover:bg-blue-700 hover:text-white text-xl">Save Assumptions</button>
+        <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 shadow-md hover:bg-blue-700 hover:text-white text-xl focus:outline-none focus:shadow-outline">Save Assumptions</button>
       }
     </div>
   )
@@ -120,12 +132,15 @@ const mapStateToProps = (state) => {
   const { valAssumps } = state
 
   return {
+    model: {
+      ...state
+    },
     valAssumps
   }
 }
 
 
-const { updateValAssumps } = actions
+const { updateValAssumps, submitModel } = actions
 
 
-export default connect( mapStateToProps, { updateValAssumps } )( ValInputs )
+export default connect( mapStateToProps, { updateValAssumps, submitModel } )( ValInputs )

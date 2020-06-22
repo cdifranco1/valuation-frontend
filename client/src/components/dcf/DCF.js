@@ -22,6 +22,7 @@ const DCF = (props) => {
   const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id } = props
   const { periods, valDate } = genInputs
 
+  
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -29,6 +30,7 @@ const DCF = (props) => {
   }
 
   useEffect(() => {
+    console.log(initialMount.current)
     if (initialMount.current){
       initialMount.current = false
     } else {
@@ -37,7 +39,7 @@ const DCF = (props) => {
   }, [_id])
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-8/12">
       <div className="bg-white pb-12 shadow-2xl">
         <ForecastYears periods={periods} valDate={valDate} />
 

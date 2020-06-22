@@ -23,7 +23,6 @@ const App = () => {
           <Nav /> 
 
           <Switch>
-
             <Route exact path="/">
               <Login />
             </Route>
@@ -35,7 +34,6 @@ const App = () => {
             <SecureRoute path="/model/:modelId" component={Model} />
             
             <SecureRoute path="/dashboard" component={Dashboard} />
-
           </Switch>
           
         </Security>

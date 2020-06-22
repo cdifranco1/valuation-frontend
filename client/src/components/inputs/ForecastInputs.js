@@ -41,7 +41,7 @@ const ForecastInputs = ({ lineItem, forecasts, periods, updateForecasts }) => {
 
   return (
     inputs ?
-    <div className={`mb-4 p-3 bg-blue-400 rounded-lg shadow-xl`}>
+    <div className="w-8/12 mb-4 p-3 bg-blue-400 rounded-lg shadow-xl">
       <p className="font-semibold text-xl py-3 text-white">{lineItemTitles[lineItem]}</p>
         <form onSubmit={handleSubmit} className="flex max-w-full mb-3 justify-between items-center p-3 rounded-lg">
           {Object.keys(inputs).map((el, index) =>

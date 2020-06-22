@@ -89,15 +89,15 @@ export const template = {
     terminalFactor: ''
   },
   valAssumps: { 
-    wacc: '', 
-    taxRate: '', 
-    ltgr: '' 
+    wacc: '12', 
+    taxRate: '25', 
+    ltgr: '3' 
   },
   genInputs: { 
     projectName: '',
     entityName: '',
     periods: 5, 
-    valDate: '2019-10-01', 
+    valDate: '2019-10-31', 
     fye: '2019-12-31' 
   }
 }

@@ -3,8 +3,8 @@ import { axiosInstance } from '../utils/axiosInstance'
 export const UPDATE_FORECAST = 'UPDATE_FORECAST'
 export const UPDATE_GEN_INPUTS = 'UPDATE_GEN_INPUTS'
 export const UPDATE_VAL_ASSUMPS =  'UPDATE_VAL_ASSUMPS'
-export const UPDATE_ALL =  'UPDATE_ALL'
-export const RESET_STATE =  'RESET_STATE'
+export const UPDATE_ALL = 'UPDATE_ALL'
+export const RESET_STATE = 'RESET_STATE'
 export const SET_ID = 'SET_ID'
 
 
