@@ -1,14 +1,17 @@
 import axios from 'axios'
 
+const prodServer = 'https://valuation-backend.herokuapp.com/'
+
+const devServer = `http://localhost:5000`
+
 export const axiosInstance = () => {
   const tokens = JSON.parse(localStorage.getItem("okta-token-storage"))
-  console.log(tokens)
 
   const accessToken = tokens ? (tokens.accessToken ? tokens.accessToken.accessToken : null) : null
 
   return (
     axios.create({
-      baseURL: 'https://valuation-backend.herokuapp.com/',
+      baseURL: devServer,
       headers: {
         authorization: accessToken
       },

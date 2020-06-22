@@ -16,8 +16,8 @@ const ValSummary = ({ projectInputs, assumptions, values }) => {
   }
   
   return (
-    <div className="bg-white">
-      <h2 className="pt-2 pb-1 text-white text-2xl bg-blue-700 inline-block w-full tracking-wide">Valuation Summary </h2>
+    <div className="bg-white shadow-md">
+      <h2 className="p-2 pb-1 text-white text-2xl bg-blue-700 inline-block w-full tracking-wide">Valuation Summary </h2>
 
       <div className="mt-4">
         <h3 className="text-2xl pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold tracking-wide">Project Inputs</h3>

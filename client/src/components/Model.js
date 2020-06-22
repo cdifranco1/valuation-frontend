@@ -32,7 +32,7 @@ const Model = (props) => {
   }, [ modelId, updateAll ])
 
   return (
-    <div className="p-8 flex">
+    <div className="p-8 flex justify-around">
       <div className="w-3/12">
         
           {modelId !== "new" ?
@@ -46,8 +46,6 @@ const Model = (props) => {
         
         <ValSummary />
       </div>
-
-      <HorizontalSpacer />
 
       <Switch>
         <Route exact path={`${path}/inputs`}>

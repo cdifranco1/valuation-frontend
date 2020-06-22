@@ -7,7 +7,6 @@ export const initialState = template
 export const dcfReducer = (state = initialState, action) => {
   switch(action.type){
     case actions.UPDATE_ALL:
-      console.log(action.payload)
       return {
         ...action.payload
       }
@@ -20,7 +19,6 @@ export const dcfReducer = (state = initialState, action) => {
         }
       }
     case actions.UPDATE_GEN_INPUTS:
-      console.log(action.payload)
       return {
         ...state, 
         genInputs: {
