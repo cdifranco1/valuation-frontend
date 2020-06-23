@@ -8,17 +8,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-// const useStyles = makeStyles({
-//   dialog: {
-//     position: "absolute",
-//     width: "30%",
-//     top: "50%",
-//     left: "50%"
-//   }
-// })
+const useStyles = makeStyles({
+  paper: {
+    position: "absolute",
+    width: "40%",
+    top: "25%",
+    left: "40%"
+  }
+})
 
 export default function AlertDialog({ handleDelete, model }) {
-  // const classes = useStyles()
+  const classes = useStyles()
   const [ open, setOpen ] = useState(false)
 
   const handleClose = () => {
@@ -31,26 +31,25 @@ export default function AlertDialog({ handleDelete, model }) {
 
   return (
     <>
-      <div className="w-1/5 flex justify-center p-2">
-        <button className="w-3/5 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700 active:bg-red-800 focus:outline-none focus:shadow-outline" onClick={handleClickOpen}>
-          Delete
-        </button>
+        <div className="w-1/5 flex justify-center p-2">
+          <button className="p-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700 active:bg-red-800 focus:outline-none focus:shadow-outline" onClick={handleClickOpen}>
+            Delete
+          </button>
+        </div>
         <Dialog
-          // className={classes.dialog}
-          style={{
-            position: "relative",
-            // width: "30%"
-            // top: "25%"
+          fullWidth
+          classes={{
+            paper: classes.paper
           }}
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Permanently delete model?"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{`Permanently delete ${model.projectName}?`}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Once a model is deleted it cannot be recovered.
+              Once this model is deleted it cannot be recovered.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -74,7 +73,6 @@ export default function AlertDialog({ handleDelete, model }) {
             </Button>
           </DialogActions>
         </Dialog>
-      </div>
     </>
   );
 }
