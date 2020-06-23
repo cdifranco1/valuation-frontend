@@ -11,7 +11,7 @@ export const axiosInstance = () => {
 
   return (
     axios.create({
-      baseURL: devServer,
+      baseURL: prodServer,
       headers: {
         authorization: accessToken
       },
