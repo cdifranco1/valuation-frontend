@@ -11,6 +11,7 @@ export const ModelNav = ({ path, url }) => {
         <NavLink className={inactive} activeClassName={active} to={`${url}/inputs`}>Project Inputs</NavLink>
         <NavLink className={inactive} activeClassName={active} to={`${url}/assumptions`}>Valuation Assumptions</NavLink>
         <NavLink className={inactive} activeClassName={active} to={`${url}/dcf`}>Discounted Cash Flow</NavLink>
+        <NavLink className={inactive} activeClassName={active} to={`${url}/wacc`}>WACC Build</NavLink>
       </div>
     </div>
   )

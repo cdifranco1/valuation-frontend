@@ -68,7 +68,7 @@ const ForecastInputs = ({ lineItem, forecasts, periods, updateForecasts }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts, genInputs: { periods } } = state
+  const { forecasts, genInputs: { periods } } = state.dcf
 
   return {
     forecasts,

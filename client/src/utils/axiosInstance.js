@@ -24,3 +24,10 @@ export const axiosInstance = () => {
 export const currency = (num) => {
   return `$${num.toFixed(2)}`
 }
+
+export const axiosIEX = (symbol, queryType) => {
+  return axios.create({
+    baseURL: `https://cloud.iexapis.com/stable/stock/`,
+    url: `${symbol}/${queryType}?token=${process.env.REACT_APP_IEX_API_KEY}`
+  })
+}

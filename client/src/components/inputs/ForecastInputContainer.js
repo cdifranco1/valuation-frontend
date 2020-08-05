@@ -60,7 +60,7 @@ const ForecastInputContainer = ( props ) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts } = state
+  const { forecasts } = state.dcf
 
   return {
     forecasts

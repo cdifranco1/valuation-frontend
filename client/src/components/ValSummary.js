@@ -48,10 +48,10 @@ const ValSummary = ({ projectInputs, assumptions, values }) => {
 
 
 const mapStateToProps = (state) => {
-  const BEV = state.BEV.consolidated
-  const TV = state.TV.values.discountedTV
-  const { projectName, entityName, periods, valDate, fye } = state.genInputs
-  const { wacc, taxRate, ltgr } = state.valAssumps 
+  const BEV = state.dcf.BEV.consolidated
+  const TV = state.dcf.TV.values.discountedTV
+  const { projectName, entityName, periods, valDate, fye } = state.dcf.genInputs
+  const { wacc, taxRate, ltgr } = state.dcf.valAssumps 
 
   return {
     projectInputs: {

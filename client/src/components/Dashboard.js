@@ -5,7 +5,7 @@ import moment from 'moment'
 import { connect } from 'react-redux';
 import * as actions from '../actions/updateInputs'
 import DeleteAlert from "./mui/AlertDialog"
-import { WACCBuild } from "./WACC/WACCBuild"
+import WACCBuild from "./WACC/WACCBuild"
 
 
 
@@ -72,7 +72,6 @@ const Dashboard = ({ resetState }) => {
       </div>
       <Link onClick={resetState} to='/model/new/inputs' className="text-2xl text-blue-700 font-semibold mt-12 block hover:font-bold">Add New Valuation Project...</Link> 
     </div>
-    <WACCBuild />
     </>
   )
 }

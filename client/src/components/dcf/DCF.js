@@ -30,7 +30,6 @@ const DCF = (props) => {
   }
 
   useEffect(() => {
-    console.log(initialMount.current)
     if (initialMount.current){
       initialMount.current = false
     } else {
@@ -81,7 +80,7 @@ const DCF = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts, genInputs, BEV, TV, discounting, valAssumps, _id } = state
+  const { forecasts, genInputs, BEV, TV, discounting, valAssumps, _id } = state.dcf
 
   return {
     _id,
@@ -94,7 +93,7 @@ const mapStateToProps = (state) => {
     BEV,
     TV,
     model: {
-      ...state
+      ...state.dcf
     }
   }
 }

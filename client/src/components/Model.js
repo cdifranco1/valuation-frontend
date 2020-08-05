@@ -3,7 +3,7 @@ import { axiosInstance } from '../utils/axiosInstance'
 import { HorizontalSpacer } from '../utils/Spacer'
 import { VericalSpacerLg } from '../utils/Spacer'
 import DCF from './dcf/DCF';
-import { CompsList } from './WACC/WACCBuild';
+import WACCBuild from './WACC/WACCBuild';
 
 import { Route, Switch, useRouteMatch, useParams } from 'react-router-dom'
 import GeneralInputs from './inputs/GeneralInputs';
@@ -60,9 +60,9 @@ const Model = (props) => {
           <DCF modelId={modelId} />
         </Route>
         
-        {/* <Route path={`${path}/wacc`}>
-          <CompsList modelId={modelId} />
-        </Route> */}
+        <Route path={`${path}/wacc`}>
+          <WACCBuild modelId={modelId} />
+        </Route>
       </Switch>
 
     </div> 
@@ -70,7 +70,7 @@ const Model = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts, genInputs: { periods } } = state
+  const { forecasts, genInputs: { periods } } = state.dcf
 
   return {
     forecasts,

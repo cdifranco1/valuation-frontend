@@ -129,7 +129,7 @@ const ValInputs = (props) => {
 
 
 const mapStateToProps = (state) => {
-  const { valAssumps } = state
+  const { valAssumps } = state.dcf
 
   return {
     model: {

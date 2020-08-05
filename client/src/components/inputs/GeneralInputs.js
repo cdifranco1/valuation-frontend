@@ -147,7 +147,7 @@ const GeneralInputs = (props) => {
 
 
 const mapStateToProps = (state) => {
-  const { genInputs, forecasts } = state
+  const { genInputs, forecasts } = state.dcf
 
   return {
     model: {
