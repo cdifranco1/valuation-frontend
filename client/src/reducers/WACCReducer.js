@@ -25,6 +25,7 @@ export const WACCReducer = (state=initialState, action) => {
         }
       }
     case "ADD_COMP":
+      console.log(action.payload.ticker)
       const newComp = {
         ticker: action.payload.ticker,
         data: action.payload.data
@@ -32,7 +33,7 @@ export const WACCReducer = (state=initialState, action) => {
       if (state.comps.findIndex(el => el.ticker === newComp.ticker) === -1) {
         return {
           ...state,
-          comps: [...state.comps, action.payload]
+          comps: [...state.comps, newComp]
         }
       }
       return state

@@ -35,7 +35,13 @@ export const fetchBetaData = (symbol) => dispatch => {
     .get()
     .then(res => {
         Cache.setCache(symbol, res.data)
-        dispatch({type: actionTypes.ADD_COMP, payload: res.data})
+        dispatch({
+          type: actionTypes.ADD_COMP, 
+          payload: {
+            ticker: symbol,
+            data: res.data
+          }
+        })
     })
 }
 

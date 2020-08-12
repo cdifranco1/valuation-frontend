@@ -8,7 +8,7 @@ import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'
 import ForecastInputContainer from '../inputs/ForecastInputContainer';
 import { useHistory } from "react-router-dom"
-import { initialState } from '../../reducers/InputsReducer';
+import { setCredentials } from "../../actions/setCredentials"
 
 const lineItemStyleProps = {
   flipSign: [ "cogs", "opex", "depreciation", "amortization", "capex", "nwcChange" ],
@@ -19,15 +19,17 @@ const lineItemStyleProps = {
 const DCF = (props) => {
   const history = useHistory()
   const initialMount = useRef(true)
-  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id } = props
+  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id, idToken } = props
   const { periods, valDate } = genInputs
+  console.log(idToken)
 
-  
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    submitModel(model, modelId)
+    submitModel(model, modelId, idToken)
   }
+
+  // useEffect(setCredentials, [])
 
   useEffect(() => {
     if (initialMount.current){
@@ -81,6 +83,7 @@ const DCF = (props) => {
 
 const mapStateToProps = (state) => {
   const { forecasts, genInputs, BEV, TV, discounting, valAssumps, _id } = state.dcf
+  const { idToken } = state.credentials
 
   return {
     _id,
@@ -94,12 +97,13 @@ const mapStateToProps = (state) => {
     TV,
     model: {
       ...state.dcf
-    }
+    },
+    idToken
   }
 }
 
 const { submitModel } = actions 
 
-export default connect( mapStateToProps, { submitModel } )( DCF )
+export default connect( mapStateToProps, { submitModel, setCredentials } )( DCF )
 
 

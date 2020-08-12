@@ -1,19 +1,17 @@
 import axios from 'axios'
+import { Auth } from "aws-amplify"
 
 const prodServer = 'https://valuation-backend.herokuapp.com/'
-
 const devServer = `http://localhost:5000`
 
-export const axiosInstance = () => {
-  const tokens = JSON.parse(localStorage.getItem("okta-token-storage"))
 
-  const accessToken = tokens ? (tokens.accessToken ? tokens.accessToken.accessToken : null) : null
+export const axiosInstance = (idToken) => {
 
   return (
     axios.create({
-      baseURL: prodServer,
+      baseURL: devServer,
       headers: {
-        authorization: accessToken
+        authorization: idToken
       },
       withCredentials: true
     })

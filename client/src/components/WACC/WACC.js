@@ -30,8 +30,9 @@ const CompList = (props) => {
         <h3 className="text-2xl w-1/8 text-center">Unlevered Beta</h3>
       </div>
       {props.comps.map((comp, i) => {
+        console.log(comp)
         return (
-          <div key={comp.ticker + i}className="flex justify-between">
+          <div key={comp.ticker + i} className="flex justify-between">
             <span className="w-1/8">{comp.ticker.toUpperCase()}</span>
             <span className="w-1/8">{comp.data.companyName}</span>
             <span className="w-1/8 text-center">{formats.currency(comp.data.marketcap)}</span>

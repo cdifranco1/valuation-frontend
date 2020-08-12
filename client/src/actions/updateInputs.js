@@ -33,12 +33,12 @@ export const updateID = (inputs) => dispatch => {
 } 
 
 
-export function submitModel(inputs, modelId){
+export function submitModel(inputs, modelId, idToken){
 
   return function(dispatch){
     if (modelId === "new"){
       return (
-        postModel(inputs)
+        postModel(inputs, idToken)
           .then(res => {
             console.log(res)
             dispatch({ type: UPDATE_ALL, payload: res.data })
@@ -47,7 +47,7 @@ export function submitModel(inputs, modelId){
     }
 
     return (
-      putModel(inputs, modelId)
+      putModel(inputs, modelId, idToken)
         .then(res => {
           dispatch({ type: UPDATE_ALL, payload: res.data })
         })
@@ -56,12 +56,12 @@ export function submitModel(inputs, modelId){
 }
 
 
-function postModel(inputs){
-  return  axiosInstance()
+function postModel(inputs, idToken){
+  return  axiosInstance(idToken)
             .post('/api/dcf', inputs)    
 }
 
-function putModel(inputs, modelId){
-  return axiosInstance()
+function putModel(inputs, modelId, idToken){
+  return axiosInstance(idToken)
           .put(`/api/dcf/${modelId}`, inputs)
 }

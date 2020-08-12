@@ -8,10 +8,15 @@ import { dcfReducer } from './reducers/InputsReducer'
 import './tailwind.generated.css'
 
 import App from './App';
+import "./index.css"
 import * as serviceWorker from './serviceWorker';
 import { WACCReducer } from './reducers/WACCReducer';
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+import { credReducer } from './reducers/CredentialsReducer';
+Amplify.configure(config)
 
-const appReducer = combineReducers({dcf: dcfReducer, wacc: WACCReducer})
+const appReducer = combineReducers({dcf: dcfReducer, wacc: WACCReducer, credentials: credReducer })
 
 const store = createStore(appReducer, applyMiddleware(thunk))
 

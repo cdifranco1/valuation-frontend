@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { axiosInstance } from '../utils/axiosInstance'
-import { HorizontalSpacer } from '../utils/Spacer'
 import { VericalSpacerLg } from '../utils/Spacer'
+import Protected from "./Protected"
 import DCF from './dcf/DCF';
 import WACCBuild from './WACC/WACCBuild';
-
 import { Route, Switch, useRouteMatch, useParams } from 'react-router-dom'
 import GeneralInputs from './inputs/GeneralInputs';
 import ValInputs from './inputs/ValInputs';
@@ -23,7 +22,7 @@ const Model = (props) => {
   // Model state needs to be fetched from API when selected, unless a new model
   useEffect(() => {
     if (modelId !== 'new') {
-      axiosInstance()
+      axiosInstance(props.idToken)
         .get(`/api/dcf/${modelId}`)
         .then(res => {
           updateAll(res.data)
@@ -71,10 +70,12 @@ const Model = (props) => {
 
 const mapStateToProps = (state) => {
   const { forecasts, genInputs: { periods } } = state.dcf
+  const { idToken } = state.credentials
 
   return {
     forecasts,
-    periods
+    periods,
+    idToken
   }
 }
 
