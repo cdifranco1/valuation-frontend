@@ -8,7 +8,7 @@ import { EnterpriseValue } from './EnterpriseValue'
 import { ForecastYears } from './ForecastYears'
 import ForecastInputContainer from '../inputs/ForecastInputContainer';
 import { useHistory } from "react-router-dom"
-import { initialState } from '../../reducers/InputsReducer';
+import { setCredentials } from "../../actions/setCredentials"
 
 const lineItemStyleProps = {
   flipSign: [ "cogs", "opex", "depreciation", "amortization", "capex", "nwcChange" ],
@@ -19,18 +19,16 @@ const lineItemStyleProps = {
 const DCF = (props) => {
   const history = useHistory()
   const initialMount = useRef(true)
-  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id } = props
+  const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id, idToken } = props
   const { periods, valDate } = genInputs
 
-  
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    submitModel(model, modelId)
+    submitModel(model, modelId, idToken)
   }
 
   useEffect(() => {
-    console.log(initialMount.current)
     if (initialMount.current){
       initialMount.current = false
     } else {
@@ -39,7 +37,7 @@ const DCF = (props) => {
   }, [_id])
 
   return (
-    <div className="flex flex-col w-8/12">
+    <div className="flex flex-col px-10 w-9/12">
       <div className="bg-white pb-12 shadow-2xl">
         <ForecastYears periods={periods} valDate={valDate} />
 
@@ -70,7 +68,7 @@ const DCF = (props) => {
           <TerminalValue TV={TV} />
         </div>
 
-        <button type="button" className="shadow-lg w-1/6 ml-4 mt-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
+        <button type="button" className="shadow-lg ml-4 py-4 px-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
           Calculate and  Save DCF Model
         </button>
       </div>
@@ -81,7 +79,8 @@ const DCF = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts, genInputs, BEV, TV, discounting, valAssumps, _id } = state
+  const { forecasts, genInputs, BEV, TV, discounting, valAssumps, _id } = state.dcf
+  const { idToken } = state.credentials
 
   return {
     _id,
@@ -94,13 +93,14 @@ const mapStateToProps = (state) => {
     BEV,
     TV,
     model: {
-      ...state
-    }
+      ...state.dcf
+    },
+    idToken
   }
 }
 
 const { submitModel } = actions 
 
-export default connect( mapStateToProps, { submitModel } )( DCF )
+export default connect( mapStateToProps, { submitModel, setCredentials } )( DCF )
 
 

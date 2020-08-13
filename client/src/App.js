@@ -8,9 +8,9 @@ import "./App.css"
 import ValSummary from './components/ValSummary'
 import Model from './components/Model';
 import Dashboard from './components/Dashboard';
-import { Nav } from './components/Nav';
-import Login from './components/Auth/Login';
-import LoginCallback from '@okta/okta-react/dist/LoginCallback';
+import Nav from './components/Nav';
+import Login from './components/Auth/LoginV2';
+// import LoginCallback from '@okta/okta-react/dist/LoginCallback';
 import { Security, SecureRoute } from '@okta/okta-react'
 import config from './config';
 
@@ -27,13 +27,9 @@ const App = () => {
               <Login />
             </Route>
             
-            <Route exact path="/implicit/callback">
-              <LoginCallback />
-            </Route> 
+            <Route path="/model/:modelId" component={Model} />
             
-            <SecureRoute path="/model/:modelId" component={Model} />
-            
-            <SecureRoute path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} />
           </Switch>
           
         </Security>

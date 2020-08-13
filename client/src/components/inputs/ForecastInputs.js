@@ -42,11 +42,11 @@ const ForecastInputs = ({ lineItem, forecasts, periods, updateForecasts }) => {
   return (
     inputs ?
     <div className="w-8/12 mb-4 p-3 bg-blue-400 rounded-lg shadow-xl">
-      <p className="font-semibold text-xl py-3 text-white">{lineItemTitles[lineItem]}</p>
+      <p className="font-semibold py-2 text-white">{lineItemTitles[lineItem]}</p>
         <form onSubmit={handleSubmit} className="flex max-w-full mb-3 justify-between items-center p-3 rounded-lg">
           {Object.keys(inputs).map((el, index) =>
             <div key={el + index} className={`w-1/${Number(periods) + 1} p-2`}> 
-              <label htmlFor={el} className="w-full text-xl text-center block font-semibold py-2 text-white">{el}</label>
+              <label htmlFor={el} className="w-full text-center block font-semibold py-1 text-white">{el}</label>
               <input
                 type="number"
                 onChange={handleChange}
@@ -58,9 +58,7 @@ const ForecastInputs = ({ lineItem, forecasts, periods, updateForecasts }) => {
                 />
             </div>
           )}
-          <div className="w-1/10 flex justify-center">
-            <button type="submit" className="shadow-lg w-1/2 h-10 bg-blue-600 rounded-lg text-white text-lg hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline">Save</button>
-          </div>
+            <button type="submit" className="shadow-lg py-2 px-1 bg-blue-600 rounded-lg text-white hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline">Save</button>
         </form>
     </div> :
     null
@@ -68,7 +66,7 @@ const ForecastInputs = ({ lineItem, forecasts, periods, updateForecasts }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts, genInputs: { periods } } = state
+  const { forecasts, genInputs: { periods } } = state.dcf
 
   return {
     forecasts,

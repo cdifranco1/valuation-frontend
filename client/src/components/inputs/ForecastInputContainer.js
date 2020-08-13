@@ -35,10 +35,10 @@ const ForecastInputContainer = ( props ) => {
 
   return (
     <div className="shadow-2xl">
-      <h3 className="text-xl p-3 mt-10 bg-blue-700 text-white">Forecast Inputs</h3>
+      <h3 className="p-3 mt-10 bg-blue-700 text-white">Forecast Inputs</h3>
       <div className="p-6 flex justify-between bg-white">
         <div className="flex items-center w-1/12 justify-start">
-          <button className="p-2 w-full text-lg text-blue-600 border-blue-600 border hover:bg-blue-600 hover:text-white focus:outline-none focus:shadow-outline active:bg-blue-700" onClick={lastInput}>
+          <button className="p-2 w-full text-blue-600 border-blue-600 border hover:bg-blue-600 hover:text-white focus:outline-none focus:shadow-outline active:bg-blue-700" onClick={lastInput}>
             {index > 0 ? 
             lineItemTitles[forecastKeys[index - 1]] : 
             lineItemTitles[forecastKeys[forecastKeys.length - 1]]}
@@ -48,7 +48,7 @@ const ForecastInputContainer = ( props ) => {
           <ForecastInputs key={index} lineItem={el} />
           )}
         <div className="flex justify-end items-center w-1/12">
-          <button className="p-2 w-full text-lg text-blue-600 border-blue-600 border hover:bg-blue-600 hover:text-white focus:outline-none focus:shadow-outline active:bg-blue-700" onClick={nextInput}>
+          <button className="p-2 w-full text-blue-600 border-blue-600 border hover:bg-blue-600 hover:text-white focus:outline-none focus:shadow-outline active:bg-blue-700" onClick={nextInput}>
             {index < forecastKeys.length - 1 ? 
             lineItemTitles[forecastKeys[index + 1]] : 
             lineItemTitles[forecastKeys[0]]}
@@ -60,7 +60,7 @@ const ForecastInputContainer = ( props ) => {
 }
 
 const mapStateToProps = (state) => {
-  const { forecasts } = state
+  const { forecasts } = state.dcf
 
   return {
     forecasts

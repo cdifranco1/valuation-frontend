@@ -6,37 +6,37 @@ import numeral from "numeral"
 
 const ValSummary = ({ projectInputs, assumptions, values }) => {
     
-  const displayItem = (title, value) => {
+  const displayItem = (title, value, key) => {
     return (
-      <div className="w-full flex justify-between items-center text-blue-900 text-xl inline-block w-full px-4">
-          <p className={`w-1/2 font-semibold`}>{`${title}:`}</p>
-          <p className={`w-1/2 text-center`}>{value}</p>
+      <div key={key} className="w-full flex justify-between items-center text-blue-900 px-4 text-sm">
+          <p className="w-1/2">{`${title}:`}</p>
+          <p className="w-1/2 text-center">{value}</p>
       </div>
     )
   }
   
   return (
     <div className="bg-white shadow-md">
-      <h2 className="p-2 pb-1 text-white text-2xl bg-blue-700 inline-block w-full tracking-wide">Valuation Summary </h2>
+      <h2 className="p-2 pb-1 text-white bg-blue-700 inline-block w-full tracking-wide">Valuation Summary </h2>
 
       <div className="mt-4">
-        <h3 className="text-2xl pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold tracking-wide">Project Inputs</h3>
+        <h3 className="pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold text-blue-900 tracking-wide">Project Inputs</h3>
         {Object.keys(projectInputs).map((el, i) => {
-          return displayItem(projectInputs[el].title, projectInputs[el].value)
+          return displayItem(projectInputs[el].title, projectInputs[el].value, `${el}-${i}`)
         })}
       </div>
 
       <div className="mt-4">
-        <h3 className="text-2xl pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold tracking-wide">Assumptions</h3>
+        <h3 className="pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold text-blue-900 tracking-wide">Assumptions</h3>
         {Object.keys(assumptions).map((el, i) => {
-          return displayItem(assumptions[el].title, assumptions[el].value)
+          return displayItem(assumptions[el].title, assumptions[el].value, `${el}-${i}`)
         })}
       </div>
 
       <div className="mt-4 mb-4">
-        <h3 className="text-2xl pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold tracking-wide">Value Indications</h3>
+        <h3 className="pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold text-blue-900 tracking-wide">Value Indications</h3>
         {Object.keys(values).map((el, i) => {
-          return displayItem(values[el].title, values[el].value)
+          return displayItem(values[el].title, values[el].value, `${el}-${i}`)
         })}
       </div>
       
@@ -48,10 +48,10 @@ const ValSummary = ({ projectInputs, assumptions, values }) => {
 
 
 const mapStateToProps = (state) => {
-  const BEV = state.BEV.consolidated
-  const TV = state.TV.values.discountedTV
-  const { projectName, entityName, periods, valDate, fye } = state.genInputs
-  const { wacc, taxRate, ltgr } = state.valAssumps 
+  const BEV = state.dcf.BEV.consolidated
+  const TV = state.dcf.TV.values.discountedTV
+  const { projectName, entityName, periods, valDate, fye } = state.dcf.genInputs
+  const { wacc, taxRate, ltgr } = state.dcf.valAssumps 
 
   return {
     projectInputs: {
