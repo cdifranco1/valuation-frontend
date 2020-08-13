@@ -8,7 +8,7 @@ const devServer = `http://localhost:5000`
 export const axiosInstance = (idToken) => {
   return (
     axios.create({
-      baseURL: devServer,
+      baseURL: prodServer,
       headers: {
         authorization: idToken
       },
