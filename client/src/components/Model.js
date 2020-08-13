@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { axiosInstance } from '../utils/axiosInstance'
-import { VericalSpacer } from '../utils/Spacer'
+import { VericalSpacer, HorizontalSpacer } from '../utils/Spacer'
 import Protected from "./Protected"
 import DCF from './dcf/DCF';
 import WACCBuild from './WACC/WACCBuild';
@@ -11,6 +11,7 @@ import { ModelNav } from './ModelNav'
 import ValSummary from './ValSummary'
 import { connect } from 'react-redux';
 import * as actions from '../actions/updateInputs'
+import { setCredentials } from '../actions/setCredentials'
 
 
 const Model = (props) => {
@@ -27,13 +28,14 @@ const Model = (props) => {
         .then(res => {
           updateAll(res.data)
         })
-    }
-  }, [ modelId, updateAll ])
+        .catch(err => console.log(err))
+      }
+  }, [ modelId, updateAll, props.idToken ])
 
   return (
     <Protected>
-      <div className="p-8 flex justify-around">
-        <div className="w-4/12">
+      <div className="p-4 flex">
+        <div className="w-3/12">
           
           {/* if the model hasn't been created yet, won't show model navigation and summary */}
             {modelId !== "new" ?
@@ -84,4 +86,4 @@ const mapStateToProps = (state) => {
 
 const { updateAll } = actions
 
-export default connect( mapStateToProps, { updateAll } )( Model )
+export default connect( mapStateToProps, { updateAll, setCredentials } )( Model )

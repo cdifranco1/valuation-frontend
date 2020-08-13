@@ -37,7 +37,7 @@ const DCF = (props) => {
   }, [_id])
 
   return (
-    <div className="flex flex-col w-8/12">
+    <div className="flex flex-col px-10 w-9/12">
       <div className="bg-white pb-12 shadow-2xl">
         <ForecastYears periods={periods} valDate={valDate} />
 
@@ -68,7 +68,7 @@ const DCF = (props) => {
           <TerminalValue TV={TV} />
         </div>
 
-        <button type="button" className="shadow-lg w-1/6 ml-4 mt-10 py-4 bg-blue-600 text-white text-lg rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
+        <button type="button" className="shadow-lg ml-4 py-4 px-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:shadow-outline" onClick={handleSubmit}>
           Calculate and  Save DCF Model
         </button>
       </div>

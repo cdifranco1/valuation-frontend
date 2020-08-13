@@ -6,9 +6,9 @@ import numeral from "numeral"
 
 const ValSummary = ({ projectInputs, assumptions, values }) => {
     
-  const displayItem = (title, value) => {
+  const displayItem = (title, value, key) => {
     return (
-      <div className="w-full flex justify-between items-center text-blue-900 inline-block px-4">
+      <div key={key} className="w-full flex justify-between items-center text-blue-900 px-4 text-sm">
           <p className="w-1/2">{`${title}:`}</p>
           <p className="w-1/2 text-center">{value}</p>
       </div>
@@ -22,21 +22,21 @@ const ValSummary = ({ projectInputs, assumptions, values }) => {
       <div className="mt-4">
         <h3 className="pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold text-blue-900 tracking-wide">Project Inputs</h3>
         {Object.keys(projectInputs).map((el, i) => {
-          return displayItem(projectInputs[el].title, projectInputs[el].value)
+          return displayItem(projectInputs[el].title, projectInputs[el].value, `${el}-${i}`)
         })}
       </div>
 
       <div className="mt-4">
         <h3 className="pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold text-blue-900 tracking-wide">Assumptions</h3>
         {Object.keys(assumptions).map((el, i) => {
-          return displayItem(assumptions[el].title, assumptions[el].value)
+          return displayItem(assumptions[el].title, assumptions[el].value, `${el}-${i}`)
         })}
       </div>
 
       <div className="mt-4 mb-4">
         <h3 className="pt-2 pb-1 px-2 border-b-4 border-gray-400 mb-2 font-bold text-blue-900 tracking-wide">Value Indications</h3>
         {Object.keys(values).map((el, i) => {
-          return displayItem(values[el].title, values[el].value)
+          return displayItem(values[el].title, values[el].value, `${el}-${i}`)
         })}
       </div>
       

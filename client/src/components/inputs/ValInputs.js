@@ -61,9 +61,9 @@ const ValInputs = (props) => {
   }
 
   return (
-    <div className="w-2/5 flex flex-col self-center">
+    <div className="w-3/5 flex flex-col ml-20" style={{ justifySelf: "center"}}>
       <div className="border bg-gray-300 shadow-lg">
-        <h3 className="text-3xl text-white py-6 px-2 bg-blue-700 tracking-wide">
+        <h3 className="text-2xl text-white py-3 px-2 bg-blue-700 tracking-wide">
           Valuation Assumptions
         </h3>
         <form onSubmit={handleSubmit} className="flex flex-col bg-white px-2">
@@ -114,7 +114,7 @@ const ValInputs = (props) => {
             direction="right"
           />
         </div> :
-        <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 shadow-md hover:bg-blue-700 hover:text-white text-xl focus:outline-none focus:shadow-outline">Save Assumptions</button>
+        <button type="button" onClick={handleSubmit} className="p-3 w-full mt-3 bg-white text-blue-800 shadow-md hover:bg-blue-700 hover:text-white text-xl focus:outline-none focus:shadow-outline">Save Assumptions</button>
       }
     </div>
   )

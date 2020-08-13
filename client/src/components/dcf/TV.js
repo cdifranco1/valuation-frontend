@@ -8,7 +8,7 @@ export const TerminalValue = ({TV}) => {
   
 
   return (
-    <div className="flex flex-col w-1/4 border border-blue-900 mr-12 text-blue-900 text-lg">
+    <div className="flex flex-col w-1/3 border border-blue-900 mr-12 text-blue-900">
       <p className="p-2 font-bold text-white border-b border-blue-900 mb-3 bg-blue-600">Terminal Value Calculation: </p>
 
       <div className="flex justify-between">

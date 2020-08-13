@@ -10,7 +10,7 @@ import Protected from './Protected';
 
 
 
-const Dashboard = ({ resetState, idToken }) => {
+const Dashboard = ({ resetState, idToken, authenticated }) => {
   const [ userModels, setUserModels ] = useState([])
   
   const fetchModels = () =>    
@@ -33,7 +33,7 @@ const Dashboard = ({ resetState, idToken }) => {
 
   useEffect(() => {
     //fetch DCF models for the user dashboard upon mount
-    if (idToken) {
+    if (authenticated) {
       fetchModels()
     }
   },[idToken])
@@ -80,8 +80,8 @@ const Dashboard = ({ resetState, idToken }) => {
 }
 
 const mapStateToProps = (state) => {
-  const { idToken } = state.credentials
-  return { idToken }
+  const { idToken, authenticated } = state.credentials
+  return { idToken, authenticated }
 }
 
 const { resetState } = actions 
