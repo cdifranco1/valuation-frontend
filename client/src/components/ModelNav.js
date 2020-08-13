@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const inactive = "p-2 text-blue-700 text-xl bg-white hover:bg-blue-600 hover:text-white inline-block w-full"
+const inactive = "p-2 text-blue-700 bg-white hover:bg-blue-600 hover:text-white inline-block w-full"
 const active = "bg-blue-600 text-white-important"
 
 export const ModelNav = ({ path, url }) => {

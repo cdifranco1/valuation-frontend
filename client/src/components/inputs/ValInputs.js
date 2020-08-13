@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     },
     "& input": {
       padding: "2% 0",
-      fontSize: "1.5rem"
+      fontSize: "1.25rem"
     }
   }
 })
@@ -57,8 +57,7 @@ const ValInputs = (props) => {
         ...valAssumps
       }
     }
-    props.submitModel(modelInputs, modelId)
-
+    props.submitModel(modelInputs, modelId, props.idToken)
   }
 
   return (
@@ -114,12 +113,6 @@ const ValInputs = (props) => {
             onClick={handleSubmit} 
             direction="right"
           />
-          {/* <button type="button" onClick={handleSubmit} className="mt-8 flex justify-between items-center p-4 w-5/12 mt-3 bg-white text-blue-800 shadow-md focus:outline-none focus:shadow-outline hover:bg-blue-700 arrow-fill hover:text-white text-2xl">
-            Forecasts
-            <svg className="h-10 w-10 fill-current text-blue-700 hover:fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M18.59 13H3a1 1 0 0 1 0-2h15.59l-5.3-5.3a1 1 0 1 1 1.42-1.4l7 7a1 1 0 0 1 0 1.4l-7 7a1 1 0 0 1-1.42-1.4l5.3-5.3z"/>
-            </svg>
-          </button> */}
         </div> :
         <button type="button" onClick={handleSubmit} className="p-4 w-full mt-3 bg-white text-blue-800 shadow-md hover:bg-blue-700 hover:text-white text-xl focus:outline-none focus:shadow-outline">Save Assumptions</button>
       }
@@ -130,12 +123,14 @@ const ValInputs = (props) => {
 
 const mapStateToProps = (state) => {
   const { valAssumps } = state.dcf
+  const { idToken } = state.credentials
 
   return {
     model: {
-      ...state
+      ...state.dcf
     },
-    valAssumps
+    valAssumps,
+    idToken
   }
 }
 

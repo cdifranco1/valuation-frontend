@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { axiosInstance } from '../utils/axiosInstance'
-import { VericalSpacerLg } from '../utils/Spacer'
+import { VericalSpacer } from '../utils/Spacer'
 import Protected from "./Protected"
 import DCF from './dcf/DCF';
 import WACCBuild from './WACC/WACCBuild';
@@ -31,40 +31,42 @@ const Model = (props) => {
   }, [ modelId, updateAll ])
 
   return (
-    <div className="p-8 flex justify-around">
-      <div className="w-3/12">
-        
-          {modelId !== "new" ?
-            <>    
-              <ModelNav url={url} modelId={modelId} />
-              <VericalSpacerLg /> 
-            </>
-            :
-            null
-          }
-        
-        <ValSummary />
+    <Protected>
+      <div className="p-8 flex justify-around">
+        <div className="w-4/12">
+          
+          {/* if the model hasn't been created yet, won't show model navigation and summary */}
+            {modelId !== "new" ?
+              <>    
+                <ModelNav url={url} modelId={modelId} />
+                <VericalSpacer /> 
+              </>
+              :
+              null
+            }
+          <ValSummary />
+        </div>
+
+        <Switch>
+          <Route exact path={`${path}/inputs`}>
+            <GeneralInputs />
+          </Route>
+
+          <Route path={`${path}/assumptions`}>
+            <ValInputs />
+          </Route>
+
+          <Route path={`${path}/dcf`}>
+            <DCF modelId={modelId} />
+          </Route>
+          
+          <Route path={`${path}/wacc`}>
+            <WACCBuild modelId={modelId} />
+          </Route>
+        </Switch>
+
       </div>
-
-      <Switch>
-        <Route exact path={`${path}/inputs`}>
-          <GeneralInputs />
-        </Route>
-
-        <Route path={`${path}/assumptions`}>
-          <ValInputs />
-        </Route>
-
-        <Route path={`${path}/dcf`}>
-          <DCF modelId={modelId} />
-        </Route>
-        
-        <Route path={`${path}/wacc`}>
-          <WACCBuild modelId={modelId} />
-        </Route>
-      </Switch>
-
-    </div> 
+    </Protected> 
   )
 }
 

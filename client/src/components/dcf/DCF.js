@@ -21,15 +21,12 @@ const DCF = (props) => {
   const initialMount = useRef(true)
   const { forecasts, genInputs, BEV, TV, model, submitModel, modelId, _id, idToken } = props
   const { periods, valDate } = genInputs
-  console.log(idToken)
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
     submitModel(model, modelId, idToken)
   }
-
-  // useEffect(setCredentials, [])
 
   useEffect(() => {
     if (initialMount.current){

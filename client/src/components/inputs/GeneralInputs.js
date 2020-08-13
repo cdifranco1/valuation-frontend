@@ -11,11 +11,11 @@ const useStyles = makeStyles({
   root: {
     marginTop: "2%",
     "& label": {
-      fontSize: "1.5rem"
+      fontSize: "1.15rem"
     },
     "& input": {
       padding: "2% 0",
-      fontSize: "1.5rem"
+      fontSize: "1.15rem"
     }
   }
 })
@@ -64,13 +64,13 @@ const GeneralInputs = (props) => {
     }
 
     console.log("Submitting model")
-    props.submitModel(model, modelId)
+    props.submitModel(model, modelId, props.idToken)
   }
 
   return (
-    <div className="w-2/5 flex flex-col self-center">
+    <div className="w-2/5 flex flex-col">
       <div className="border bg-gray-300 shadow-md">
-        <h3 className="text-3xl text-white py-6 px-2 bg-blue-700 tracking-wide">
+        <h3 className="text-3xl text-white py-3 px-2 bg-blue-700 tracking-wide">
           Project Inputs
         </h3>
 
@@ -148,13 +148,15 @@ const GeneralInputs = (props) => {
 
 const mapStateToProps = (state) => {
   const { genInputs, forecasts } = state.dcf
+  const { idToken } = state.credentials
 
   return {
     model: {
       ...state
     },
     forecasts,
-    genInputs
+    genInputs,
+    idToken
   }
 }
 
