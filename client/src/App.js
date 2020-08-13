@@ -10,16 +10,12 @@ import Model from './components/Model';
 import Dashboard from './components/Dashboard';
 import Nav from './components/Nav';
 import Login from './components/Auth/LoginV2';
-// import LoginCallback from '@okta/okta-react/dist/LoginCallback';
-import { Security, SecureRoute } from '@okta/okta-react'
-import config from './config';
 
 
 
 const App = () => {
   return (
       <div>
-        <Security {...config.oidc}>
           <Nav /> 
 
           <Switch>
@@ -31,8 +27,6 @@ const App = () => {
             
             <Route path="/dashboard" component={Dashboard} />
           </Switch>
-          
-        </Security>
       </div>
     )
   }
