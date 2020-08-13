@@ -32,7 +32,7 @@ export default function AlertDialog({ handleDelete, model }) {
   return (
     <>
         <div className="w-1/5 flex justify-center p-2">
-          <button className="p-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700 active:bg-red-800 focus:outline-none focus:shadow-outline" onClick={handleClickOpen}>
+          <button className="self-start p-1 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-700 active:bg-red-800 focus:outline-none focus:shadow-outline" onClick={handleClickOpen}>
             Delete
           </button>
         </div>

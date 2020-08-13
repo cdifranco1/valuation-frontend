@@ -49,7 +49,6 @@ const GeneralInputs = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    console.log(modelId)
     if (modelId === 'new'){
       props.updateGenInputs(genInputs)
       console.log("Running genInput update")

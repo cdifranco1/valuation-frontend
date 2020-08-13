@@ -63,10 +63,10 @@ const Dashboard = ({ resetState, idToken, authenticated }) => {
           return (
             <div key={el._id} className="flex">
               <Link to={`/model/${el._id}/inputs`} className="w-full flex p-2 text-blue-700 hover:bg-blue-700 hover:text-white rounded-md">
-                <span className="w-1/4 block text-lg">{el.projectName}</span>
-                <span className="w-1/4 block text-lg">{el.entityName}</span>
-                <span className="w-1/4 block text-lg">{el.createdAt && moment(el.createdAt).format('lll')}</span>
-                <span className="w-1/4 block text-lg">{el.createdAt && moment(el.updatedAt).format('lll')}</span>
+                <span className="w-1/4 px-2">{el.projectName}</span>
+                <span className="w-1/4 px-2">{el.entityName}</span>
+                <span className="w-1/4 px-2">{el.createdAt && moment(el.createdAt).format('lll')}</span>
+                <span className="w-1/4 px-2">{el.createdAt && moment(el.updatedAt).format('lll')}</span>
               </Link>
               <DeleteAlert handleDelete={handleDelete} model={el} />
             </div>

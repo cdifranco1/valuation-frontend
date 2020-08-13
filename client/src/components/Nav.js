@@ -21,11 +21,11 @@ const Nav = ({ authenticated, setLogout }) => {
   return (
     <div className="bg-blue-800 text-white flex justify-end sticky top-0">
       {authenticated ? 
-        <button onClick={logout} className="p-6 text-2xl">Logout</button>
+        <button onClick={logout} className="p-6 text-xl">Logout</button>
       :
-        <NavLink className="p-6 text-2xl" exact to="/" activeClassName="selected">Login</NavLink>
+        <NavLink className="p-6 text-xl" exact to="/" activeClassName="selected">Login</NavLink>
       }
-      <NavLink className="p-6 text-2xl" to="/dashboard" activeClassName="selected">Dashboard</NavLink>
+      <NavLink className="p-6 text-xl" to="/dashboard" activeClassName="selected">Dashboard</NavLink>
     </div>
   )
 }

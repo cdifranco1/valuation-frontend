@@ -1,15 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import numeral, { set } from 'numeral'
 import axios from "axios"
 import CachedSearch from "../../memo/CachedSearch"
 import { connect } from "react-redux"
 import { fetchBetaData, removeComp } from "../../actions/updateComps"
-import { APIData } from '../../constants'
-import { NavLink } from 'react-router-dom';
+
 
 
 const CompSelector = (props) => {
-  console.log(props)
   const [ peer, setPeer ] = useState({})
   const [ symbol, setSymbol ] = useState("")
 

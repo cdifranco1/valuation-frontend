@@ -10,6 +10,7 @@ const WACCBuild = (props) => {
 
   return (
     <div className="flex flex-col p-10 w-3/4">
+      <h1 className="text-lg p-3 text-red-600">WACC Build Functionality In Progress. Currently allows to search and select comps.</h1>
       <div className="flex">
         <button className={buttonClass}  onClick={() => props.updateDisplay("compSelector")}>Peer Selector</button>
         <button className={buttonClass} onClick={() => props.updateDisplay("WACC")}>WACC</button>
@@ -20,7 +21,7 @@ const WACCBuild = (props) => {
         {props.display.WACC &&
           <CompList />} 
       </div>
-      <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
+      <a href="https://iexcloud.io" className="relative bottom-0 left-0 mt-20 text-blue-400">Data provided by IEX Cloud</a>
     </div>
   )
 }

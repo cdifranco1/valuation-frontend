@@ -22,14 +22,16 @@ const Model = (props) => {
   
   // Model state needs to be fetched from API when selected, unless a new model
   useEffect(() => {
-    if (modelId !== 'new') {
-      axiosInstance(props.idToken)
+    if (props.authenticated){
+      if (modelId !== 'new') {
+        axiosInstance(props.idToken)
         .get(`/api/dcf/${modelId}`)
         .then(res => {
           updateAll(res.data)
         })
         .catch(err => console.log(err))
       }
+    }
   }, [ modelId, updateAll, props.idToken ])
 
   return (
@@ -74,12 +76,13 @@ const Model = (props) => {
 
 const mapStateToProps = (state) => {
   const { forecasts, genInputs: { periods } } = state.dcf
-  const { idToken } = state.credentials
+  const { idToken, authenticated } = state.credentials
 
   return {
     forecasts,
     periods,
-    idToken
+    idToken,
+    authenticated
   }
 }
 
